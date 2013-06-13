@@ -3,13 +3,41 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
-	<display-name>bpmo-invoice</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
+	<display-name>Financial Management</display-name>
+	
+	<servlet>
+		<servlet-name>BPMO VAADIN UI</servlet-name>
+		<servlet-class>de.agito.cps.ui.vaadin.bpmo.BPMOServlet</servlet-class>
+		<init-param>
+			<param-name>application</param-name>
+			<param-value>de.agito.cps.ui.vaadin.bpmo.BPMOApplication</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BPMO VAADIN UI</servlet-name>
+		<url-pattern>/Invoice/DEFAULT/*</url-pattern>
+		<url-pattern>/VAADIN/*</url-pattern>
+	</servlet-mapping>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Invoice AUTH</web-resource-name>
+			<url-pattern>/Invoice/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>roleAnyone</role-name>
+			<role-name>roleAdmin</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>Invoice</realm-name>
+	</login-config>
+	<security-role>
+		<role-name>roleAnyone</role-name>
+	</security-role>
+	<security-role>
+		<role-name>roleAdmin</role-name>
+	</security-role>
 </web-app>
