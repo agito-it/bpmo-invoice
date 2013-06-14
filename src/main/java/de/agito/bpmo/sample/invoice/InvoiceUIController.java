@@ -40,14 +40,17 @@ public class InvoiceUIController
 	@Navigation(artifact = "Invoice", type = NavigationType.NODE_ELEMENT_INIT)
 	public void cpsInitInvoice(InvoiceAccess bpmoAccess) {
 		// @@begin body:init:Invoice
+
+		// get LayoutManager
 		IFlowLayoutManager layoutManager = styleController.getLayoutManager();
 
+		// set fixed content width
+		layoutManager.setWidth((layoutManager.getContentElementBaseWidth() * 4) + 80, UNIT.PIXEL);
+
 		// add Headline
-		ISeparator separator = layoutManager.createAndAddSeparator()
-				.setTitle(getBPMO().getBPMODefinition().getLabel().getText()).addTitleStyleName(ISeparator.Style.H2)
-				.addTitleStyleName(ISeparator.Style.HR);
-		separator.setContentWidth(700, UNIT.PIXEL).setWidth(100, UNIT.PERCENTAGE);
-		separator.setHeight(70, UNIT.PIXEL);
+		layoutManager.createAndAddSeparator().setTitle(getBPMO().getBPMODefinition().getLabel().getText())
+				.addTitleStyleName(ISeparator.Style.H2).addTitleStyleName(ISeparator.Style.HR)
+				.setContentWidth(700, UNIT.PIXEL).setWidth(100, UNIT.PERCENTAGE);
 
 		// add initial fields to group
 		layoutManager
@@ -57,16 +60,18 @@ public class InvoiceUIController
 						Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment).setDimension(2)
 				.setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
 
+		// add separator for horizontal separation of groups
 		layoutManager.createAndAddSeparator().setWidth(10, UNIT.PIXEL);
 
 		// manage finance accounting informations
+		// add all remaining content elements excepting TaxPostions to group
 		layoutManager
 				.createAndAddGroupContent()
 				.setCaption(Messages.getString("InvoiceUIController.AccountingInformations")).fulfillContent(Invoice.TaxPostions).setDimension(2).setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
 
 		layoutManager.addLineBreak();
 
-		// manage table layout
+		// manage TaxPostions layout
 		ITableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPostions).fulfillContent()
 				.setPageLength(3);
 		tableContent.getColumn(Invoice.TaxPostions$NetAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
