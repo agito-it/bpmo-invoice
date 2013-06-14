@@ -149,8 +149,8 @@
 		</ColumnDefinition>
 		<ColumnDefinition Id="TaxAmount">
 			<Label>
-				<Text Language="en">Tax amount</Text>
-				<Text Language="de">Steuerbetrag</Text>
+				<Text Language="en">Tax amount €</Text>
+				<Text Language="de">Steuerbetrag €</Text>
 			</Label>
 			<Format>
 				<FormatNumeric>
@@ -169,8 +169,8 @@
 		</ColumnDefinition>
 		<ColumnDefinition Id="TotalAmount">
 			<Label>
-				<Text Language="en">Tax amount</Text>
-				<Text Language="de">Steuerbetrag</Text>
+				<Text Language="en">Gross total €</Text>
+				<Text Language="de">Brutto €</Text>
 			</Label>
 			<Format>
 				<FormatNumeric>
@@ -297,7 +297,7 @@
 		<Language>de</Language>
 	</Languages>
 	<Lifecycles>
-		<Lifecycle Id="NEW">
+		<Lifecycle Id="NEW" ProcessDefinitionId="Invoice_InvoiceProcess">
 			<Label>
 				<Text Language="en">New</Text>
 				<Text Language="de">Neu</Text>

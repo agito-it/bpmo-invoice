@@ -27,6 +27,9 @@
         <activiti:field name="action">
           <activiti:string>ResolveOrder</activiti:string>
         </activiti:field>
+        <activiti:field name="variable">
+          <activiti:string>IsResolved</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent" targetRef="resolveOrder"></sequenceFlow>
@@ -38,7 +41,9 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <userTask id="Approval" name="Approve invoice"></userTask>
     <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="Approval"></sequenceFlow>
-    <sequenceFlow id="resolved" name="Order resoved" sourceRef="orderResolvedGateway" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="resolved" name="Order resoved" sourceRef="orderResolvedGateway" targetRef="exclusivegateway1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${IsResolved}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="Approval" targetRef="approvalGateway"></sequenceFlow>
     <sequenceFlow id="disaproved" name="disaproved" sourceRef="approvalGateway" targetRef="CheckOrder"></sequenceFlow>
     <serviceTask id="transfer" name="Transfer to ERP" activiti:exclusive="false" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
@@ -48,7 +53,9 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="approved" name="approved" sourceRef="approvalGateway" targetRef="transfer"></sequenceFlow>
+    <sequenceFlow id="approved" name="approved" sourceRef="approvalGateway" targetRef="transfer">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${IsApproved}]]></conditionExpression>
+    </sequenceFlow>
     <endEvent id="endevent" name="End"></endEvent>
     <sequenceFlow id="flow10" sourceRef="transfer" targetRef="endevent"></sequenceFlow>
     <exclusiveGateway id="approvalGateway" name="Exclusive Gateway" default="disaproved"></exclusiveGateway>

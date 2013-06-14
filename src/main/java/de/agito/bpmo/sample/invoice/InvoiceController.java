@@ -94,14 +94,14 @@ public class InvoiceController
 		for (InvoiceLanguage language : InvoiceLanguage.values()) {
 			switch (language) {
 			case de:
-				title.put(language, String.format("%s"));
+				title.put(language, String.format("%s", "Title"));
 				break;
 			case en:
-				title.put(language, String.format("%s"));
+				title.put(language, String.format("%s", "Title"));
 				break;
 			}
 		}
-		// TODO how to set title???
+		getBPMO().setTitle(title);
 
 	}
 	// @@end

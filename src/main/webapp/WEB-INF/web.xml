@@ -16,14 +16,14 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>BPMO VAADIN UI</servlet-name>
-		<url-pattern>/Invoice/DEFAULT/*</url-pattern>
+		<url-pattern>/DEFAULT/*</url-pattern>
 		<url-pattern>/VAADIN/*</url-pattern>
 	</servlet-mapping>
 	
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Invoice AUTH</web-resource-name>
-			<url-pattern>/Invoice/*</url-pattern>
+			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>roleAnyone</role-name>
@@ -32,7 +32,7 @@
 	</security-constraint>
 	<login-config>
 		<auth-method>BASIC</auth-method>
-		<realm-name>Invoice</realm-name>
+		<realm-name>auth</realm-name>
 	</login-config>
 	<security-role>
 		<role-name>roleAnyone</role-name>
