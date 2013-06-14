@@ -1,16 +1,15 @@
 package de.agito.bpmo.sample.invoice;
 
 // @@begin imports
-import de.agito.bpmo.sample.invoice.Invoice;
-import de.agito.bpmo.sample.invoice.InvoiceAccess;
-import de.agito.bpmo.sample.invoice.InvoiceAction;
-import de.agito.bpmo.sample.invoice.InvoiceLanguage;
-import de.agito.bpmo.sample.invoice.InvoiceLifecycle;
-import de.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
 import de.agito.cps.ui.vaadin.bpmo.annotation.Navigation;
+import de.agito.cps.ui.vaadin.bpmo.annotation.StyleManager;
+import de.agito.cps.ui.vaadin.bpmo.enums.ColumnCalculationMode;
 import de.agito.cps.ui.vaadin.bpmo.enums.NavigationType;
+import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayoutManager;
+import de.agito.cps.ui.vaadin.bpmo.layout.flow.ITableContent;
+import de.agito.cps.ui.vaadin.bpmo.styles.IDefaultStyleController;
 // @@end
 
 // @@begin head:uicontroller
@@ -20,7 +19,9 @@ import de.agito.cps.ui.vaadin.bpmo.enums.NavigationType;
  * @author Jörg Burmeister
  */
 // @@end
-public class InvoiceUIController extends BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceUIController
+		extends
+		BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceUIController(IBPMOUIControllerContext context) {
 		super(context);
@@ -34,7 +35,25 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 	@Navigation(artifact = "Invoice", type = NavigationType.NODE_ELEMENT_INIT)
 	public void cpsInitInvoice(InvoiceAccess bpmoAccess) {
 		// @@begin body:init:Invoice
+		IFlowLayoutManager layoutManager = styleController.getLayoutManager();
+		// add initial fields to group
+		layoutManager
+				.createAndAddGroupContent()
+				.setCaption("Invoice details")
+				.createAndAddElements(Invoice.InvoiceAttachment, Invoice.InvoicingParty, Invoice.InvoiceNumber,
+						Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment);
+		layoutManager.addLineBreak();
 
+		// manage table layout
+		ITableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPostions).fulfillContent();
+		tableContent.getColumn(Invoice.TaxPostions$NetAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
+		tableContent.getColumn(Invoice.TaxPostions$TaxAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
+		tableContent.getColumn(Invoice.TaxPostions$TotalAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
+		tableContent.setDimension(2);
+		layoutManager.addLineBreak();
+
+		// manage finance accounting informations
+		layoutManager.createAndAddGroupContent().setCaption("Accounting informations").fulfillContent();
 		// @@end
 	}
 
@@ -51,6 +70,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 	}
 
 	// @@begin others
-
+	@StyleManager
+	private IDefaultStyleController styleController;
 	// @@end
 }

@@ -1,22 +1,19 @@
 package de.agito.bpmo.sample.invoice;
 
 // @@begin imports
-import de.agito.bpmo.sample.invoice.Invoice;
-import de.agito.bpmo.sample.invoice.InvoiceAccess;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
+
 import de.agito.bpmo.sample.invoice.InvoiceAccess.TaxPostions;
-import de.agito.bpmo.sample.invoice.InvoiceAction;
-import de.agito.bpmo.sample.invoice.InvoiceLanguage;
-import de.agito.bpmo.sample.invoice.InvoiceLifecycle;
-import de.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 import de.agito.cps.core.annotations.BPMO;
 import de.agito.cps.core.annotations.Expression;
 import de.agito.cps.core.annotations.ExpressionDependency;
 import de.agito.cps.core.bpmo.ExpressionType;
 import de.agito.cps.core.bpmo.api.controller.BPMOController;
 import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
-import java.math.BigDecimal;
 // @@end
-import java.math.RoundingMode;
 
 // @@begin head:controller
 /**
@@ -83,5 +80,29 @@ public class InvoiceController
 
 	// @@begin others
 
+	@Override
+	public void cpsInitBPMO(InvoiceAccess bpmoAccess, boolean isNew) {
+		if (isNew) // create a default tax position row
+			bpmoAccess.getTaxPostions().createAndAddCurrentRow().getTaxRate();
+
+	}
+
+	@Override
+	public void cpsBeforeSaveBPMO(InvoiceAccess bpmoAccess) {
+		// calculate title
+		Map<InvoiceLanguage, String> title = new HashMap<InvoiceLanguage, String>(InvoiceLanguage.values().length);
+		for (InvoiceLanguage language : InvoiceLanguage.values()) {
+			switch (language) {
+			case de:
+				title.put(language, String.format("%s"));
+				break;
+			case en:
+				title.put(language, String.format("%s"));
+				break;
+			}
+		}
+		// TODO how to set title???
+
+	}
 	// @@end
 }
