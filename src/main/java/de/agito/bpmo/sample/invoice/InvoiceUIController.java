@@ -11,7 +11,6 @@ import de.agito.cps.ui.vaadin.bpmo.enums.ColumnCalculationMode;
 import de.agito.cps.ui.vaadin.bpmo.enums.NavigationType;
 import de.agito.cps.ui.vaadin.bpmo.enums.UNIT;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayoutManager;
-import de.agito.cps.ui.vaadin.bpmo.layout.flow.IGroupContent;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.ISeparator;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.ITableContent;
 import de.agito.cps.ui.vaadin.bpmo.styles.IDefaultStyleController;
@@ -43,6 +42,7 @@ public class InvoiceUIController
 		// @@begin body:init:Invoice
 		IFlowLayoutManager layoutManager = styleController.getLayoutManager();
 
+		// add Headline
 		ISeparator separator = layoutManager.createAndAddSeparator()
 				.setTitle(getBPMO().getBPMODefinition().getLabel().getText()).addTitleStyleName(ISeparator.Style.H2)
 				.addTitleStyleName(ISeparator.Style.HR);
@@ -50,31 +50,33 @@ public class InvoiceUIController
 		separator.setHeight(70, UNIT.PIXEL);
 
 		// add initial fields to group
-		IGroupContent groupContent = layoutManager.createAndAddGroupContent().setCaption("Invoice details");
-		groupContent.createAndAddElements(Invoice.InvoiceAttachment, Invoice.InvoicingParty, Invoice.InvoiceNumber,
-				Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment);
-		groupContent.setDimension(2).setHeight(240, UNIT.PIXEL);
+		layoutManager
+				.createAndAddGroupContent()
+				.setCaption(Messages.getString("InvoiceUIController.InvoiceDetails"))
+				.createAndAddElements(Invoice.InvoiceAttachment, Invoice.InvoicingParty, Invoice.InvoiceNumber,
+						Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment).setDimension(2)
+				.setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
 
 		layoutManager.createAndAddSeparator().setWidth(10, UNIT.PIXEL);
 
 		// manage finance accounting informations
-		groupContent = layoutManager.createAndAddGroupContent().setCaption("Accounting informations");
-		groupContent.setDimension(2).setHeight(240, UNIT.PIXEL);
+		layoutManager
+				.createAndAddGroupContent()
+				.setCaption(Messages.getString("InvoiceUIController.AccountingInformations")).fulfillContent(Invoice.TaxPostions).setDimension(2).setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
 
 		layoutManager.addLineBreak();
 
 		// manage table layout
-		ITableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPostions).fulfillContent();
+		ITableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPostions).fulfillContent()
+				.setPageLength(3);
 		tableContent.getColumn(Invoice.TaxPostions$NetAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
 		tableContent.getColumn(Invoice.TaxPostions$TaxAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
 		tableContent.getColumn(Invoice.TaxPostions$TotalAmount).setFooterCalculationMode(ColumnCalculationMode.SUM)
 				.setWidth(200);
 		tableContent.getColumn(Invoice.TaxPostions$TaxRate).setColumnAlignment(ColumnAlignment.ALIGN_RIGHT)
 				.setWidth(200);
-		tableContent.setPageLength(3);
-		tableContent.setWidth(850, UNIT.PIXEL);
 
-		groupContent.fulfillContent();
+		// create attachment viewer
 		layoutManager.createAndAddCustomContent().setComponent(
 				DataTypeFactory.getInstance().createEmbeddedAttachmentViewer(
 						bpmoAccess.getInvoiceAttachment().getContext().getCharacteristicValue().getCurrentValue(),
