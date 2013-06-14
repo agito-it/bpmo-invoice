@@ -87,7 +87,7 @@ public enum Invoice implements IBODataElement {
 	 * <i>{@link DefinitionArtifactType TABLE_DEFINITION}<i><br>
 	 * <i>{@link ControlType DEFAULT}<i><br>
 	 */
-	TaxPostions("TaxPostions", "Invoice$TaxPostions", ControlType.DEFAULT),
+	TaxPositions("TaxPositions", "Invoice$TaxPositions", ControlType.DEFAULT),
 
 	/**
 	 * <b>Net amount €</b>
@@ -96,7 +96,7 @@ public enum Invoice implements IBODataElement {
 	 * <i>{@link DataType NUMERIC}<i><br>
 	 * <i>{@link ControlType DEFAULT}<i><br>
 	 */
-	TaxPostions$NetAmount("NetAmount", "Invoice$TaxPostions$NetAmount", ControlType.DEFAULT),
+	TaxPositions$NetAmount("NetAmount", "Invoice$TaxPositions$NetAmount", ControlType.DEFAULT),
 
 	/**
 	 * <b>Tax rate</b>
@@ -105,25 +105,25 @@ public enum Invoice implements IBODataElement {
 	 * <i>{@link DataType ENUM}<i><br>
 	 * <i>{@link ControlType DEFAULT}<i><br>
 	 */
-	TaxPostions$TaxRate("TaxRate", "Invoice$TaxPostions$TaxRate", ControlType.DEFAULT),
+	TaxPositions$TaxRate("TaxRate", "Invoice$TaxPositions$TaxRate", ControlType.DEFAULT),
 
 	/**
-	 * <b>Tax amount</b>
+	 * <b>Tax amount €</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
 	 * <i>{@link ControlType DEFAULT}<i><br>
 	 */
-	TaxPostions$TaxAmount("TaxAmount", "Invoice$TaxPostions$TaxAmount", ControlType.DEFAULT),
+	TaxPositions$TaxAmount("TaxAmount", "Invoice$TaxPositions$TaxAmount", ControlType.DEFAULT),
 
 	/**
-	 * <b>Tax amount</b>
+	 * <b>Gross total €</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
 	 * <i>{@link ControlType DEFAULT}<i><br>
 	 */
-	TaxPostions$TotalAmount("TotalAmount", "Invoice$TaxPostions$TotalAmount", ControlType.DEFAULT),
+	TaxPositions$TotalAmount("TotalAmount", "Invoice$TaxPositions$TotalAmount", ControlType.DEFAULT),
 
 	/**
 	 * <b>Invoice copy</b>

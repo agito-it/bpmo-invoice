@@ -102,7 +102,7 @@
 			</FormatNumeric>
 		</Format>
 	</CharacteristicDefinition>
-	<TableDefinition Id="TaxPostions">
+	<TableDefinition Id="TaxPositions">
 		<Label>
 			<Text Language="en">Position per tax rate</Text>
 			<Text Language="de">Position pro Steuersatz</Text>
@@ -162,8 +162,8 @@
 				</FormatNumeric>
 			</Format>
 			<CalculateValue>
-				<Dependency>Invoice$TaxPostions$NetAmount</Dependency>
-				<Dependency>Invoice$TaxPostions$TaxRate</Dependency>
+				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
+				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
 				<Description>Calculate the tax amount of position</Description>
 			</CalculateValue>
 		</ColumnDefinition>
@@ -182,8 +182,8 @@
 				</FormatNumeric>
 			</Format>
 			<CalculateValue>
-				<Dependency>Invoice$TaxPostions$NetAmount</Dependency>
-				<Dependency>Invoice$TaxPostions$TaxRate</Dependency>
+				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
+				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
 				<Description>Calculate the total amount of position</Description>
 			</CalculateValue>
 		</ColumnDefinition>

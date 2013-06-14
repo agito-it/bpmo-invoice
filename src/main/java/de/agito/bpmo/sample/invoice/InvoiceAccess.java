@@ -132,7 +132,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <i>{@link DefinitionArtifactType TABLE_DEFINITION}<i><br>
 	 * <i>{@link ControlType DEFAULT}<i><br>
 	 */
-	public TaxPostions getTaxPostions() { return super.<TaxPostions>getTableAccessCV(TaxPostions.class, "Invoice$TaxPostions"); }
+	public TaxPositions getTaxPositions() { return super.<TaxPositions>getTableAccessCV(TaxPositions.class, "Invoice$TaxPositions"); }
 
 	public final static class Invoice extends NodeKeyAccess {
 		protected Invoice(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
@@ -216,15 +216,15 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 		public void setCurrentValue(Boolean value) { super.setCurrentValue(value); }
 	}
 
-	public final static class TaxPostions extends TableAccessCurrent<TaxPostions.Current> {
-		protected TaxPostions(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
+	public final static class TaxPositions extends TableAccessCurrent<TaxPositions.Current> {
+		protected TaxPositions(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 
 		public final static class Current extends RowAccess {
 			protected Current(BPMOAccess<?> bpmoAccess, IRow row) { super(bpmoAccess, row); }
-			public NetAmount getNetAmount() { return super.<NetAmount>getCellAccess(NetAmount.class, "Invoice$TaxPostions$NetAmount", "NetAmount"); }
-			public TaxRate getTaxRate() { return super.<TaxRate>getCellAccess(TaxRate.class, "Invoice$TaxPostions$TaxRate", "TaxRate"); }
-			public TaxAmount getTaxAmount() { return super.<TaxAmount>getCellAccess(TaxAmount.class, "Invoice$TaxPostions$TaxAmount", "TaxAmount"); }
-			public TotalAmount getTotalAmount() { return super.<TotalAmount>getCellAccess(TotalAmount.class, "Invoice$TaxPostions$TotalAmount", "TotalAmount"); }
+			public NetAmount getNetAmount() { return super.<NetAmount>getCellAccess(NetAmount.class, "Invoice$TaxPositions$NetAmount", "NetAmount"); }
+			public TaxRate getTaxRate() { return super.<TaxRate>getCellAccess(TaxRate.class, "Invoice$TaxPositions$TaxRate", "TaxRate"); }
+			public TaxAmount getTaxAmount() { return super.<TaxAmount>getCellAccess(TaxAmount.class, "Invoice$TaxPositions$TaxAmount", "TaxAmount"); }
+			public TotalAmount getTotalAmount() { return super.<TotalAmount>getCellAccess(TotalAmount.class, "Invoice$TaxPositions$TotalAmount", "TotalAmount"); }
 			public void erase() { super.eraseRow(); }
 
 			@SuppressWarnings("unchecked")

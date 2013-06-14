@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.agito.bpmo.sample.invoice.InvoiceAccess.TaxPostions;
+import de.agito.bpmo.sample.invoice.InvoiceAccess.TaxPositions;
 import de.agito.cps.core.annotations.BPMO;
 import de.agito.cps.core.annotations.Expression;
 import de.agito.cps.core.annotations.ExpressionDependency;
@@ -31,48 +31,49 @@ public class InvoiceController
 		super(context);
 	}
 
-	// @@begin head:calculate:TaxPostions$TaxAmount
+	// @@begin head:calculate:TaxPositions$TaxAmount
 	/**
-	 * Hook for calculate expression of TaxPostions$TaxAmount
+	 * Hook for calculate expression of TaxPositions$TaxAmount
 	 */
 	// @@end
-	@Expression(artifact = "Invoice$TaxPostions$TaxAmount", type = ExpressionType.VALUE_CALCULATION)
-	@ExpressionDependency({ "Invoice$TaxPostions$NetAmount", "Invoice$TaxPostions$TaxRate" })
-	public BigDecimal cpsCalculateTaxPostions$TaxAmount(InvoiceAccess bpmoAccess, TaxPostions.Current rowAccess) {
+	@Expression(artifact = "Invoice$TaxPositions$TaxAmount", type = ExpressionType.VALUE_CALCULATION)
+	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
+	public BigDecimal cpsCalculateTaxPositions$TaxAmount(InvoiceAccess bpmoAccess, TaxPositions.Current rowAccess) {
 		/*
 		 * Calculate the tax amount of position
 		 */
-		final TaxPostions.Current.NetAmount taxPostions$NetAmount = rowAccess.getNetAmount();
-		final TaxPostions.Current.TaxRate taxPostions$TaxRate = rowAccess.getTaxRate();
-		// @@begin body:calculate:TaxPostions$TaxAmount
+		final TaxPositions.Current.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
+		final TaxPositions.Current.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
+		// @@begin body:calculate:TaxPositions$TaxAmount
 
-		if (taxPostions$NetAmount.getValue() != null && taxPostions$TaxRate.getValue() != null)
-			return taxPostions$NetAmount.getValue().divide(new BigDecimal(100))
-					.multiply(new BigDecimal(taxPostions$TaxRate.getValue().getKey()))
+		if (taxPositions$NetAmount.getValue() != null && taxPositions$TaxRate.getValue() != null)
+			return taxPositions$NetAmount.getValue().divide(new BigDecimal(100))
+					.multiply(new BigDecimal(taxPositions$TaxRate.getValue().getKey()))
 					.setScale(2, RoundingMode.HALF_UP);
 		return null;
+
 		// @@end
 	}
 
-	// @@begin head:calculate:TaxPostions$TotalAmount
+	// @@begin head:calculate:TaxPositions$TotalAmount
 	/**
-	 * Hook for calculate expression of TaxPostions$TotalAmount
+	 * Hook for calculate expression of TaxPositions$TotalAmount
 	 */
 	// @@end
-	@Expression(artifact = "Invoice$TaxPostions$TotalAmount", type = ExpressionType.VALUE_CALCULATION)
-	@ExpressionDependency({ "Invoice$TaxPostions$NetAmount", "Invoice$TaxPostions$TaxRate" })
-	public BigDecimal cpsCalculateTaxPostions$TotalAmount(InvoiceAccess bpmoAccess, TaxPostions.Current rowAccess) {
+	@Expression(artifact = "Invoice$TaxPositions$TotalAmount", type = ExpressionType.VALUE_CALCULATION)
+	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
+	public BigDecimal cpsCalculateTaxPositions$TotalAmount(InvoiceAccess bpmoAccess, TaxPositions.Current rowAccess) {
 		/*
 		 * Calculate the total amount of position
 		 */
-		final TaxPostions.Current.NetAmount taxPostions$NetAmount = rowAccess.getNetAmount();
-		final TaxPostions.Current.TaxRate taxPostions$TaxRate = rowAccess.getTaxRate();
-		// @@begin body:calculate:TaxPostions$TotalAmount
+		final TaxPositions.Current.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
+		final TaxPositions.Current.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
+		// @@begin body:calculate:TaxPositions$TotalAmount
 
-		if (taxPostions$NetAmount.getValue() != null && taxPostions$TaxRate.getValue() != null)
-			return taxPostions$NetAmount.getValue().divide(new BigDecimal(100))
-					.multiply(new BigDecimal(taxPostions$TaxRate.getValue().getKey()))
-					.setScale(2, RoundingMode.HALF_UP).add(taxPostions$NetAmount.getValue());
+		if (taxPositions$NetAmount.getValue() != null && taxPositions$TaxRate.getValue() != null)
+			return taxPositions$NetAmount.getValue().divide(new BigDecimal(100))
+					.multiply(new BigDecimal(taxPositions$TaxRate.getValue().getKey()))
+					.setScale(2, RoundingMode.HALF_UP).add(taxPositions$NetAmount.getValue());
 		return null;
 
 		// @@end
@@ -83,7 +84,7 @@ public class InvoiceController
 	@Override
 	public void cpsInitBPMO(InvoiceAccess bpmoAccess, boolean isNew) {
 		if (isNew) // create a default tax position row
-			bpmoAccess.getTaxPostions().createAndAddCurrentRow().getTaxRate();
+			bpmoAccess.getTaxPositions().createAndAddCurrentRow().getTaxRate();
 
 	}
 

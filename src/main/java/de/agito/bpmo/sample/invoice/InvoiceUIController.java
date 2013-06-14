@@ -1,7 +1,6 @@
 package de.agito.bpmo.sample.invoice;
 
 // @@begin imports
-
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
 import de.agito.cps.ui.vaadin.bpmo.annotation.Navigation;
@@ -64,21 +63,21 @@ public class InvoiceUIController
 		layoutManager.createAndAddSeparator().setWidth(10, UNIT.PIXEL);
 
 		// manage finance accounting informations
-		// add all remaining content elements excepting TaxPostions to group
+		// add all remaining content elements excepting TaxPositions to group
 		layoutManager
 				.createAndAddGroupContent()
-				.setCaption(Messages.getString("InvoiceUIController.AccountingInformations")).fulfillContent(Invoice.TaxPostions).setDimension(2).setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
+				.setCaption(Messages.getString("InvoiceUIController.AccountingInformations")).fulfillContent(Invoice.TaxPositions).setDimension(2).setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
 
 		layoutManager.addLineBreak();
 
-		// manage TaxPostions layout
-		ITableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPostions).fulfillContent()
+		// manage TaxPositions layout
+		ITableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions).fulfillContent()
 				.setPageLength(3);
-		tableContent.getColumn(Invoice.TaxPostions$NetAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
-		tableContent.getColumn(Invoice.TaxPostions$TaxAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
-		tableContent.getColumn(Invoice.TaxPostions$TotalAmount).setFooterCalculationMode(ColumnCalculationMode.SUM)
+		tableContent.getColumn(Invoice.TaxPositions$NetAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
+		tableContent.getColumn(Invoice.TaxPositions$TaxAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
+		tableContent.getColumn(Invoice.TaxPositions$TotalAmount).setFooterCalculationMode(ColumnCalculationMode.SUM)
 				.setWidth(200);
-		tableContent.getColumn(Invoice.TaxPostions$TaxRate).setColumnAlignment(ColumnAlignment.ALIGN_RIGHT)
+		tableContent.getColumn(Invoice.TaxPositions$TaxRate).setColumnAlignment(ColumnAlignment.ALIGN_RIGHT)
 				.setWidth(200);
 
 		// create attachment viewer
