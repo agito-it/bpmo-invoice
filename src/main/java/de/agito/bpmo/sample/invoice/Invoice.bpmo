@@ -297,7 +297,7 @@
 		<Language>de</Language>
 	</Languages>
 	<Lifecycles>
-		<Lifecycle Id="NEW" ProcessDefinitionId="Invoice_InvoiceProcess">
+		<Lifecycle Id="NEW">
 			<Label>
 				<Text Language="en">New</Text>
 				<Text Language="de">Neu</Text>
