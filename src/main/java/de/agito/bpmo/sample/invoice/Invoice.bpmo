@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <BPMODefinition BPMOId="Invoice" Version="1.0.0" NodeId="Invoice"
 	MinOccur="1" MaxOccur="1" xmlns="http://de.agito/cps/core">
+
+	<!-- Start BPMO root element definition -->
 	<Key Id="Invoice">
 		<Label>
 			<Text Language="en">Invoice Root</Text>
@@ -20,7 +22,55 @@
 		<Text Language="en">Invoice</Text>
 		<Text Language="de">Eingangsrechnung</Text>
 	</Description>
-	<Controls />
+	<Controls>
+		<Control Lifecycle="NEW">
+			<Scope ScopeId="VISIBILITY">
+				<ProcessActivityId Id="*" />
+			</Scope>
+		</Control>
+	</Controls>
+	<!-- End BPMO root element definition -->
+
+
+	<!-- Start content artifact definition -->
+
+	<!-- Item to store digital version of invoice -->
+	<CharacteristicDefinition Id="InvoiceAttachment">
+		<Label>
+			<Text Language="en">Invoice copy</Text>
+			<Text Language="de">Rechnungskopie</Text>
+		</Label>
+		<Description>
+			<Text Language="en">Digital copy of invoice as PDF file</Text>
+			<Text Language="de">Digitale Kopie der Rechnung als PDF Datei</Text>
+		</Description>
+		<Format>
+			<FormatAttachment>
+				<MaxFileSize>256000</MaxFileSize>
+				<AllowedMimeType>application/pdf</AllowedMimeType>
+				<AllowedMimeType>image/png</AllowedMimeType>
+				<AllowedMimeType>image/gif</AllowedMimeType>
+			</FormatAttachment>
+		</Format>
+		<Controls>
+			<Control Lifecycle="NEW">
+				<Scope ScopeId="VISIBILITY">
+					<ProcessActivityId Id="*" />
+				</Scope>
+				<Scope ScopeId="EDITABILITY">
+					<ProcessActivityId Id="$DRAFT" />
+				</Scope>
+				<Scope ScopeId="REQUIRED">
+					<ProcessActivityId Id="$DRAFT" />
+				</Scope>
+				<Scope ScopeId="RESPONSIBILITY">
+					<ProcessActivityId Id="Approval" />
+				</Scope>
+			</Control>
+		</Controls>
+	</CharacteristicDefinition>
+
+
 	<CharacteristicDefinition Id="InvoicingParty">
 		<Label>
 			<Text Language="en">Invoicing party</Text>
@@ -37,7 +87,27 @@
 				</LengthFormat>
 			</FormatString>
 		</Format>
+		<Controls>
+			<Control Lifecycle="NEW">
+				<Scope ScopeId="VISIBILITY">
+					<ProcessActivityId Id="*" />
+				</Scope>
+				<Scope ScopeId="EDITABILITY">
+					<ProcessActivityId Id="$DRAFT" />
+					<ProcessActivityId Id="CheckOrder" />
+				</Scope>
+				<Scope ScopeId="REQUIRED">
+					<ProcessActivityId Id="$DRAFT" />
+					<ProcessActivityId Id="CheckOrder" />
+				</Scope>
+				<Scope ScopeId="RESPONSIBILITY">
+					<ProcessActivityId Id="Approval" />
+				</Scope>
+			</Control>
+			<ControlGroup GroupId="PostOfficeControlGroup" />
+		</Controls>
 	</CharacteristicDefinition>
+
 	<CharacteristicDefinition Id="InvoiceNumber">
 		<Label>
 			<Text Language="en">Invoice number</Text>
@@ -50,24 +120,11 @@
 				</LengthFormat>
 			</FormatString>
 		</Format>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
 	</CharacteristicDefinition>
-	<CharacteristicDefinition Id="OrderNumber">
-		<Label>
-			<Text Language="en">Order number</Text>
-			<Text Language="de">Bestellnummer</Text>
-		</Label>
-		<Description>
-			<Text Language="en">Order number corresponding to invoice</Text>
-			<Text Language="de">Zugehörige Bestellnummer</Text>
-		</Description>
-		<Format>
-			<FormatString>
-				<LengthFormat>
-					<MaxLength>100</MaxLength>
-				</LengthFormat>
-			</FormatString>
-		</Format>
-	</CharacteristicDefinition>
+
 	<CharacteristicDefinition Id="InvoiceDate">
 		<Label>
 			<Text Language="en">Invoice date</Text>
@@ -78,7 +135,11 @@
 				<DaysAllowedInFuture>0</DaysAllowedInFuture>
 			</FormatDateTime>
 		</Format>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
 	</CharacteristicDefinition>
+
 	<CharacteristicDefinition Id="InvoiceReceived">
 		<Label>
 			<Text Language="en">Invoice received</Text>
@@ -89,7 +150,11 @@
 				<DaysAllowedInFuture>0</DaysAllowedInFuture>
 			</FormatDateTime>
 		</Format>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
 	</CharacteristicDefinition>
+
 	<CharacteristicDefinition Id="TermOfPayment">
 		<Label>
 			<Text Language="en">Term of payment (Days)</Text>
@@ -99,14 +164,25 @@
 			<FormatNumeric>
 				<TotalDigits>3</TotalDigits>
 				<FracDigits>0</FracDigits>
+				<Margin Type="INCLUSIVE">
+					<Min>0</Min>
+				</Margin>
 			</FormatNumeric>
 		</Format>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
 	</CharacteristicDefinition>
+
+	<!-- Table to separate different tax positions on invoice -->
 	<TableDefinition Id="TaxPositions">
 		<Label>
 			<Text Language="en">Position per tax rate</Text>
 			<Text Language="de">Position pro Steuersatz</Text>
 		</Label>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
 		<ColumnDefinition Id="NetAmount">
 			<Label>
 				<Text Language="en">Net amount €</Text>
@@ -121,6 +197,9 @@
 					</Margin>
 				</FormatNumeric>
 			</Format>
+			<Controls>
+				<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+			</Controls>
 		</ColumnDefinition>
 		<ColumnDefinition Id="TaxRate">
 			<Label>
@@ -146,6 +225,9 @@
 					</KeywordFormat>
 				</FormatEnum>
 			</Format>
+			<Controls>
+				<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+			</Controls>
 		</ColumnDefinition>
 		<ColumnDefinition Id="TaxAmount">
 			<Label>
@@ -188,22 +270,44 @@
 			</CalculateValue>
 		</ColumnDefinition>
 	</TableDefinition>
-	<CharacteristicDefinition Id="InvoiceAttachment">
+
+
+	<!-- Start accounting relevant items -->
+	<CharacteristicDefinition Id="OrderNumber">
 		<Label>
-			<Text Language="en">Invoice copy</Text>
-			<Text Language="de">Rechnungskopie</Text>
+			<Text Language="en">Order number</Text>
+			<Text Language="de">Bestellnummer</Text>
 		</Label>
 		<Description>
-			<Text Language="en">Digital copy of invoice as PDF file</Text>
-			<Text Language="de">Digitale Kopie der Rechnung als PDF Datei</Text>
+			<Text Language="en">Please enter if exist on invoiceOrder</Text>
+			<Text Language="de">Wenn auf Eingangsrechnung vermerkt, bitte eingeben</Text>
 		</Description>
 		<Format>
-			<FormatAttachment>
-				<MaxFileSize>256000</MaxFileSize>
-				<AllowedMimeType>application/pdf</AllowedMimeType>
-			</FormatAttachment>
+			<FormatString>
+				<LengthFormat>
+					<MaxLength>100</MaxLength>
+				</LengthFormat>
+			</FormatString>
 		</Format>
+		<Controls>
+			<Control Lifecycle="NEW">
+				<Scope ScopeId="VISIBILITY">
+					<ProcessActivityId Id="*" />
+				</Scope>
+				<Scope ScopeId="EDITABILITY">
+					<ProcessActivityId Id="$DRAFT" />
+					<ProcessActivityId Id="CheckOrder" />
+				</Scope>
+				<Scope ScopeId="REQUIRED">
+					<ProcessActivityId Id="CheckOrder" />
+				</Scope>
+				<Scope ScopeId="RESPONSIBILITY">
+					<ProcessActivityId Id="Approval" />
+				</Scope>
+			</Control>
+		</Controls>
 	</CharacteristicDefinition>
+
 	<CharacteristicDefinition Id="OrderProfitcenter">
 		<Label>
 			<Text Language="en">Profitcenter</Text>
@@ -233,6 +337,25 @@
 				</KeywordFormat>
 			</FormatEnum>
 		</Format>
+		<Controls>
+			<Control Lifecycle="NEW">
+				<Scope ScopeId="VISIBILITY">
+					<ProcessActivityId Id="*" />
+				</Scope>
+				<Scope ScopeId="EDITABILITY">
+					<ProcessActivityId Id="CheckOrder" />
+					<ProcessActivityId Id="ResolveOrder" />
+				</Scope>
+				<Scope ScopeId="REQUIRED">
+					<ProcessActivityId Id="CheckOrder" />
+					<ProcessActivityId Id="ResolveOrder" />
+				</Scope>
+				<Scope ScopeId="RESPONSIBILITY">
+					<ProcessActivityId Id="Approval" />
+				</Scope>
+			</Control>
+			<ControlGroup GroupId="AccountingControlGroup" />
+		</Controls>
 	</CharacteristicDefinition>
 
 	<CharacteristicDefinition Id="OrderCostCenter">
@@ -261,6 +384,24 @@
 				</KeywordFormat>
 			</FormatEnum>
 		</Format>
+		<Controls>
+			<ControlGroupUsage GroupId="AccountingControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+
+	<CharacteristicDefinition Id="Approver">
+		<Label>
+			<Text Language="en">Responsible</Text>
+			<Text Language="de">Anforderer</Text>
+		</Label>
+		<Format>
+			<FormatPrincipal>
+				<ExpectedType>USER</ExpectedType>
+			</FormatPrincipal>
+		</Format>
+		<Controls>
+			<ControlGroupUsage GroupId="AccountingControlGroup" />
+		</Controls>
 	</CharacteristicDefinition>
 
 	<CharacteristicDefinition Id="OrderChecked">
@@ -271,6 +412,9 @@
 		<Format>
 			<FormatBoolean></FormatBoolean>
 		</Format>
+		<Controls>
+			<ControlGroupUsage GroupId="AccountingControlGroup" />
+		</Controls>
 	</CharacteristicDefinition>
 
 	<CharacteristicDefinition Id="ShipmentChecked">
@@ -281,7 +425,14 @@
 		<Format>
 			<FormatBoolean></FormatBoolean>
 		</Format>
+		<Controls>
+			<ControlGroupUsage GroupId="AccountingControlGroup" />
+		</Controls>
 	</CharacteristicDefinition>
+
+	<!-- End content artifact definition -->
+
+	<!-- Start BPMO Genarl definition artifacts -->
 
 	<BPMOLabel>
 		<Text Language="en">Invoice</Text>
@@ -317,6 +468,12 @@
 				<Text Language="de">Posteingang</Text>
 			</Label>
 		</ProcessActivityId>
+		<ProcessActivityId Id="ResolveOrder">
+			<Label>
+				<Text Language="en">Resolve order</Text>
+				<Text Language="de">Bestellung ermitteln</Text>
+			</Label>
+		</ProcessActivityId>
 		<ProcessActivityId Id="CheckOrder">
 			<Label>
 				<Text Language="en">Check order</Text>
@@ -327,6 +484,12 @@
 			<Label>
 				<Text Language="en">Approve invoice</Text>
 				<Text Language="de">Rechnung genehmigen</Text>
+			</Label>
+		</ProcessActivityId>
+		<ProcessActivityId Id="Transfer">
+			<Label>
+				<Text Language="en">Transfer data to ERP</Text>
+				<Text Language="de">Verbuchung</Text>
 			</Label>
 		</ProcessActivityId>
 	</ProcessActivities>

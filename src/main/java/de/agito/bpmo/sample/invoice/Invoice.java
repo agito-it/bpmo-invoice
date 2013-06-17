@@ -19,9 +19,20 @@ public enum Invoice implements IBODataElement {
 	 * <p>
 	 * <i>{@link DefinitionArtifactType NODE_KEY_DEFINITION}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	Invoice("Invoice", "Invoice$Invoice", ControlType.DEFAULT),
+	Invoice("Invoice", "Invoice$Invoice", ControlType.INTERACTIVE),
+
+	/**
+	 * <b>Invoice copy</b>
+	 * <p>
+	 * Digital copy of invoice as PDF file
+	 * <p>
+	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link DataType ATTACHMENT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
+	 */
+	InvoiceAttachment("InvoiceAttachment", "Invoice$InvoiceAttachment", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Invoicing party</b>
@@ -30,82 +41,71 @@ public enum Invoice implements IBODataElement {
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	InvoicingParty("InvoicingParty", "Invoice$InvoicingParty", ControlType.DEFAULT),
+	InvoicingParty("InvoicingParty", "Invoice$InvoicingParty", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Invoice number</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	InvoiceNumber("InvoiceNumber", "Invoice$InvoiceNumber", ControlType.DEFAULT),
-
-	/**
-	 * <b>Order number</b>
-	 * <p>
-	 * Order number corresponding to invoice
-	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
-	 * <i>{@link DataType STRING}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
-	 */
-	OrderNumber("OrderNumber", "Invoice$OrderNumber", ControlType.DEFAULT),
+	InvoiceNumber("InvoiceNumber", "Invoice$InvoiceNumber", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Invoice date</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType DATE}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	InvoiceDate("InvoiceDate", "Invoice$InvoiceDate", ControlType.DEFAULT),
+	InvoiceDate("InvoiceDate", "Invoice$InvoiceDate", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Invoice received</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType DATE}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	InvoiceReceived("InvoiceReceived", "Invoice$InvoiceReceived", ControlType.DEFAULT),
+	InvoiceReceived("InvoiceReceived", "Invoice$InvoiceReceived", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Term of payment (Days)</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	TermOfPayment("TermOfPayment", "Invoice$TermOfPayment", ControlType.DEFAULT),
+	TermOfPayment("TermOfPayment", "Invoice$TermOfPayment", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Position per tax rate</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType TABLE_DEFINITION}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	TaxPositions("TaxPositions", "Invoice$TaxPositions", ControlType.DEFAULT),
+	TaxPositions("TaxPositions", "Invoice$TaxPositions", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Net amount €</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	TaxPositions$NetAmount("NetAmount", "Invoice$TaxPositions$NetAmount", ControlType.DEFAULT),
+	TaxPositions$NetAmount("NetAmount", "Invoice$TaxPositions$NetAmount", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Tax rate</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	TaxPositions$TaxRate("TaxRate", "Invoice$TaxPositions$TaxRate", ControlType.DEFAULT),
+	TaxPositions$TaxRate("TaxRate", "Invoice$TaxPositions$TaxRate", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Tax amount €</b>
@@ -126,15 +126,15 @@ public enum Invoice implements IBODataElement {
 	TaxPositions$TotalAmount("TotalAmount", "Invoice$TaxPositions$TotalAmount", ControlType.DEFAULT),
 
 	/**
-	 * <b>Invoice copy</b>
+	 * <b>Order number</b>
 	 * <p>
-	 * Digital copy of invoice as PDF file
+	 * Please enter if exist on invoiceOrder
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
-	 * <i>{@link DataType ATTACHMENT}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link DataType STRING}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	InvoiceAttachment("InvoiceAttachment", "Invoice$InvoiceAttachment", ControlType.DEFAULT),
+	OrderNumber("OrderNumber", "Invoice$OrderNumber", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Profitcenter</b>
@@ -143,36 +143,45 @@ public enum Invoice implements IBODataElement {
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	OrderProfitcenter("OrderProfitcenter", "Invoice$OrderProfitcenter", ControlType.DEFAULT),
+	OrderProfitcenter("OrderProfitcenter", "Invoice$OrderProfitcenter", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Cost center</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	OrderCostCenter("OrderCostCenter", "Invoice$OrderCostCenter", ControlType.DEFAULT),
+	OrderCostCenter("OrderCostCenter", "Invoice$OrderCostCenter", ControlType.INTERACTIVE),
+
+	/**
+	 * <b>Responsible</b>
+	 * <p>
+	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link DataType PRINCIPAL}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
+	 */
+	Approver("Approver", "Invoice$Approver", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Order checked?</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType BOOLEAN}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	OrderChecked("OrderChecked", "Invoice$OrderChecked", ControlType.DEFAULT),
+	OrderChecked("OrderChecked", "Invoice$OrderChecked", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Shipment checked?</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType BOOLEAN}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	ShipmentChecked("ShipmentChecked", "Invoice$ShipmentChecked", ControlType.DEFAULT);
+	ShipmentChecked("ShipmentChecked", "Invoice$ShipmentChecked", ControlType.INTERACTIVE);
 
 	/**
 	 * <b>BPMO Identifier</b>
@@ -182,7 +191,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Node Identifier</b>
 	 */
-	public final static IBONode $ID = new IBONode.BONode("Invoice", "Invoice", ControlType.DEFAULT);
+	public final static IBONode $ID = new IBONode.BONode("Invoice", "Invoice", ControlType.INTERACTIVE);
 
 	private final static IEnumInspector ENUM_INSPECTOR = DataTypeFactory.getInstance().createEnumInspector(Invoice.class);
 	private Invoice(String id, String path, ControlType controlType) { this.id = id; this.path = path; this.controlType = controlType; }

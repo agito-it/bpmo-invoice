@@ -22,7 +22,7 @@
       </lane>
     </laneSet>
     <startEvent id="startevent" name="Start"></startEvent>
-    <serviceTask id="resolveOrder" name="Resolve Order" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
+    <serviceTask id="resolveOrder" name="Resolve Order" activiti:async="true" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
       <extensionElements>
         <activiti:field name="action">
           <activiti:string>ResolveOrder</activiti:string>

@@ -3,7 +3,9 @@ package de.agito.bpmo.sample.invoice;
 import de.agito.cps.core.bpmo.IAttachmentEntry;
 import de.agito.cps.core.bpmo.IKeywordEntry;
 import de.agito.cps.core.bpmo.INodeElement;
+import de.agito.cps.core.bpmo.IPrincipalValue;
 import de.agito.cps.core.bpmo.IRow;
+import de.agito.cps.core.bpmo.PrincipalType;
 import de.agito.cps.core.bpmo.api.access.BPMOAccess;
 import de.agito.cps.core.bpmo.api.access.CellAccess;
 import de.agito.cps.core.bpmo.api.access.CharacteristicAccess;
@@ -27,61 +29,9 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <b>Invoice Root</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType NODE_KEY_DEFINITION}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
 	public Invoice getInvoice() { return super.<Invoice>getKeyAccess(Invoice.class, "Invoice$Invoice"); }
-	/**
-	 * <b>Invoicing party</b>
-	 * <p>
-	 * Name of party sending the invoice
-	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
-	 * <i>{@link DataType STRING}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
-	 */
-	public InvoicingParty getInvoicingParty() { return super.<InvoicingParty>getCharacteristicAccess(InvoicingParty.class, "Invoice$InvoicingParty"); }
-	/**
-	 * <b>Invoice number</b>
-	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
-	 * <i>{@link DataType STRING}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
-	 */
-	public InvoiceNumber getInvoiceNumber() { return super.<InvoiceNumber>getCharacteristicAccess(InvoiceNumber.class, "Invoice$InvoiceNumber"); }
-	/**
-	 * <b>Order number</b>
-	 * <p>
-	 * Order number corresponding to invoice
-	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
-	 * <i>{@link DataType STRING}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
-	 */
-	public OrderNumber getOrderNumber() { return super.<OrderNumber>getCharacteristicAccess(OrderNumber.class, "Invoice$OrderNumber"); }
-	/**
-	 * <b>Invoice date</b>
-	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
-	 * <i>{@link DataType DATE}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
-	 */
-	public InvoiceDate getInvoiceDate() { return super.<InvoiceDate>getCharacteristicAccess(InvoiceDate.class, "Invoice$InvoiceDate"); }
-	/**
-	 * <b>Invoice received</b>
-	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
-	 * <i>{@link DataType DATE}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
-	 */
-	public InvoiceReceived getInvoiceReceived() { return super.<InvoiceReceived>getCharacteristicAccess(InvoiceReceived.class, "Invoice$InvoiceReceived"); }
-	/**
-	 * <b>Term of payment (Days)</b>
-	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
-	 * <i>{@link DataType NUMERIC}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
-	 */
-	public TermOfPayment getTermOfPayment() { return super.<TermOfPayment>getCharacteristicAccess(TermOfPayment.class, "Invoice$TermOfPayment"); }
 	/**
 	 * <b>Invoice copy</b>
 	 * <p>
@@ -89,9 +39,61 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType ATTACHMENT}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
 	public InvoiceAttachment getInvoiceAttachment() { return super.<InvoiceAttachment>getCharacteristicAccess(InvoiceAttachment.class, "Invoice$InvoiceAttachment"); }
+	/**
+	 * <b>Invoicing party</b>
+	 * <p>
+	 * Name of party sending the invoice
+	 * <p>
+	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link DataType STRING}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
+	 */
+	public InvoicingParty getInvoicingParty() { return super.<InvoicingParty>getCharacteristicAccess(InvoicingParty.class, "Invoice$InvoicingParty"); }
+	/**
+	 * <b>Invoice number</b>
+	 * <p>
+	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link DataType STRING}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
+	 */
+	public InvoiceNumber getInvoiceNumber() { return super.<InvoiceNumber>getCharacteristicAccess(InvoiceNumber.class, "Invoice$InvoiceNumber"); }
+	/**
+	 * <b>Invoice date</b>
+	 * <p>
+	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link DataType DATE}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
+	 */
+	public InvoiceDate getInvoiceDate() { return super.<InvoiceDate>getCharacteristicAccess(InvoiceDate.class, "Invoice$InvoiceDate"); }
+	/**
+	 * <b>Invoice received</b>
+	 * <p>
+	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link DataType DATE}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
+	 */
+	public InvoiceReceived getInvoiceReceived() { return super.<InvoiceReceived>getCharacteristicAccess(InvoiceReceived.class, "Invoice$InvoiceReceived"); }
+	/**
+	 * <b>Term of payment (Days)</b>
+	 * <p>
+	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link DataType NUMERIC}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
+	 */
+	public TermOfPayment getTermOfPayment() { return super.<TermOfPayment>getCharacteristicAccess(TermOfPayment.class, "Invoice$TermOfPayment"); }
+	/**
+	 * <b>Order number</b>
+	 * <p>
+	 * Please enter if exist on invoiceOrder
+	 * <p>
+	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link DataType STRING}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
+	 */
+	public OrderNumber getOrderNumber() { return super.<OrderNumber>getCharacteristicAccess(OrderNumber.class, "Invoice$OrderNumber"); }
 	/**
 	 * <b>Profitcenter</b>
 	 * <p>
@@ -99,7 +101,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
 	public OrderProfitcenter getOrderProfitcenter() { return super.<OrderProfitcenter>getCharacteristicAccess(OrderProfitcenter.class, "Invoice$OrderProfitcenter"); }
 	/**
@@ -107,15 +109,23 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
 	public OrderCostCenter getOrderCostCenter() { return super.<OrderCostCenter>getCharacteristicAccess(OrderCostCenter.class, "Invoice$OrderCostCenter"); }
+	/**
+	 * <b>Responsible</b>
+	 * <p>
+	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link DataType PRINCIPAL}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
+	 */
+	public Approver getApprover() { return super.<Approver>getCharacteristicAccess(Approver.class, "Invoice$Approver"); }
 	/**
 	 * <b>Order checked?</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType BOOLEAN}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
 	public OrderChecked getOrderChecked() { return super.<OrderChecked>getCharacteristicAccess(OrderChecked.class, "Invoice$OrderChecked"); }
 	/**
@@ -123,20 +133,27 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType BOOLEAN}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
 	public ShipmentChecked getShipmentChecked() { return super.<ShipmentChecked>getCharacteristicAccess(ShipmentChecked.class, "Invoice$ShipmentChecked"); }
 	/**
 	 * <b>Position per tax rate</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType TABLE_DEFINITION}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
 	public TaxPositions getTaxPositions() { return super.<TaxPositions>getTableAccessCV(TaxPositions.class, "Invoice$TaxPositions"); }
 
 	public final static class Invoice extends NodeKeyAccess {
 		protected Invoice(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public String getInvoice() { return super.<String>getValue(); }
+	}
+
+	@SuppressWarnings("unchecked")
+	public final static class InvoiceAttachment extends CharacteristicAccess {
+		protected InvoiceAttachment(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
+		public IAttachmentEntry getCurrentValue() { return super.<IAttachmentEntry>getCurrentValue(); }
+		public void setCurrentValue(IAttachmentEntry value) { super.setCurrentValue(value); }
 	}
 
 	@SuppressWarnings("unchecked")
@@ -149,13 +166,6 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	@SuppressWarnings("unchecked")
 	public final static class InvoiceNumber extends CharacteristicAccess {
 		protected InvoiceNumber(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
-		public String getCurrentValue() { return super.<String>getCurrentValue(); }
-		public void setCurrentValue(String value) { super.setCurrentValue(value); }
-	}
-
-	@SuppressWarnings("unchecked")
-	public final static class OrderNumber extends CharacteristicAccess {
-		protected OrderNumber(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public String getCurrentValue() { return super.<String>getCurrentValue(); }
 		public void setCurrentValue(String value) { super.setCurrentValue(value); }
 	}
@@ -182,10 +192,10 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public final static class InvoiceAttachment extends CharacteristicAccess {
-		protected InvoiceAttachment(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
-		public IAttachmentEntry getCurrentValue() { return super.<IAttachmentEntry>getCurrentValue(); }
-		public void setCurrentValue(IAttachmentEntry value) { super.setCurrentValue(value); }
+	public final static class OrderNumber extends CharacteristicAccess {
+		protected OrderNumber(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
+		public String getCurrentValue() { return super.<String>getCurrentValue(); }
+		public void setCurrentValue(String value) { super.setCurrentValue(value); }
 	}
 
 	@SuppressWarnings("unchecked")
@@ -200,6 +210,14 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 		protected OrderCostCenter(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IKeywordEntry getCurrentValue() { return super.<IKeywordEntry>getCurrentValue(); }
 		public void setCurrentValue(String value) { super.setCurrentValue(value); }
+	}
+
+	@SuppressWarnings("unchecked")
+	public final static class Approver extends CharacteristicAccess {
+		protected Approver(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
+		public IPrincipalValue getCurrentValue() { return super.<IPrincipalValue>getCurrentValue(); }
+		public void setCurrentValue(IPrincipalValue value) { super.setCurrentValue(value); }
+		public void setCurrentValue(String principalId, PrincipalType principalType) { super.setCurrentPrincipalValue(principalId, principalType); }
 	}
 
 	@SuppressWarnings("unchecked")

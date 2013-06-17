@@ -1,6 +1,12 @@
 package de.agito.bpmo.sample.invoice;
 
 // @@begin imports
+import de.agito.bpmo.sample.invoice.Invoice;
+import de.agito.bpmo.sample.invoice.InvoiceAccess;
+import de.agito.bpmo.sample.invoice.InvoiceAction;
+import de.agito.bpmo.sample.invoice.InvoiceLanguage;
+import de.agito.bpmo.sample.invoice.InvoiceLifecycle;
+import de.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
 import de.agito.cps.ui.vaadin.bpmo.annotation.Navigation;
@@ -23,9 +29,7 @@ import de.agito.cps.ui.vaadin.common.resources.DataTypeFactory;
  * @author Jörg Burmeister
  */
 // @@end
-public class InvoiceUIController
-		extends
-		BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceUIController extends BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceUIController(IBPMOUIControllerContext context) {
 		super(context);

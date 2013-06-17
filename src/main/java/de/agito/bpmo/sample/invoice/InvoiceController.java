@@ -10,9 +10,15 @@ import de.agito.bpmo.sample.invoice.InvoiceAccess.TaxPositions;
 import de.agito.cps.core.annotations.BPMO;
 import de.agito.cps.core.annotations.Expression;
 import de.agito.cps.core.annotations.ExpressionDependency;
+import de.agito.cps.core.bpmo.DataTypeFactory;
 import de.agito.cps.core.bpmo.ExpressionType;
+import de.agito.cps.core.bpmo.MessageSeverity;
+import de.agito.cps.core.bpmo.PrincipalType;
 import de.agito.cps.core.bpmo.api.controller.BPMOController;
 import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
+import de.agito.cps.core.context.ClientContextFactory;
+import de.agito.cps.core.engine.runtime.BusinessLog;
+import de.agito.cps.core.utils.ConvertUtils;
 // @@end
 
 // @@begin head:controller
@@ -92,18 +98,59 @@ public class InvoiceController
 	public void cpsBeforeSaveBPMO(InvoiceAccess bpmoAccess) {
 		// calculate title
 		Map<InvoiceLanguage, String> title = new HashMap<InvoiceLanguage, String>(InvoiceLanguage.values().length);
-		for (InvoiceLanguage language : InvoiceLanguage.values()) {
-			switch (language) {
-			case de:
-				title.put(language, String.format("%s", "Title"));
-				break;
-			case en:
-				title.put(language, String.format("%s", "Title"));
-				break;
-			}
-		}
+
+		// set title for default language only, because there is not language specific
+		title.put(InvoiceLanguage.valueOf(getBPMO().getBPMODefinition().getDefaultLanguage()), String.format("%s / %s",
+				bpmoAccess.getInvoiceNumber() == null ? "" : bpmoAccess.getInvoiceNumber(),
+				bpmoAccess.getInvoicingParty() == null ? "" : bpmoAccess.getInvoicingParty()));
+
 		getBPMO().setTitle(title);
 
+	}
+
+	@Override
+	public Object cpsExecuteBPMOAction(InvoiceAccess bpmoAccess, InvoiceAction action, Map<String, Object> parameters) {
+		try {
+			switch (action) {
+			case BackendBooking:
+				// get a interface to back end system and write data
+
+				// -------- do something on interface
+
+				// Write processing info to business log
+				BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
+				businessLog.addInfoLogEntry("Request processed",
+						String.format("Processing id %s", "processing Id of back end system given by interface"));
+				ClientContextFactory.getBPMOEngine().getRuntimeService()
+						.saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
+
+				parameters.put("IsProcessed", true);
+
+				break;
+			case ResolveOrder:
+				parameters.put("IsResolved", false);
+				if (bpmoAccess.getOrderNumber() != null) {
+					// retrieve order information from back end
+					bpmoAccess.getOrderCostCenter().setCurrentValue("5677757");
+					bpmoAccess.getOrderProfitcenter().setCurrentValue("100012345");
+					bpmoAccess.getApprover().setCurrentValue("bob", PrincipalType.USER);
+					bpmoAccess.getShipmentChecked().setCurrentValue(true);
+					bpmoAccess.getOrderChecked().setCurrentValue(true);
+					parameters.put("IsResolved", true);
+				}
+				break;
+			}
+			return parameters;
+		} catch (RuntimeException e) {
+			// for error diagnostics write errors to business log
+			BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
+			businessLog.addErrorLogEntry(MessageSeverity.ERROR.toString(),
+					String.format("Error on execution of action %s", action), ConvertUtils.getStackTraceAsString(e));
+			ClientContextFactory.getBPMOEngine().getRuntimeService()
+					.saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
+
+			throw e;
+		}
 	}
 	// @@end
 }
