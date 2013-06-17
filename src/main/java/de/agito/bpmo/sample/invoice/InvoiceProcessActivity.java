@@ -10,8 +10,10 @@ import de.agito.cps.core.bpmo.api.enums.IProcessActivity;
 public enum InvoiceProcessActivity implements IProcessActivity {
 
 	$DRAFT,
+	ResolveOrder,
 	CheckOrder,
-	Approval;
+	Approval,
+	Transfer;
 
 }
 

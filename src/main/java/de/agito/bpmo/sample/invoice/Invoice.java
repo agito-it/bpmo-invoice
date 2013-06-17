@@ -112,18 +112,18 @@ public enum Invoice implements IBODataElement {
 	 * <p>
 	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	TaxPositions$TaxAmount("TaxAmount", "Invoice$TaxPositions$TaxAmount", ControlType.DEFAULT),
+	TaxPositions$TaxAmount("TaxAmount", "Invoice$TaxPositions$TaxAmount", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Gross total €</b>
 	 * <p>
 	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
-	 * <i>{@link ControlType DEFAULT}<i><br>
+	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
-	TaxPositions$TotalAmount("TotalAmount", "Invoice$TaxPositions$TotalAmount", ControlType.DEFAULT),
+	TaxPositions$TotalAmount("TotalAmount", "Invoice$TaxPositions$TotalAmount", ControlType.INTERACTIVE),
 
 	/**
 	 * <b>Order number</b>

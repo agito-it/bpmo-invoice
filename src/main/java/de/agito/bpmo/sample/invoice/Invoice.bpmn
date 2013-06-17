@@ -6,9 +6,9 @@
   <process id="Invoice_InvoiceProcess" name="Invoice" isExecutable="true">
     <laneSet id="laneSet_Invoice_InvoiceProcess">
       <lane id="postOffice" name="Mail Admin Center">
-        <flowNodeRef>resolveOrder</flowNodeRef>
         <flowNodeRef>startevent</flowNodeRef>
         <flowNodeRef>orderResolvedGateway</flowNodeRef>
+        <flowNodeRef>ResolveOrder</flowNodeRef>
       </lane>
       <lane id="accounting" name="Financial Accounting">
         <flowNodeRef>CheckOrder</flowNodeRef>
@@ -16,13 +16,13 @@
       <lane id="approval" name="Approver">
         <flowNodeRef>exclusivegateway1</flowNodeRef>
         <flowNodeRef>Approval</flowNodeRef>
-        <flowNodeRef>transfer</flowNodeRef>
         <flowNodeRef>endevent</flowNodeRef>
         <flowNodeRef>approvalGateway</flowNodeRef>
+        <flowNodeRef>Transfer</flowNodeRef>
       </lane>
     </laneSet>
     <startEvent id="startevent" name="Start"></startEvent>
-    <serviceTask id="resolveOrder" name="Resolve Order" activiti:async="true" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
+    <serviceTask id="ResolveOrder" name="Resolve Order" activiti:async="true" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
       <extensionElements>
         <activiti:field name="action">
           <activiti:string>ResolveOrder</activiti:string>
@@ -32,35 +32,46 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow1" sourceRef="startevent" targetRef="resolveOrder"></sequenceFlow>
+    <sequenceFlow id="flow1" sourceRef="startevent" targetRef="ResolveOrder"></sequenceFlow>
     <exclusiveGateway id="orderResolvedGateway" name="Order resolved" default="notResoved"></exclusiveGateway>
-    <sequenceFlow id="flow2" sourceRef="resolveOrder" targetRef="orderResolvedGateway"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="ResolveOrder" targetRef="orderResolvedGateway"></sequenceFlow>
     <sequenceFlow id="notResoved" name="Order not resolved" sourceRef="orderResolvedGateway" targetRef="CheckOrder"></sequenceFlow>
     <userTask id="CheckOrder" name="Check order" activiti:candidateUsers="bob,alice"></userTask>
     <sequenceFlow id="flow4" sourceRef="CheckOrder" targetRef="exclusivegateway1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="Approval" name="Approve invoice"></userTask>
-    <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="Approval"></sequenceFlow>
+    <userTask id="Approval" name="Approve invoice" activiti:candidateUsers="${approver}"></userTask>
+    <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="Approval">
+      <extensionElements>
+        <activiti:executionListener event="take" class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionListener">
+          <activiti:field name="action">
+            <activiti:string>GetApprover</activiti:string>
+          </activiti:field>
+          <activiti:field name="variable">
+            <activiti:string>approver</activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements>
+    </sequenceFlow>
     <sequenceFlow id="resolved" name="Order resoved" sourceRef="orderResolvedGateway" targetRef="exclusivegateway1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${IsResolved}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="Approval" targetRef="approvalGateway"></sequenceFlow>
     <sequenceFlow id="disaproved" name="disaproved" sourceRef="approvalGateway" targetRef="CheckOrder"></sequenceFlow>
-    <serviceTask id="transfer" name="Transfer to ERP" activiti:exclusive="false" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
+    <serviceTask id="Transfer" name="Transfer to ERP" activiti:exclusive="false" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
       <extensionElements>
         <activiti:field name="action">
           <activiti:string>BackendBooking</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="approved" name="approved" sourceRef="approvalGateway" targetRef="transfer">
+    <sequenceFlow id="approved" name="approved" sourceRef="approvalGateway" targetRef="Transfer">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${IsApproved}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent" name="End"></endEvent>
-    <sequenceFlow id="flow10" sourceRef="transfer" targetRef="endevent"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="Transfer" targetRef="endevent"></sequenceFlow>
     <exclusiveGateway id="approvalGateway" name="Exclusive Gateway" default="disaproved"></exclusiveGateway>
     <textAnnotation id="textannotation1">
-      <text>Update record in a ERP system by using specialized interface</text>
+      <text>Update record in a ERP system by using an specialized interface</text>
     </textAnnotation>
     <association id="association1" sourceRef="textannotation1" targetRef="transfer"></association>
     <textAnnotation id="textannotation2">
@@ -85,7 +96,7 @@
       <bpmndi:BPMNShape bpmnElement="startevent" id="BPMNShape_startevent">
         <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="89.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="resolveOrder" id="BPMNShape_resolveOrder">
+      <bpmndi:BPMNShape bpmnElement="ResolveOrder" id="BPMNShape_ResolveOrder">
         <omgdc:Bounds height="55.0" width="105.0" x="140.0" y="79.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="orderResolvedGateway" id="BPMNShape_orderResolvedGateway">
@@ -100,7 +111,7 @@
       <bpmndi:BPMNShape bpmnElement="Approval" id="BPMNShape_Approval">
         <omgdc:Bounds height="55.0" width="105.0" x="470.0" y="357.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="transfer" id="BPMNShape_transfer">
+      <bpmndi:BPMNShape bpmnElement="Transfer" id="BPMNShape_Transfer">
         <omgdc:Bounds height="55.0" width="105.0" x="740.0" y="357.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent" id="BPMNShape_endevent">
@@ -110,10 +121,10 @@
         <omgdc:Bounds height="40.0" width="40.0" x="640.0" y="364.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="71.0" width="100.0" x="860.0" y="411.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="141.0" x="860.0" y="411.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="50.0" width="100.0" x="280.0" y="20.0"></omgdc:Bounds>
+        <omgdc:Bounds height="50.0" width="161.0" x="280.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="105.0" y="106.0"></omgdi:waypoint>
@@ -173,7 +184,7 @@
         <omgdi:waypoint x="900.0" y="384.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
-        <omgdi:waypoint x="860.0" y="446.0"></omgdi:waypoint>
+        <omgdi:waypoint x="860.0" y="438.0"></omgdi:waypoint>
         <omgdi:waypoint x="792.0" y="412.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">

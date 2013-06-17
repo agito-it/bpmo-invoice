@@ -208,6 +208,9 @@
 			</Label>
 			<Format>
 				<FormatEnum>
+					<ValuePresetting>
+						<DefaultValue>19</DefaultValue>
+					</ValuePresetting>
 					<DisableNull>true</DisableNull>
 					<KeywordFormat>
 						<InlineKeyword>
@@ -243,6 +246,14 @@
 					</Margin>
 				</FormatNumeric>
 			</Format>
+			<Controls>
+				<Control Lifecycle="NEW">
+					<Scope ScopeId="VISIBILITY">
+						<ProcessActivityId Id="*" />
+					</Scope>
+				</Control>
+				<ControlGroup GroupId="CalculatedColumn" />
+			</Controls>
 			<CalculateValue>
 				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
 				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
@@ -263,6 +274,9 @@
 					</Margin>
 				</FormatNumeric>
 			</Format>
+			<Controls>
+				<ControlGroupUsage GroupId="CalculatedColumn" />
+			</Controls>
 			<CalculateValue>
 				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
 				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
@@ -470,8 +484,8 @@
 		</ProcessActivityId>
 		<ProcessActivityId Id="ResolveOrder">
 			<Label>
-				<Text Language="en">Resolve order</Text>
-				<Text Language="de">Bestellung ermitteln</Text>
+				<Text Language="en">Resolve order details</Text>
+				<Text Language="de">Bestellungsdatails ermitteln</Text>
 			</Label>
 		</ProcessActivityId>
 		<ProcessActivityId Id="CheckOrder">
@@ -493,10 +507,45 @@
 			</Label>
 		</ProcessActivityId>
 	</ProcessActivities>
+	<ProcessChoices>
+		<!-- define task completion choices -->
+		<ProcessChoice Id="approved" Type="FORWARD">
+			<Label>
+				<Text Language="en">approved</Text>
+				<Text Language="de">genehmigt</Text>
+			</Label>
+		</ProcessChoice>
+		<ProcessChoice Id="disapproved" Type="FORWARD">
+			<Label>
+				<Text Language="en">not approved</Text>
+				<Text Language="de">nicht genehmigt</Text>
+			</Label>
+		</ProcessChoice>
+		<ProcessChoice Id="cancel" Type="CANCEL" RequireComment="true">
+			<Label>
+				<Text Language="en">Cancel procesing</Text>
+				<Text Language="de">Abbruch</Text>
+			</Label>
+		</ProcessChoice>
+
+		<!-- Assign choices to process activities -->
+		<Assignment ProcessChoiceId="approved">
+			<ProcessActivity Lifecycle="NEW">Approval</ProcessActivity>
+			<ProcessActivity Lifecycle="NEW">CheckOrder</ProcessActivity>
+		</Assignment>
+		<Assignment ProcessChoiceId="disapproved">
+			<ProcessActivity Lifecycle="NEW">Approval</ProcessActivity>
+		</Assignment>
+		<Assignment ProcessChoiceId="cancel">
+			<ProcessActivity Lifecycle="NEW">CheckOrder</ProcessActivity>
+		</Assignment>
+	</ProcessChoices>
 	<ClassArtifacts Package="de.agito.bpmo.sample.invoice"
 		UITechnology="Vaadin" />
 	<Actions>
+		<!-- define actions on BPMO who triggered by process engine executions -->
 		<Action>ResolveOrder</Action>
+		<Action>GetApprover</Action>
 		<Action>BackendBooking</Action>
 	</Actions>
 </BPMODefinition>

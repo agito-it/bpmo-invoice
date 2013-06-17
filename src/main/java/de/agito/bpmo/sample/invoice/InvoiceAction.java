@@ -10,6 +10,7 @@ import de.agito.cps.core.bpmo.api.enums.IAction;
 public enum InvoiceAction implements IAction {
 
 	ResolveOrder,
+	GetApprover,
 	BackendBooking;
 
 }
