@@ -46,6 +46,7 @@
 					<include>**/*.bpmo</include>
 					<include>**/*.bpmn</include>
 					<include>**/*.png</include>
+					<include>**/*.properties</include>
 				</includes>
 			</resource>
 			<resource>

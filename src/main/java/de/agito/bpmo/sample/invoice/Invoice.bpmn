@@ -30,6 +30,9 @@
         <activiti:field name="variable">
           <activiti:string>IsResolved</activiti:string>
         </activiti:field>
+        <activiti:field name="mode">
+          <activiti:string>EDIT</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent" targetRef="ResolveOrder"></sequenceFlow>
@@ -65,7 +68,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="approved" name="approved" sourceRef="approvalGateway" targetRef="Transfer">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${IsApproved}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${$cpsChoiceIdApproval.equals("approved")}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent" name="End"></endEvent>
     <sequenceFlow id="flow10" sourceRef="Transfer" targetRef="endevent"></sequenceFlow>
@@ -78,6 +81,8 @@
       <text>Resolve order information from ERP System</text>
     </textAnnotation>
     <association id="association2" sourceRef="textannotation2" targetRef="resolveOrder"></association>
+    <association id="association3" sourceRef="textannotation2" targetRef="ResolveOrder"></association>
+    <association id="association4" sourceRef="textannotation1" targetRef="Transfer"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
     <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
@@ -183,13 +188,13 @@
         <omgdi:waypoint x="845.0" y="384.0"></omgdi:waypoint>
         <omgdi:waypoint x="900.0" y="384.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
-        <omgdi:waypoint x="860.0" y="438.0"></omgdi:waypoint>
-        <omgdi:waypoint x="792.0" y="412.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
+      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
         <omgdi:waypoint x="280.0" y="45.0"></omgdi:waypoint>
         <omgdi:waypoint x="192.0" y="79.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association4" id="BPMNEdge_association4">
+        <omgdi:waypoint x="860.0" y="438.0"></omgdi:waypoint>
+        <omgdi:waypoint x="792.0" y="412.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

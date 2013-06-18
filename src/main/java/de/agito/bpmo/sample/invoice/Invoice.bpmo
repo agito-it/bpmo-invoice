@@ -148,11 +148,16 @@
 		<Format>
 			<FormatDateTime DataType="DATE">
 				<DaysAllowedInFuture>0</DaysAllowedInFuture>
+				<ValidationExpression>
+					<Dependency>Invoice$InvoiceDate</Dependency>
+				</ValidationExpression>
 			</FormatDateTime>
 		</Format>
+
 		<Controls>
 			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
 		</Controls>
+
 	</CharacteristicDefinition>
 
 	<CharacteristicDefinition Id="TermOfPayment">
