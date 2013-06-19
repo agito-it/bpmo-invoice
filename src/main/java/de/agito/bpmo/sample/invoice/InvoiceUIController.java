@@ -10,13 +10,13 @@ import de.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
 import de.agito.cps.ui.vaadin.bpmo.annotation.Navigation;
-import de.agito.cps.ui.vaadin.bpmo.annotation.StyleManager;
+import de.agito.cps.ui.vaadin.bpmo.annotation.StyleController;
 import de.agito.cps.ui.vaadin.bpmo.enums.ColumnAlignment;
 import de.agito.cps.ui.vaadin.bpmo.enums.ColumnCalculationMode;
 import de.agito.cps.ui.vaadin.bpmo.enums.NavigationType;
+import de.agito.cps.ui.vaadin.bpmo.enums.SeparatorStyle;
 import de.agito.cps.ui.vaadin.bpmo.enums.UNIT;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayoutManager;
-import de.agito.cps.ui.vaadin.bpmo.layout.flow.ISeparator;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.ITableContent;
 import de.agito.cps.ui.vaadin.bpmo.styles.IDefaultStyleController;
 import de.agito.cps.ui.vaadin.common.resources.DataTypeFactory;
@@ -52,7 +52,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 
 		// add Headline
 		layoutManager.createAndAddSeparator().setTitle(getBPMO().getBPMODefinition().getLabel().getText())
-				.addTitleStyleName(ISeparator.Style.H2).addTitleStyleName(ISeparator.Style.HR)
+				.addTitleStyleName(SeparatorStyle.H2).addTitleStyleName(SeparatorStyle.HR)
 				.setContentWidth(700, UNIT.PIXEL).setWidth(100, UNIT.PERCENTAGE);
 
 		// add initial fields to group
@@ -105,7 +105,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 	}
 
 	// @@begin others
-	@StyleManager
+	@StyleController
 	private IDefaultStyleController styleController;
 	// @@end
 }
