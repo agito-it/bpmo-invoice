@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.xml.datatype.DatatypeConstants;
 
@@ -135,9 +136,9 @@ public class InvoiceController
 		Map<InvoiceLanguage, String> title = new HashMap<InvoiceLanguage, String>(InvoiceLanguage.values().length);
 
 		// set title for default language only, because there is not language specific
-		title.put(InvoiceLanguage.valueOf(getBPMO().getBPMODefinition().getDefaultLanguage()), String.format("%s / %s", //$NON-NLS-1$
-				bpmoAccess.getInvoiceNumber().getCurrentValue() == null ? "" : bpmoAccess.getInvoiceNumber() //$NON-NLS-1$
-						.getCurrentValue(), bpmoAccess.getInvoicingParty().getCurrentValue() == null ? "" : bpmoAccess //$NON-NLS-1$
+		title.put(InvoiceLanguage.valueOf(getBPMO().getBPMODefinition().getDefaultLanguage()), String.format("%s / %s",
+				bpmoAccess.getInvoiceNumber().getCurrentValue() == null ? "" : bpmoAccess.getInvoiceNumber()
+						.getCurrentValue(), bpmoAccess.getInvoicingParty().getCurrentValue() == null ? "" : bpmoAccess
 						.getInvoicingParty().getCurrentValue()));
 
 		getBPMO().setTitle(title);
@@ -155,28 +156,33 @@ public class InvoiceController
 
 				// Write processing info to business log
 				BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
-				businessLog.addInfoLogEntry("Request processed", //$NON-NLS-1$
-						String.format("Processing id \"%s\"", "processing Id of back end system given by interface")); //$NON-NLS-1$ //$NON-NLS-2$
+				businessLog.addInfoLogEntry("Request processed",
+						String.format("Processing id \"%s\"", UUID.randomUUID().toString()));
 				ClientContextFactory.getBPMOEngine().getRuntimeService()
 						.saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
 
-				parameters.put("IsProcessed", true); //$NON-NLS-1$
+				parameters.put("IsProcessed", true);
 
 				break;
 			case ResolveOrder:
-				parameters.put("IsResolved", false); //$NON-NLS-1$
+				parameters.put("IsResolved", false);
+
+				// retrieve order information from back end and write to BO if a OrderNumber was given by initiator
 				if (bpmoAccess.getOrderNumber().getCurrentValue() != null) {
-					// retrieve order information from back end
-					bpmoAccess.getOrderCostCenter().setCurrentValue("5677757"); //$NON-NLS-1$
-					bpmoAccess.getOrderProfitcenter().setCurrentValue("100012345"); //$NON-NLS-1$
-					bpmoAccess.getApprover().setCurrentValue(getBPMOHeader().getInitiator().getId(), PrincipalType.USER); //$NON-NLS-1$
+					bpmoAccess.getOrderCostCenter().setCurrentValue("5677757");
+					bpmoAccess.getOrderProfitcenter().setCurrentValue("100012345");
+
+					// in this sample use the initiator as approver to avoid necessary user login switch
+					bpmoAccess.getApprover()
+							.setCurrentValue(getBPMOHeader().getInitiator().getId(), PrincipalType.USER);
 					bpmoAccess.getShipmentChecked().setCurrentValue(true);
 					bpmoAccess.getOrderChecked().setCurrentValue(true);
-					parameters.put("IsResolved", true); //$NON-NLS-1$
+					parameters.put("IsResolved", true);
 				}
 				break;
 			case GetApprover:
-				parameters.put("approver", bpmoAccess.getApprover().getCurrentValue().getId()); //$NON-NLS-1$
+				// return responsible approver id from BO
+				parameters.put("approver", bpmoAccess.getApprover().getCurrentValue().getId());
 				break;
 
 			}
@@ -185,7 +191,7 @@ public class InvoiceController
 			// for error diagnostics write errors to business log
 			BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
 			businessLog.addErrorLogEntry(MessageSeverity.ERROR.toString(),
-					String.format("Error on execution of action %s", action), ConvertUtils.getStackTraceAsString(e)); //$NON-NLS-1$
+					String.format("Error on execution of action %s", action), ConvertUtils.getStackTraceAsString(e));
 			ClientContextFactory.getBPMOEngine().getRuntimeService()
 					.saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
 

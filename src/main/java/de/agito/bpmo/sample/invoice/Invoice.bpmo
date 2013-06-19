@@ -459,7 +459,7 @@
 	</BPMOLabel>
 	<BPMODescription>
 		<Text Language="en">Invoice</Text>
-		<Text Language="de">Eingangsrechnung</Text>
+		<Text Language="de"><![CDATA[<h3>Beispiel Implementierung eines Rechnungseingangsprozesses</h3><li><b>Poststelle:</b> initiiert den Vorgang, fügt digitale Kopie der Rechnung an und erfasst allgemeine Rechnungsdaten</li><li><b>Bestelldetails ermitteln:</b> automatische ermittelt Ermittlung der Buchungsdaten und des Verantwortlichen aus ERP System</li><li><b>Bestellung prüfen (optional):</b> Wurde keine Bestellnummer erfasst, oder wurde die Bestellung zur erfassten Nummer nicht im ERP System gefunden, erfolgt eine manuelle Erfassung der Buchungsdaten und des Verantwortlichen. Der Prozess kann in dieser Aktivität unter Angabe einer Begründung abgebrochen werden</li><li><b>Genehmigung:</b> Genehmigung oder Ablehnung durch den Verantwortlichen. Bei Ablehnung erfolgt eine ggf. erneute Ausführung der Aktivität "Bestellung prüfen".</li><li><b>Verbuchung:</b> Übertragen der Buchungsdaten an das ERP System und Prozessabschluss</li>]]></Text>
 	</BPMODescription>
 
 	<Languages DefaultLanguage="en">
@@ -528,7 +528,7 @@
 		</ProcessChoice>
 		<ProcessChoice Id="cancel" Type="CANCEL" RequireComment="true">
 			<Label>
-				<Text Language="en">Cancel procesing</Text>
+				<Text Language="en">Cancel processing</Text>
 				<Text Language="de">Abbruch</Text>
 			</Label>
 		</ProcessChoice>
