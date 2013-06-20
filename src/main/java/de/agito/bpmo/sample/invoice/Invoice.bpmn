@@ -39,7 +39,7 @@
     <exclusiveGateway id="orderResolvedGateway" name="Order resolved" default="notResoved"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="ResolveOrder" targetRef="orderResolvedGateway"></sequenceFlow>
     <sequenceFlow id="notResoved" name="Order not resolved" sourceRef="orderResolvedGateway" targetRef="CheckOrder"></sequenceFlow>
-    <userTask id="CheckOrder" name="Check order" activiti:candidateUsers="bob,alice"></userTask>
+    <userTask id="CheckOrder" name="Check order" activiti:candidateGroups="roleAnyone"></userTask>
     <sequenceFlow id="flow4" sourceRef="CheckOrder" targetRef="exclusivegateway1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <userTask id="Approval" name="Approve invoice" activiti:candidateUsers="${approver}"></userTask>

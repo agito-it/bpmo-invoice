@@ -88,7 +88,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 		layoutManager.createAndAddCustomContent().setComponent(
 				DataTypeFactory.getInstance().createEmbeddedAttachmentViewer(
 						bpmoAccess.getInvoiceAttachment().getContext().getCharacteristicValue().getCurrentValue(),
-						getBPMO().getBPMOHeader().isNew()));
+						getBPMO().getBPMOHeader().isNew()).setViewerHeight(750, UNIT.PIXEL));
 		// @@end
 	}
 
