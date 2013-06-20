@@ -70,12 +70,12 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 		// add all remaining content elements excepting TaxPositions to group
 		layoutManager
 				.createAndAddGroupContent()
-				.setCaption(Messages.getString("InvoiceUIController.AccountingInformations")).fulfillContent(Invoice.TaxPositions).setDimension(2).setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
+				.setCaption(Messages.getString("InvoiceUIController.AccountingInformations")).fillContent(Invoice.TaxPositions).setDimension(2).setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
 
 		layoutManager.addLineBreak();
 
 		// manage TaxPositions layout
-		ITableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions).fulfillContent()
+		ITableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions).fillContent()
 				.setPageLength(3);
 		tableContent.getColumn(Invoice.TaxPositions$NetAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
 		tableContent.getColumn(Invoice.TaxPositions$TaxAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
