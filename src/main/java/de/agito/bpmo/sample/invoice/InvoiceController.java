@@ -64,7 +64,7 @@ public class InvoiceController
 										.createMessage(MessageSeverity.ERROR,
 												"ivalid Date", //$NON-NLS-1$
 												String.format(
-														Messages.getString("InvoiceController.InvoiceReceivedValidation"), invoiceDate.getDefinition().getLabel() //$NON-NLS-1$
+														Texts.getString("InvoiceController.InvoiceReceivedValidation"), invoiceDate.getDefinition().getLabel() //$NON-NLS-1$
 																.getText())));
 				return false;
 			}

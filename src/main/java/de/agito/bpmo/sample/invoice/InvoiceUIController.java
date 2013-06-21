@@ -58,7 +58,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 		// add initial fields to group
 		layoutManager
 				.createAndAddGroupContent()
-				.setCaption(Messages.getString("InvoiceUIController.InvoiceDetails"))
+				.setCaption(Texts.getString("InvoiceUIController.InvoiceDetails"))
 				.createAndAddElements(Invoice.InvoiceAttachment, Invoice.InvoicingParty, Invoice.InvoiceNumber,
 						Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment).setDimension(2)
 				.setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
@@ -70,7 +70,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 		// add all remaining content elements excepting TaxPositions to group
 		layoutManager
 				.createAndAddGroupContent()
-				.setCaption(Messages.getString("InvoiceUIController.AccountingInformations")).fillContent(Invoice.TaxPositions).setDimension(2).setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
+				.setCaption(Texts.getString("InvoiceUIController.AccountingInformations")).fillContent(Invoice.TaxPositions).setDimension(2).setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
 
 		layoutManager.addLineBreak();
 

@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 
 import de.agito.cps.core.context.ClientContextFactory;
 
-public class Messages {
-	private static final String BUNDLE_NAME = "de.agito.bpmo.sample.invoice.messages"; //$NON-NLS-1$
+public class Texts {
+	private static final String BUNDLE_NAME = "de.agito.bpmo.sample.invoice.text"; //$NON-NLS-1$
 
 	public static String getString(String key, Locale locale) {
 		try {
