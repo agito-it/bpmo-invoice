@@ -38,7 +38,9 @@ import javax.xml.datatype.DatatypeConstants;
  */
 // @@end
 @BPMO(id = "Invoice", version = "1.0.0", xml = "de/agito/bpmo/sample/invoice/Invoice.bpmo")
-public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceController
+		extends
+		BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceController(IBPMOControllerContext context) {
 		super(context);
@@ -64,7 +66,7 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 								DataTypeFactory
 										.getInstance()
 										.createMessage(MessageSeverity.ERROR,
-												"ivalid Date", //$NON-NLS-1$
+												"invalid Date", //$NON-NLS-1$
 												String.format(
 														Texts.getString("InvoiceController.InvoiceReceivedValidation"), invoiceDate.getDefinition().getLabel() //$NON-NLS-1$
 																.getText())));

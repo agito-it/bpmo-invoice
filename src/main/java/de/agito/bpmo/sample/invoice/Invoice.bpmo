@@ -286,7 +286,7 @@
 			<Text Language="de">Bestellnummer</Text>
 		</Label>
 		<Description>
-			<Text Language="en">Please enter if exist on invoiceOrder</Text>
+			<Text Language="en">Please enter if exist on invoice order</Text>
 			<Text Language="de">Wenn auf Eingangsrechnung vermerkt, bitte eingeben</Text>
 		</Description>
 		<Format>
@@ -320,7 +320,7 @@
 			<Text Language="en">Profitcenter</Text>
 		</Label>
 		<Description>
-			<Text Language="en">Profitcenter where is responsible for this invoice</Text>
+			<Text Language="en">Profitcenter in charge for this invoice</Text>
 			<Text Language="de">Verantwortliches Profitcenter</Text>
 		</Description>
 		<Format>
@@ -446,8 +446,8 @@
 		<Text Language="de">Eingangsrechnung</Text>
 	</BPMOLabel>
 	<BPMODescription>
-		<Text Language="en"><![CDATA[<h4>Sample implementation of invoice process</h4><ul><li><b>Mail admin center:</b> initiate request, add digital copy of invoice and capture common invoice data</li><li><b>Resolve order:</b> fetch order details and responsible from ERP system automatically</li><li><b>Check order (optional):</b> if order details not available, enter this information manually. Cancelling of process is possible here</li><li><b>Approval:</b> approve or disapprove the invoice. If disapproved, the activity “Check order” will triggered</li><li><b>Transfer to ERP:</b> transfer invoice data to ERP system and finish the process</li></ul>]]></Text>
-		<Text Language="de"><![CDATA[<h4>Beispiel Implementierung eines Rechnungseingangsprozesses</h4><ul><li><b>Poststelle:</b> initiiert den Vorgang, fügt digitale Kopie der Rechnung an und erfasst allgemeine Rechnungsdaten</li><li><b>Bestelldetails ermitteln:</b> automatische Ermittlung der Buchungsdaten und des Verantwortlichen aus ERP System</li><li><b>Bestellung prüfen (optional):</b> Wurde die Bestellung nicht im ERP System gefunden, erfolgt eine manuelle Erfassung der Buchungsdaten und des Verantwortlichen. Der Prozess kann in dieser Aktivität unter Angabe einer Begründung abgebrochen werden.</li><li><b>Genehmigung:</b> Genehmigung oder Ablehnung durch den Verantwortlichen. Bei Ablehnung erfolgt eine ggf. erneute Ausführung der Aktivität "Bestellung prüfen"</li><li><b>Verbuchung:</b> Übertragen der Buchungsdaten an das ERP System und Prozessabschluss</li></ul>]]></Text>
+		<Text Language="en"><![CDATA[<h4>Sample implementation of an Inbound Invoice Process</h4><ul><li><b>Mail Admin Center:</b> Initiate request, add digital copy of invoice and capture common invoice data.</li><li><b>Resolve Order:</b> Fetch order details and responsible from ERP system automatically</li><li><b>Check Order (optional):</b> In case order details are not available, this information is entered manually. Cancelling of process is possible here.</li><li><b>Approval:</b> Approve or disapprove the invoice. If disapproved, the activity “Check order” will be triggered.</li><li><b>Transfer to ERP:</b> transfer invoice data to ERP system and finish the process.</li></ul>]]></Text>
+		<Text Language="de"><![CDATA[<h4>Beispiel Implementierung eines Rechnungseingangsprozesses</h4><ul><li><b>Poststelle:</b> Initiiert den Vorgang, fügt digitale Kopie der Rechnung an und erfasst allgemeine Rechnungsdaten</li><li><b>Bestelldetails ermitteln:</b> automatische Ermittlung der Buchungsdaten und des Verantwortlichen aus ERP System.</li><li><b>Bestellung prüfen (optional):</b> Wurde die Bestellung nicht im ERP System gefunden, erfolgt eine manuelle Erfassung der Buchungsdaten und des Verantwortlichen. Der Prozess kann in dieser Aktivität unter Angabe einer Begründung abgebrochen werden.</li><li><b>Genehmigung:</b> Genehmigung oder Ablehnung durch den Verantwortlichen. Bei Ablehnung erfolgt eine ggf. erneute Ausführung der Aktivität "Bestellung prüfen".</li><li><b>Verbuchung:</b> Übertragen der Buchungsdaten an das ERP System und Prozessabschluss.</li></ul>]]></Text>
 	</BPMODescription>
 
 	<Languages DefaultLanguage="en">
@@ -477,19 +477,19 @@
 		</ProcessActivityId>
 		<ProcessActivityId Id="ResolveOrder">
 			<Label>
-				<Text Language="en">Resolve order details</Text>
+				<Text Language="en">Resolve Order Details</Text>
 				<Text Language="de">Bestellungsdatails ermitteln</Text>
 			</Label>
 		</ProcessActivityId>
 		<ProcessActivityId Id="CheckOrder">
 			<Label>
-				<Text Language="en">Check order</Text>
+				<Text Language="en">Check Order</Text>
 				<Text Language="de">Bestellung prüfen</Text>
 			</Label>
 		</ProcessActivityId>
 		<ProcessActivityId Id="Approval">
 			<Label>
-				<Text Language="en">Approve invoice</Text>
+				<Text Language="en">Approve Invoice</Text>
 				<Text Language="de">Rechnung genehmigen</Text>
 			</Label>
 		</ProcessActivityId>

@@ -36,9 +36,9 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent" targetRef="ResolveOrder"></sequenceFlow>
-    <exclusiveGateway id="orderResolvedGateway" name="Order resolved" default="notResoved"></exclusiveGateway>
+    <exclusiveGateway id="orderResolvedGateway" name="Order resolved" default="notResolved"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="ResolveOrder" targetRef="orderResolvedGateway"></sequenceFlow>
-    <sequenceFlow id="notResoved" name="Order not resolved" sourceRef="orderResolvedGateway" targetRef="CheckOrder"></sequenceFlow>
+    <sequenceFlow id="notResolved" name="Order not resolved" sourceRef="orderResolvedGateway" targetRef="CheckOrder"></sequenceFlow>
     <userTask id="CheckOrder" name="Check order" activiti:candidateGroups="roleAnyone"></userTask>
     <sequenceFlow id="flow4" sourceRef="CheckOrder" targetRef="exclusivegateway1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
@@ -55,11 +55,11 @@
         </activiti:executionListener>
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="resolved" name="Order resoved" sourceRef="orderResolvedGateway" targetRef="exclusivegateway1">
+    <sequenceFlow id="resolved" name="Order resolved" sourceRef="orderResolvedGateway" targetRef="exclusivegateway1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${IsResolved}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="Approval" targetRef="approvalGateway"></sequenceFlow>
-    <sequenceFlow id="disaproved" name="disaproved" sourceRef="approvalGateway" targetRef="CheckOrder"></sequenceFlow>
+    <sequenceFlow id="disapproved" name="disapproved" sourceRef="approvalGateway" targetRef="CheckOrder"></sequenceFlow>
     <serviceTask id="Transfer" name="Transfer to ERP" activiti:exclusive="false" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
       <extensionElements>
         <activiti:field name="action">
@@ -72,7 +72,7 @@
     </sequenceFlow>
     <endEvent id="endevent" name="End"></endEvent>
     <sequenceFlow id="flow10" sourceRef="Transfer" targetRef="endevent"></sequenceFlow>
-    <exclusiveGateway id="approvalGateway" name="Exclusive Gateway" default="disaproved"></exclusiveGateway>
+    <exclusiveGateway id="approvalGateway" name="Exclusive Gateway" default="disapproved"></exclusiveGateway>
     <textAnnotation id="textannotation1">
       <text>Update record in a ERP system by using an specialized interface</text>
     </textAnnotation>
@@ -139,7 +139,7 @@
         <omgdi:waypoint x="245.0" y="106.0"></omgdi:waypoint>
         <omgdi:waypoint x="309.0" y="106.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="notResoved" id="BPMNEdge_notResoved">
+      <bpmndi:BPMNEdge bpmnElement="notResolved" id="BPMNEdge_notResolved">
         <omgdi:waypoint x="329.0" y="126.0"></omgdi:waypoint>
         <omgdi:waypoint x="322.0" y="196.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
@@ -160,21 +160,21 @@
         <omgdi:waypoint x="410.0" y="106.0"></omgdi:waypoint>
         <omgdi:waypoint x="410.0" y="364.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="71.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="575.0" y="384.0"></omgdi:waypoint>
         <omgdi:waypoint x="640.0" y="384.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="disaproved" id="BPMNEdge_disaproved">
+      <bpmndi:BPMNEdge bpmnElement="disapproved" id="BPMNEdge_disapproved">
         <omgdi:waypoint x="660.0" y="404.0"></omgdi:waypoint>
         <omgdi:waypoint x="660.0" y="465.0"></omgdi:waypoint>
         <omgdi:waypoint x="223.0" y="465.0"></omgdi:waypoint>
         <omgdi:waypoint x="223.0" y="224.0"></omgdi:waypoint>
         <omgdi:waypoint x="270.0" y="223.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="54.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="approved" id="BPMNEdge_approved">
