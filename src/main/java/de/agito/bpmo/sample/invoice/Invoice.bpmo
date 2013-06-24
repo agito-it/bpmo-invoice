@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<BPMODefinition BPMOId="Invoice" Version="1.0.0" NodeId="Invoice"
-	MinOccur="1" MaxOccur="1" xmlns="http://de.agito/cps/core">
+<BPMODefinition BPMOId="Invoice" Version="1.0.0" NodeId="Invoice" MinOccur="1" MaxOccur="1" xmlns="http://de.agito/cps/core">
 
 	<!-- Start BPMO root element definition -->
 	<Key Id="Invoice">
@@ -251,14 +250,6 @@
 					</Margin>
 				</FormatNumeric>
 			</Format>
-			<Controls>
-				<Control Lifecycle="NEW">
-					<Scope ScopeId="VISIBILITY">
-						<ProcessActivityId Id="*" />
-					</Scope>
-				</Control>
-				<ControlGroup GroupId="CalculatedColumn" />
-			</Controls>
 			<CalculateValue>
 				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
 				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
@@ -279,9 +270,6 @@
 					</Margin>
 				</FormatNumeric>
 			</Format>
-			<Controls>
-				<ControlGroupUsage GroupId="CalculatedColumn" />
-			</Controls>
 			<CalculateValue>
 				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
 				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
@@ -545,8 +533,7 @@
 			<ProcessActivity Lifecycle="NEW">CheckOrder</ProcessActivity>
 		</Assignment>
 	</ProcessChoices>
-	<ClassArtifacts Package="de.agito.bpmo.sample.invoice"
-		UITechnology="Vaadin" />
+	<ClassArtifacts Package="de.agito.bpmo.sample.invoice" UITechnology="Vaadin" />
 	<Actions>
 		<!-- define actions on BPMO who triggered by process engine executions -->
 		<Action>ResolveOrder</Action>

@@ -1,17 +1,15 @@
 package de.agito.bpmo.sample.invoice;
 
 // @@begin imports
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.xml.datatype.DatatypeConstants;
-
+import de.agito.bpmo.sample.invoice.Invoice;
+import de.agito.bpmo.sample.invoice.InvoiceAccess;
 import de.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceDate;
 import de.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceReceived;
 import de.agito.bpmo.sample.invoice.InvoiceAccess.TaxPositions;
+import de.agito.bpmo.sample.invoice.InvoiceAction;
+import de.agito.bpmo.sample.invoice.InvoiceLanguage;
+import de.agito.bpmo.sample.invoice.InvoiceLifecycle;
+import de.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 import de.agito.cps.core.annotations.BPMO;
 import de.agito.cps.core.annotations.Expression;
 import de.agito.cps.core.annotations.ExpressionDependency;
@@ -24,6 +22,12 @@ import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
 import de.agito.cps.core.context.ClientContextFactory;
 import de.agito.cps.core.engine.runtime.BusinessLog;
 import de.agito.cps.core.utils.ConvertUtils;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import javax.xml.datatype.DatatypeConstants;
 // @@end
 
 // @@begin head:controller
@@ -34,9 +38,7 @@ import de.agito.cps.core.utils.ConvertUtils;
  */
 // @@end
 @BPMO(id = "Invoice", version = "1.0.0", xml = "de/agito/bpmo/sample/invoice/Invoice.bpmo")
-public class InvoiceController
-		extends
-		BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceController(IBPMOControllerContext context) {
 		super(context);
