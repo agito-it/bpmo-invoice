@@ -1,4 +1,4 @@
-package de.agito.bpmo.sample.invoice;
+package org.agito.bpmo.sample.invoice;
 
 import de.agito.cps.core.bpmo.api.enums.ILanguage;
 import java.util.Locale;
@@ -6,7 +6,7 @@ import java.util.Locale;
 /**
  * Languages for Invoice.
  *
- * @author Jörg Burmeister
+ * @author andreas.weise
  */
 public enum InvoiceLanguage implements ILanguage {
 

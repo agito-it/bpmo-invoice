@@ -1,4 +1,4 @@
-package de.agito.bpmo.sample.invoice;
+package org.agito.bpmo.sample.invoice;
 
 import de.agito.cps.core.bpmo.IAttachmentEntry;
 import de.agito.cps.core.bpmo.IKeywordEntry;
@@ -19,7 +19,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 /**
  * BPMOAccess for Invoice.
  * 
- * @author Jörg Burmeister
+ * @author andreas.weise
  */
 public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 
@@ -87,7 +87,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Order number</b>
 	 * <p>
-	 * Please enter if exist on invoiceOrder
+	 * Please enter if exist on invoice order
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
@@ -97,7 +97,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Profitcenter</b>
 	 * <p>
-	 * Profitcenter where is responsible for this invoice
+	 * Profitcenter in charge for this invoice
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>

@@ -1,4 +1,4 @@
-package de.agito.bpmo.sample.invoice;
+package org.agito.bpmo.sample.invoice;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import de.agito.cps.core.context.ClientContextFactory;
 
 public class Texts {
-	private static final String BUNDLE_NAME = "de.agito.bpmo.sample.invoice.text"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.agito.bpmo.sample.invoice.text"; //$NON-NLS-1$
 
 	public static String getString(String key, Locale locale) {
 		try {

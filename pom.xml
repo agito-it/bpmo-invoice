@@ -67,9 +67,9 @@
 
 	<repositories>
 		<repository>
-			<id>agito</id>
-			<name>agito</name>
-			<url>http://service-milestone.agito.corp/nexus/content/groups/public</url>
+			<id>agito-repository</id>
+			<name>agito-repository</name>
+			<url>https://service.agito-it.com/nexus/content/groups/public</url>
 		</repository>
 	</repositories>
 

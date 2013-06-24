@@ -1,11 +1,11 @@
-package de.agito.bpmo.sample.invoice;
+package org.agito.bpmo.sample.invoice;
 
 import de.agito.cps.core.bpmo.api.enums.IAction;
 
 /**
  * BPMO Actions for Invoice.
  *
- * @author Jörg Burmeister
+ * @author andreas.weise
  */
 public enum InvoiceAction implements IAction {
 

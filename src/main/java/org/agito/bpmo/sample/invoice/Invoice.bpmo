@@ -533,7 +533,7 @@
 			<ProcessActivity Lifecycle="NEW">CheckOrder</ProcessActivity>
 		</Assignment>
 	</ProcessChoices>
-	<ClassArtifacts Package="de.agito.bpmo.sample.invoice" UITechnology="Vaadin" />
+	<ClassArtifacts Package="org.agito.bpmo.sample.invoice" UITechnology="Vaadin" />
 	<Actions>
 		<!-- define actions on BPMO who triggered by process engine executions -->
 		<Action>ResolveOrder</Action>

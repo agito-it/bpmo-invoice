@@ -1,12 +1,6 @@
-package de.agito.bpmo.sample.invoice;
+package org.agito.bpmo.sample.invoice;
 
 // @@begin imports
-import de.agito.bpmo.sample.invoice.Invoice;
-import de.agito.bpmo.sample.invoice.InvoiceAccess;
-import de.agito.bpmo.sample.invoice.InvoiceAction;
-import de.agito.bpmo.sample.invoice.InvoiceLanguage;
-import de.agito.bpmo.sample.invoice.InvoiceLifecycle;
-import de.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
 import de.agito.cps.ui.vaadin.bpmo.annotation.Navigation;
@@ -20,6 +14,12 @@ import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayoutManager;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.ITableContent;
 import de.agito.cps.ui.vaadin.bpmo.styles.IDefaultStyleController;
 import de.agito.cps.ui.vaadin.common.resources.DataTypeFactory;
+import org.agito.bpmo.sample.invoice.Invoice;
+import org.agito.bpmo.sample.invoice.InvoiceAccess;
+import org.agito.bpmo.sample.invoice.InvoiceAction;
+import org.agito.bpmo.sample.invoice.InvoiceLanguage;
+import org.agito.bpmo.sample.invoice.InvoiceLifecycle;
+import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 // @@end
 
 // @@begin head:uicontroller

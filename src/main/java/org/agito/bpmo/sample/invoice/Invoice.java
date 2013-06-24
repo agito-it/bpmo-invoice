@@ -1,4 +1,4 @@
-package de.agito.bpmo.sample.invoice;
+package org.agito.bpmo.sample.invoice;
 
 import de.agito.cps.core.bpmo.ControlType;
 import de.agito.cps.core.bpmo.DataTypeFactory;
@@ -10,7 +10,7 @@ import de.agito.cps.core.bpmo.api.enums.IBONode;
 /**
  * Enum for Invoice.
  *
- * @author Jörg Burmeister
+ * @author andreas.weise
  */
 public enum Invoice implements IBODataElement {
 
@@ -128,7 +128,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Order number</b>
 	 * <p>
-	 * Please enter if exist on invoiceOrder
+	 * Please enter if exist on invoice order
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
@@ -139,7 +139,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Profitcenter</b>
 	 * <p>
-	 * Profitcenter where is responsible for this invoice
+	 * Profitcenter in charge for this invoice
 	 * <p>
 	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>

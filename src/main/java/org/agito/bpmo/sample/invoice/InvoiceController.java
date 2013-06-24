@@ -1,15 +1,6 @@
-package de.agito.bpmo.sample.invoice;
+package org.agito.bpmo.sample.invoice;
 
 // @@begin imports
-import de.agito.bpmo.sample.invoice.Invoice;
-import de.agito.bpmo.sample.invoice.InvoiceAccess;
-import de.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceDate;
-import de.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceReceived;
-import de.agito.bpmo.sample.invoice.InvoiceAccess.TaxPositions;
-import de.agito.bpmo.sample.invoice.InvoiceAction;
-import de.agito.bpmo.sample.invoice.InvoiceLanguage;
-import de.agito.bpmo.sample.invoice.InvoiceLifecycle;
-import de.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 import de.agito.cps.core.annotations.BPMO;
 import de.agito.cps.core.annotations.Expression;
 import de.agito.cps.core.annotations.ExpressionDependency;
@@ -28,6 +19,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.xml.datatype.DatatypeConstants;
+import org.agito.bpmo.sample.invoice.Invoice;
+import org.agito.bpmo.sample.invoice.InvoiceAccess;
+import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceDate;
+import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceReceived;
+import org.agito.bpmo.sample.invoice.InvoiceAccess.TaxPositions;
+import org.agito.bpmo.sample.invoice.InvoiceAction;
+import org.agito.bpmo.sample.invoice.InvoiceLanguage;
+import org.agito.bpmo.sample.invoice.InvoiceLifecycle;
+import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 // @@end
 
 // @@begin head:controller
@@ -37,10 +37,8 @@ import javax.xml.datatype.DatatypeConstants;
  * @author Jörg Burmeister
  */
 // @@end
-@BPMO(id = "Invoice", version = "1.0.0", xml = "de/agito/bpmo/sample/invoice/Invoice.bpmo")
-public class InvoiceController
-		extends
-		BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+@BPMO(id = "Invoice", version = "1.0.0", xml = "org/agito/bpmo/sample/invoice/Invoice.bpmo")
+public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceController(IBPMOControllerContext context) {
 		super(context);
