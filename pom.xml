@@ -4,7 +4,7 @@
 
 	<groupId>org.agito.demo</groupId>
 	<artifactId>bpmo-invoice</artifactId>
-	<version>1.0.0-beta0</version>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<name>agito BPMO Inbound Invoice Processing</name>
 	<description>agito BPMO Inbound Invoice Processing</description>
