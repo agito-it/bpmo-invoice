@@ -1,6 +1,18 @@
 package org.agito.bpmo.sample.invoice;
 
 // @@begin imports
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.xml.datatype.DatatypeConstants;
+
+import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceDate;
+import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceReceived;
+import org.agito.bpmo.sample.invoice.InvoiceAccess.TaxPositions;
+
 import de.agito.cps.core.annotations.BPMO;
 import de.agito.cps.core.annotations.Expression;
 import de.agito.cps.core.annotations.ExpressionDependency;
@@ -10,24 +22,8 @@ import de.agito.cps.core.bpmo.MessageSeverity;
 import de.agito.cps.core.bpmo.PrincipalType;
 import de.agito.cps.core.bpmo.api.controller.BPMOController;
 import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
-import de.agito.cps.core.context.ClientContextFactory;
 import de.agito.cps.core.engine.runtime.BusinessLog;
 import de.agito.cps.core.utils.ConvertUtils;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import javax.xml.datatype.DatatypeConstants;
-import org.agito.bpmo.sample.invoice.Invoice;
-import org.agito.bpmo.sample.invoice.InvoiceAccess;
-import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceDate;
-import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceReceived;
-import org.agito.bpmo.sample.invoice.InvoiceAccess.TaxPositions;
-import org.agito.bpmo.sample.invoice.InvoiceAction;
-import org.agito.bpmo.sample.invoice.InvoiceLanguage;
-import org.agito.bpmo.sample.invoice.InvoiceLifecycle;
-import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 // @@end
 
 // @@begin head:controller
@@ -38,7 +34,9 @@ import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
  */
 // @@end
 @BPMO(id = "Invoice", version = "1.0.0", xml = "org/agito/bpmo/sample/invoice/Invoice.bpmo")
-public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceController
+		extends
+		BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceController(IBPMOControllerContext context) {
 		super(context);
@@ -137,11 +135,11 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 		// calculate title
 		Map<InvoiceLanguage, String> title = new HashMap<InvoiceLanguage, String>(InvoiceLanguage.values().length);
 
-		// set title for default language only, because there is not language specific
-		title.put(InvoiceLanguage.valueOf(getBPMO().getBPMODefinition().getDefaultLanguage()), String.format("%s / %s",
-				bpmoAccess.getInvoiceNumber().getCurrentValue() == null ? "" : bpmoAccess.getInvoiceNumber()
-						.getCurrentValue(), bpmoAccess.getInvoicingParty().getCurrentValue() == null ? "" : bpmoAccess
-						.getInvoicingParty().getCurrentValue()));
+		// set title for default language only, because there is nothing language specific portion in the title
+		String invoiceNumber = bpmoAccess.getInvoiceNumber().getCurrentValue();
+		String invoiceParty = bpmoAccess.getInvoicingParty().getCurrentValue();
+		title.put(InvoiceLanguage.en, String.format("%s / %s", invoiceNumber == null ? "" : invoiceNumber,
+				invoiceParty == null ? "" : invoiceParty));
 
 		getBPMO().setTitle(title);
 
@@ -156,12 +154,12 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 
 				// -------- do something on interface
 
-				// Write processing info to business log
+				// write processing info to business log
 				BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
 				businessLog.addInfoLogEntry("Request processed",
 						String.format("Processing id \"%s\"", UUID.randomUUID().toString()));
-				ClientContextFactory.getBPMOEngine().getRuntimeService()
-						.saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
+				getBPMOEngine().getRuntimeService().saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(),
+						businessLog, true);
 
 				parameters.put("IsProcessed", true);
 
@@ -194,8 +192,8 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 			BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
 			businessLog.addErrorLogEntry(MessageSeverity.ERROR.toString(),
 					String.format("Error on execution of action %s", action), ConvertUtils.getStackTraceAsString(e));
-			ClientContextFactory.getBPMOEngine().getRuntimeService()
-					.saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
+			getBPMOEngine().getRuntimeService().saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(), businessLog,
+					true);
 
 			throw e;
 		}

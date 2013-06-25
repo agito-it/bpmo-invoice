@@ -29,7 +29,9 @@ import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
  * @author Jörg Burmeister
  */
 // @@end
-public class InvoiceUIController extends BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceUIController
+		extends
+		BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceUIController(IBPMOUIControllerContext context) {
 		super(context);
@@ -60,8 +62,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 				.createAndAddGroupContent()
 				.setCaption(Texts.getString("InvoiceUIController.InvoiceDetails"))
 				.createAndAddElements(Invoice.InvoiceAttachment, Invoice.InvoicingParty, Invoice.InvoiceNumber,
-						Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment).setDimension(2)
-				.setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
+						Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment).setDimension(2); //$NON-NLS-1$
 
 		// add separator for horizontal separation of groups
 		layoutManager.createAndAddSeparator().setWidth(10, UNIT.PIXEL);
@@ -70,7 +71,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 		// add all remaining content elements excepting TaxPositions to group
 		layoutManager
 				.createAndAddGroupContent()
-				.setCaption(Texts.getString("InvoiceUIController.AccountingInformations")).fillContent(Invoice.TaxPositions).setDimension(2).setHeight(240, UNIT.PIXEL); //$NON-NLS-1$
+				.setCaption(Texts.getString("InvoiceUIController.AccountingInformations")).fillContent(Invoice.TaxPositions).setDimension(2); //$NON-NLS-1$
 
 		layoutManager.addLineBreak();
 
@@ -86,9 +87,12 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 
 		// create attachment viewer
 		layoutManager.createAndAddCustomContent().setComponent(
-				DataTypeFactory.getInstance().createEmbeddedAttachmentViewer(
-						bpmoAccess.getInvoiceAttachment().getContext().getCharacteristicValue().getCurrentValue(),
-						getBPMO().getBPMOHeader().isNew()).setViewerHeight(750, UNIT.PIXEL));
+				DataTypeFactory
+						.getInstance()
+						.createEmbeddedAttachmentViewer(
+								bpmoAccess.getInvoiceAttachment().getContext().getCharacteristicValue()
+										.getCurrentValue(), getBPMO().getBPMOHeader().isNew())
+						.setViewerHeight(750, UNIT.PIXEL));
 		// @@end
 	}
 
