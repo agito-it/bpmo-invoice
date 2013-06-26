@@ -144,9 +144,10 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 */
 	public TaxPositions getTaxPositions() { return super.<TaxPositions>getTableAccessCV(TaxPositions.class, "Invoice$TaxPositions"); }
 
+	@SuppressWarnings("unchecked")
 	public final static class Invoice extends NodeKeyAccess {
 		protected Invoice(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
-		public String getInvoice() { return super.<String>getValue(); }
+		public String getValue() { return super.<String>getValue(); }
 	}
 
 	@SuppressWarnings("unchecked")
@@ -256,7 +257,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 			public final static class TaxRate extends CellAccess {
 				protected TaxRate(BPMOAccess<?> bpmoAccess, RowAccess rowAccess, String path, String id) { super(bpmoAccess, rowAccess, path, id); }
 				public IKeywordEntry getValue() { return super.<IKeywordEntry>getValue(); }
-				public void setValue(IKeywordEntry value) { super.setValue(value); }
+				public void setValue(String value) { super.setValue(value); }
 			}
 
 			@SuppressWarnings("unchecked")

@@ -1,18 +1,6 @@
 package org.agito.bpmo.sample.invoice;
 
 // @@begin imports
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.xml.datatype.DatatypeConstants;
-
-import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceDate;
-import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceReceived;
-import org.agito.bpmo.sample.invoice.InvoiceAccess.TaxPositions;
-
 import de.agito.cps.core.annotations.BPMO;
 import de.agito.cps.core.annotations.Expression;
 import de.agito.cps.core.annotations.ExpressionDependency;
@@ -23,20 +11,37 @@ import de.agito.cps.core.bpmo.PrincipalType;
 import de.agito.cps.core.bpmo.api.controller.BPMOController;
 import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
 import de.agito.cps.core.engine.runtime.BusinessLog;
+import de.agito.cps.core.logger.Logger;
 import de.agito.cps.core.utils.ConvertUtils;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import javax.xml.datatype.DatatypeConstants;
+import org.agito.bpmo.sample.invoice.Invoice;
+import org.agito.bpmo.sample.invoice.InvoiceAccess;
+import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceDate;
+import org.agito.bpmo.sample.invoice.InvoiceAccess.InvoiceReceived;
+import org.agito.bpmo.sample.invoice.InvoiceAccess.TaxPositions;
+import org.agito.bpmo.sample.invoice.InvoiceAction;
+import org.agito.bpmo.sample.invoice.InvoiceLanguage;
+import org.agito.bpmo.sample.invoice.InvoiceLifecycle;
+import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 // @@end
 
 // @@begin head:controller
 /**
  * BPMOController for Invoice.
  * 
- * @author Jörg Burmeister
+ * @author agito
  */
 // @@end
 @BPMO(id = "Invoice", version = "1.0.0", xml = "org/agito/bpmo/sample/invoice/Invoice.bpmo")
-public class InvoiceController
-		extends
-		BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+
+	@SuppressWarnings("unused")
+	private final static Logger LOGGER = Logger.getLogger(InvoiceController.class);
 
 	public InvoiceController(IBPMOControllerContext context) {
 		super(context);

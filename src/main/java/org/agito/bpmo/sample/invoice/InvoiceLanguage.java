@@ -6,7 +6,7 @@ import java.util.Locale;
 /**
  * Languages for Invoice.
  *
- * @author andreas.weise
+ * @author agito
  */
 public enum InvoiceLanguage implements ILanguage {
 

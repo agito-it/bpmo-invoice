@@ -1,6 +1,7 @@
 package org.agito.bpmo.sample.invoice;
 
 // @@begin imports
+import de.agito.cps.core.logger.Logger;
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
 import de.agito.cps.ui.vaadin.bpmo.annotation.Navigation;
@@ -26,12 +27,13 @@ import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 /**
  * Vaadin UI Controller for Invoice.
  * 
- * @author Jörg Burmeister
+ * @author agito
  */
 // @@end
-public class InvoiceUIController
-		extends
-		BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceUIController extends BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+
+	@SuppressWarnings("unused")
+	private final static Logger LOGGER = Logger.getLogger(InvoiceUIController.class);
 
 	public InvoiceUIController(IBPMOUIControllerContext context) {
 		super(context);
