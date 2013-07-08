@@ -22,7 +22,7 @@
       </lane>
     </laneSet>
     <startEvent id="startevent" name="Start"></startEvent>
-    <serviceTask id="ResolveOrder" name="Resolve Order" activiti:async="true" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
+    <serviceTask id="ResolveOrder" name="Resolve Order" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
       <extensionElements>
         <activiti:field name="action">
           <activiti:string>ResolveOrder</activiti:string>
@@ -160,7 +160,7 @@
         <omgdi:waypoint x="410.0" y="106.0"></omgdi:waypoint>
         <omgdi:waypoint x="410.0" y="364.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="73.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
@@ -174,7 +174,7 @@
         <omgdi:waypoint x="223.0" y="224.0"></omgdi:waypoint>
         <omgdi:waypoint x="270.0" y="223.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="60.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="approved" id="BPMNEdge_approved">
