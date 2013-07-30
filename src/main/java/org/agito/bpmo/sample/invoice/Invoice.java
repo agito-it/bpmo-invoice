@@ -10,7 +10,7 @@ import de.agito.cps.core.bpmo.api.enums.IBONode;
 /**
  * Enum for Invoice.
  *
- * @author agito
+ * @author andreas.weise
  */
 public enum Invoice implements IBODataElement {
 

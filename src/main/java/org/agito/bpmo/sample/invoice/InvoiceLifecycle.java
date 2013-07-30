@@ -5,7 +5,7 @@ import de.agito.cps.core.bpmo.api.enums.ILifecycle;
 /**
  * Lifecycle Enum for Invoice.
  *
- * @author agito
+ * @author andreas.weise
  */
 public enum InvoiceLifecycle implements ILifecycle {
 

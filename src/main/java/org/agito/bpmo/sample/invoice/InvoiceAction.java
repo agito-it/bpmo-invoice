@@ -5,7 +5,7 @@ import de.agito.cps.core.bpmo.api.enums.IAction;
 /**
  * BPMO Actions for Invoice.
  *
- * @author agito
+ * @author andreas.weise
  */
 public enum InvoiceAction implements IAction {
 
