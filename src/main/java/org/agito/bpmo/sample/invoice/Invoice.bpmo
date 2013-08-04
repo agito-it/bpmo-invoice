@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<BPMODefinition BPMOId="Invoice" Version="1.0.0" NodeId="Invoice" MinOccur="1" MaxOccur="1" xmlns="http://de.agito/cps/core">
+<BPMODefinition BPMOId="Invoice" Version="1.0.0" NodeId="Invoice"
+	MinOccur="1" MaxOccur="1" xmlns="http://de.agito/cps/core">
 
 	<!-- Start BPMO root element definition -->
 	<Key Id="Invoice">
@@ -7,11 +8,11 @@
 			<Text Language="en">Invoice Root</Text>
 			<Text Language="de">Eingangsrechnung Root</Text>
 		</Label>
-		<StringKeyFormat>
+		<FormatString>
 			<LengthFormat>
 				<MinLength>1</MinLength>
 			</LengthFormat>
-		</StringKeyFormat>
+		</FormatString>
 	</Key>
 	<Label>
 		<Text Language="en">Invoice</Text>
@@ -43,14 +44,14 @@
 			<Text Language="en">Digital copy of invoice as PDF file</Text>
 			<Text Language="de">Digitale Kopie der Rechnung als PDF Datei</Text>
 		</Description>
-		<Format>
-			<FormatAttachment>
-				<MaxFileSize>256000</MaxFileSize>
-				<AllowedMimeType>application/pdf</AllowedMimeType>
-				<AllowedMimeType>image/png</AllowedMimeType>
-				<AllowedMimeType>image/gif</AllowedMimeType>
-			</FormatAttachment>
-		</Format>
+
+		<FormatAttachment>
+			<MaxFileSize>256000</MaxFileSize>
+			<AllowedMimeType>application/pdf</AllowedMimeType>
+			<AllowedMimeType>image/png</AllowedMimeType>
+			<AllowedMimeType>image/gif</AllowedMimeType>
+		</FormatAttachment>
+
 		<Controls>
 			<Control Lifecycle="NEW">
 				<Scope ScopeId="VISIBILITY">
@@ -79,13 +80,13 @@
 			<Text Language="en">Name of party sending the invoice</Text>
 			<Text Language="de">Name des Rechnungsstellers</Text>
 		</Description>
-		<Format>
-			<FormatString>
-				<LengthFormat>
-					<MaxLength>100</MaxLength>
-				</LengthFormat>
-			</FormatString>
-		</Format>
+
+		<FormatString>
+			<LengthFormat>
+				<MaxLength>100</MaxLength>
+			</LengthFormat>
+		</FormatString>
+
 		<Controls>
 			<Control Lifecycle="NEW">
 				<Scope ScopeId="VISIBILITY">
@@ -112,13 +113,13 @@
 			<Text Language="en">Invoice number</Text>
 			<Text Language="de">Rechnungsnummer</Text>
 		</Label>
-		<Format>
-			<FormatString>
-				<LengthFormat>
-					<MaxLength>100</MaxLength>
-				</LengthFormat>
-			</FormatString>
-		</Format>
+
+		<FormatString>
+			<LengthFormat>
+				<MaxLength>100</MaxLength>
+			</LengthFormat>
+		</FormatString>
+
 		<Controls>
 			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
 		</Controls>
@@ -129,11 +130,11 @@
 			<Text Language="en">Invoice date</Text>
 			<Text Language="de">Rechnungsdatum</Text>
 		</Label>
-		<Format>
-			<FormatDateTime DataType="DATE">
-				<DaysAllowedInFuture>0</DaysAllowedInFuture>
-			</FormatDateTime>
-		</Format>
+
+		<FormatDateTime DataType="DATE">
+			<DaysAllowedInFuture>0</DaysAllowedInFuture>
+		</FormatDateTime>
+
 		<Controls>
 			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
 		</Controls>
@@ -144,14 +145,14 @@
 			<Text Language="en">Invoice received</Text>
 			<Text Language="de">Rechnungseingang</Text>
 		</Label>
-		<Format>
-			<FormatDateTime DataType="DATE">
-				<DaysAllowedInFuture>0</DaysAllowedInFuture>
-				<ValidationExpression>
-					<Dependency>Invoice$InvoiceDate</Dependency>
-				</ValidationExpression>
-			</FormatDateTime>
-		</Format>
+
+		<FormatDateTime DataType="DATE">
+			<DaysAllowedInFuture>0</DaysAllowedInFuture>
+			<ValidationExpression>
+				<Dependency>Invoice$InvoiceDate</Dependency>
+			</ValidationExpression>
+		</FormatDateTime>
+
 
 		<Controls>
 			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
@@ -164,15 +165,15 @@
 			<Text Language="en">Term of payment (Days)</Text>
 			<Text Language="de">Zahlungsziel (Tage)</Text>
 		</Label>
-		<Format>
-			<FormatNumeric>
-				<TotalDigits>3</TotalDigits>
-				<FracDigits>0</FracDigits>
-				<Margin Type="INCLUSIVE">
-					<Min>0</Min>
-				</Margin>
-			</FormatNumeric>
-		</Format>
+
+		<FormatNumeric>
+			<TotalDigits>3</TotalDigits>
+			<FracDigits>0</FracDigits>
+			<Margin Type="INCLUSIVE">
+				<Min>0</Min>
+			</Margin>
+		</FormatNumeric>
+
 		<Controls>
 			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
 		</Controls>
@@ -192,15 +193,15 @@
 				<Text Language="en">Net amount €</Text>
 				<Text Language="de">Netto Betrag €</Text>
 			</Label>
-			<Format>
-				<FormatNumeric>
-					<TotalDigits>10</TotalDigits>
-					<FracDigits>2</FracDigits>
-					<Margin Type="EXCLUSIVE">
-						<Min>0</Min>
-					</Margin>
-				</FormatNumeric>
-			</Format>
+
+			<FormatNumeric>
+				<TotalDigits>10</TotalDigits>
+				<FracDigits>2</FracDigits>
+				<Margin Type="EXCLUSIVE">
+					<Min>0</Min>
+				</Margin>
+			</FormatNumeric>
+
 			<Controls>
 				<ControlGroupUsage GroupId="PostOfficeControlGroup" />
 			</Controls>
@@ -210,28 +211,28 @@
 				<Text Language="en">Tax rate</Text>
 				<Text Language="de">Steuersatz</Text>
 			</Label>
-			<Format>
-				<FormatEnum>
-					<ValuePresetting>
-						<DefaultValue>19</DefaultValue>
-					</ValuePresetting>
-					<DisableNull>true</DisableNull>
-					<KeywordFormat>
-						<InlineKeyword>
-							<Entry Key="0">
-								<Value Language="en">none</Value>
-								<Value Language="de">keine</Value>
-							</Entry>
-							<Entry Key="7">
-								<Value Language="en">7%</Value>
-							</Entry>
-							<Entry Key="19">
-								<Value Language="en">19%</Value>
-							</Entry>
-						</InlineKeyword>
-					</KeywordFormat>
-				</FormatEnum>
-			</Format>
+
+			<FormatEnum>
+				<ValuePresetting>
+					<DefaultValue>19</DefaultValue>
+				</ValuePresetting>
+				<DisableNull>true</DisableNull>
+				<KeywordFormat>
+					<InlineKeyword>
+						<Entry Key="0">
+							<Value Language="en">none</Value>
+							<Value Language="de">keine</Value>
+						</Entry>
+						<Entry Key="7">
+							<Value Language="en">7%</Value>
+						</Entry>
+						<Entry Key="19">
+							<Value Language="en">19%</Value>
+						</Entry>
+					</InlineKeyword>
+				</KeywordFormat>
+			</FormatEnum>
+
 			<Controls>
 				<ControlGroupUsage GroupId="PostOfficeControlGroup" />
 			</Controls>
@@ -241,15 +242,15 @@
 				<Text Language="en">Tax amount €</Text>
 				<Text Language="de">Steuerbetrag €</Text>
 			</Label>
-			<Format>
-				<FormatNumeric>
-					<TotalDigits>10</TotalDigits>
-					<FracDigits>2</FracDigits>
-					<Margin Type="INCLUSIVE">
-						<Min>0</Min>
-					</Margin>
-				</FormatNumeric>
-			</Format>
+
+			<FormatNumeric>
+				<TotalDigits>10</TotalDigits>
+				<FracDigits>2</FracDigits>
+				<Margin Type="INCLUSIVE">
+					<Min>0</Min>
+				</Margin>
+			</FormatNumeric>
+
 			<CalculateValue>
 				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
 				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
@@ -261,15 +262,15 @@
 				<Text Language="en">Gross total €</Text>
 				<Text Language="de">Brutto €</Text>
 			</Label>
-			<Format>
-				<FormatNumeric>
-					<TotalDigits>10</TotalDigits>
-					<FracDigits>2</FracDigits>
-					<Margin Type="INCLUSIVE">
-						<Min>0</Min>
-					</Margin>
-				</FormatNumeric>
-			</Format>
+
+			<FormatNumeric>
+				<TotalDigits>10</TotalDigits>
+				<FracDigits>2</FracDigits>
+				<Margin Type="INCLUSIVE">
+					<Min>0</Min>
+				</Margin>
+			</FormatNumeric>
+
 			<CalculateValue>
 				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
 				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
@@ -289,13 +290,13 @@
 			<Text Language="en">Please enter if exist on invoice order</Text>
 			<Text Language="de">Wenn auf Eingangsrechnung vermerkt, bitte eingeben</Text>
 		</Description>
-		<Format>
-			<FormatString>
-				<LengthFormat>
-					<MaxLength>100</MaxLength>
-				</LengthFormat>
-			</FormatString>
-		</Format>
+
+		<FormatString>
+			<LengthFormat>
+				<MaxLength>100</MaxLength>
+			</LengthFormat>
+		</FormatString>
+
 		<Controls>
 			<Control Lifecycle="NEW">
 				<Scope ScopeId="VISIBILITY">
@@ -323,27 +324,27 @@
 			<Text Language="en">Profitcenter in charge for this invoice</Text>
 			<Text Language="de">Verantwortliches Profitcenter</Text>
 		</Description>
-		<Format>
-			<FormatEnum>
-				<DisableNull>true</DisableNull>
-				<KeywordFormat>
-					<InlineKeyword>
-						<Entry Key="100012345">
-							<Value Language="en">Headquarter</Value>
-							<Value Language="de">Zentrale</Value>
-						</Entry>
-						<Entry Key="100012346">
-							<Value Language="en">Purchase</Value>
-							<Value Language="de">Einkauf</Value>
-						</Entry>
-						<Entry Key="100232348">
-							<Value Language="en">Production</Value>
-							<Value Language="de">Produktion</Value>
-						</Entry>
-					</InlineKeyword>
-				</KeywordFormat>
-			</FormatEnum>
-		</Format>
+
+		<FormatEnum>
+			<DisableNull>true</DisableNull>
+			<KeywordFormat>
+				<InlineKeyword>
+					<Entry Key="100012345">
+						<Value Language="en">Headquarter</Value>
+						<Value Language="de">Zentrale</Value>
+					</Entry>
+					<Entry Key="100012346">
+						<Value Language="en">Purchase</Value>
+						<Value Language="de">Einkauf</Value>
+					</Entry>
+					<Entry Key="100232348">
+						<Value Language="en">Production</Value>
+						<Value Language="de">Produktion</Value>
+					</Entry>
+				</InlineKeyword>
+			</KeywordFormat>
+		</FormatEnum>
+
 		<Controls>
 			<Control Lifecycle="NEW">
 				<Scope ScopeId="VISIBILITY">
@@ -370,27 +371,27 @@
 			<Text Language="en">Cost center</Text>
 			<Text Language="de">Kostenstelle</Text>
 		</Label>
-		<Format>
-			<FormatEnum>
-				<DisableNull>true</DisableNull>
-				<KeywordFormat>
-					<InlineKeyword>
-						<Entry Key="3453464">
-							<Value Language="en">3453464</Value>
-						</Entry>
-						<Entry Key="5677757">
-							<Value Language="en">5677757</Value>
-						</Entry>
-						<Entry Key="54747888">
-							<Value Language="en">54747888</Value>
-						</Entry>
-						<Entry Key="1043556">
-							<Value Language="en">1043556</Value>
-						</Entry>
-					</InlineKeyword>
-				</KeywordFormat>
-			</FormatEnum>
-		</Format>
+
+		<FormatEnum>
+			<DisableNull>true</DisableNull>
+			<KeywordFormat>
+				<InlineKeyword>
+					<Entry Key="3453464">
+						<Value Language="en">3453464</Value>
+					</Entry>
+					<Entry Key="5677757">
+						<Value Language="en">5677757</Value>
+					</Entry>
+					<Entry Key="54747888">
+						<Value Language="en">54747888</Value>
+					</Entry>
+					<Entry Key="1043556">
+						<Value Language="en">1043556</Value>
+					</Entry>
+				</InlineKeyword>
+			</KeywordFormat>
+		</FormatEnum>
+
 		<Controls>
 			<ControlGroupUsage GroupId="AccountingControlGroup" />
 		</Controls>
@@ -401,11 +402,11 @@
 			<Text Language="en">Responsible</Text>
 			<Text Language="de">Anforderer</Text>
 		</Label>
-		<Format>
-			<FormatPrincipal>
-				<ExpectedType>USER</ExpectedType>
-			</FormatPrincipal>
-		</Format>
+
+		<FormatPrincipal>
+			<ExpectedType>USER</ExpectedType>
+		</FormatPrincipal>
+
 		<Controls>
 			<ControlGroupUsage GroupId="AccountingControlGroup" />
 		</Controls>
@@ -416,9 +417,9 @@
 			<Text Language="en">Order checked?</Text>
 			<Text Language="de">Bestellung geprüft?</Text>
 		</Label>
-		<Format>
-			<FormatBoolean></FormatBoolean>
-		</Format>
+
+		<FormatBoolean></FormatBoolean>
+
 		<Controls>
 			<ControlGroupUsage GroupId="AccountingControlGroup" />
 		</Controls>
@@ -429,9 +430,9 @@
 			<Text Language="en">Shipment checked?</Text>
 			<Text Language="de">Lieferung geprüft?</Text>
 		</Label>
-		<Format>
-			<FormatBoolean></FormatBoolean>
-		</Format>
+
+		<FormatBoolean></FormatBoolean>
+
 		<Controls>
 			<ControlGroupUsage GroupId="AccountingControlGroup" />
 		</Controls>
@@ -533,7 +534,8 @@
 			<ProcessActivity Lifecycle="NEW">CheckOrder</ProcessActivity>
 		</Assignment>
 	</ProcessChoices>
-	<ClassArtifacts Package="org.agito.bpmo.sample.invoice" UITechnology="Vaadin" />
+	<ClassArtifacts Package="org.agito.bpmo.sample.invoice"
+		UITechnology="Vaadin" />
 	<Actions>
 		<!-- define actions on BPMO who triggered by process engine executions -->
 		<Action>ResolveOrder</Action>
