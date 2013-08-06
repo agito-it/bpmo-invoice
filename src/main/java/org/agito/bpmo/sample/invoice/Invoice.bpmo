@@ -251,11 +251,11 @@
 				</Margin>
 			</FormatNumeric>
 
-			<CalculateValue>
+			<CalculateExpression>
 				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
 				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
 				<Description>Calculate the tax amount of position</Description>
-			</CalculateValue>
+			</CalculateExpression>
 		</ColumnDefinition>
 		<ColumnDefinition Id="TotalAmount">
 			<Label>
@@ -271,11 +271,11 @@
 				</Margin>
 			</FormatNumeric>
 
-			<CalculateValue>
+			<CalculateExpression>
 				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
 				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
 				<Description>Calculate the total amount of position</Description>
-			</CalculateValue>
+			</CalculateExpression>
 		</ColumnDefinition>
 	</TableDefinition>
 

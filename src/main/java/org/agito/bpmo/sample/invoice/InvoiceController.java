@@ -83,7 +83,7 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	 * Hook for calculate expression of TaxPositions$TaxAmount
 	 */
 	// @@end
-	@Expression(artifact = "Invoice$TaxPositions$TaxAmount", type = ExpressionType.VALUE_CALCULATION)
+	@Expression(artifact = "Invoice$TaxPositions$TaxAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
 	public BigDecimal cpsCalculateTaxPositions$TaxAmount(InvoiceAccess bpmoAccess, TaxPositions.Current rowAccess) {
 		/*
@@ -107,7 +107,7 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	 * Hook for calculate expression of TaxPositions$TotalAmount
 	 */
 	// @@end
-	@Expression(artifact = "Invoice$TaxPositions$TotalAmount", type = ExpressionType.VALUE_CALCULATION)
+	@Expression(artifact = "Invoice$TaxPositions$TotalAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
 	public BigDecimal cpsCalculateTaxPositions$TotalAmount(InvoiceAccess bpmoAccess, TaxPositions.Current rowAccess) {
 		/*
