@@ -440,7 +440,7 @@
 
 	<!-- End content artifact definition -->
 
-	<!-- Start BPMO Genarl definition artifacts -->
+	<!-- Start BPMO General definition artifacts -->
 
 	<BPMOLabel>
 		<Text Language="en">Invoice</Text>
