@@ -154,70 +154,60 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 		public String getValue() { return super.<String>getValue(); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class InvoiceAttachment extends CharacteristicAccess {
 		protected InvoiceAttachment(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IAttachmentEntry getValue() { return super.<IAttachmentEntry>getCurrentValue(); }
 		public void setValue(IAttachmentEntry value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class InvoicingParty extends CharacteristicAccess {
 		protected InvoicingParty(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public String getValue() { return super.<String>getCurrentValue(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class InvoiceNumber extends CharacteristicAccess {
 		protected InvoiceNumber(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public String getValue() { return super.<String>getCurrentValue(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class InvoiceDate extends CharacteristicAccess {
 		protected InvoiceDate(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public XMLGregorianCalendar getValue() { return super.<XMLGregorianCalendar>getCurrentValue(); }
 		public void setValue(XMLGregorianCalendar value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class InvoiceReceived extends CharacteristicAccess {
 		protected InvoiceReceived(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public XMLGregorianCalendar getValue() { return super.<XMLGregorianCalendar>getCurrentValue(); }
 		public void setValue(XMLGregorianCalendar value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class TermOfPayment extends CharacteristicAccess {
 		protected TermOfPayment(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public BigDecimal getValue() { return super.<BigDecimal>getCurrentValue(); }
 		public void setValue(BigDecimal value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class OrderNumber extends CharacteristicAccess {
 		protected OrderNumber(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public String getValue() { return super.<String>getCurrentValue(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class OrderProfitcenter extends CharacteristicAccess {
 		protected OrderProfitcenter(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IKeywordEntry getValue() { return super.<IKeywordEntry>getCurrentValue(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class OrderCostCenter extends CharacteristicAccess {
 		protected OrderCostCenter(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IKeywordEntry getValue() { return super.<IKeywordEntry>getCurrentValue(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class Approver extends CharacteristicAccess {
 		protected Approver(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IPrincipalValue getValue() { return super.<IPrincipalValue>getCurrentValue(); }
@@ -225,14 +215,12 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 		public void setValue(String principalId, PrincipalType principalType) { super.setCurrentPrincipalValue(principalId, principalType); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class OrderChecked extends CharacteristicAccess {
 		protected OrderChecked(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public Boolean getValue() { return super.<Boolean>getCurrentValue(); }
 		public void setValue(Boolean value) { super.setCurrentValue(value); }
 	}
 
-	@SuppressWarnings("unchecked")
 	public final static class ShipmentChecked extends CharacteristicAccess {
 		protected ShipmentChecked(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public Boolean getValue() { return super.<Boolean>getCurrentValue(); }

@@ -133,7 +133,7 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	@Override
 	public void cpsInitBPMO(InvoiceAccess bpmoAccess, boolean isNew) {
 		if (isNew) // create a default tax position row
-			bpmoAccess.getTaxPositions().createAndAddCurrentRow().getTaxRate();
+			bpmoAccess.getTaxPositions().createAndAddRow();
 
 	}
 
