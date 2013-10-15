@@ -1,6 +1,7 @@
 package org.agito.bpmo.sample.invoice;
 
 // @@begin imports
+
 import de.agito.cps.core.annotations.BPMO;
 import de.agito.cps.core.annotations.Expression;
 import de.agito.cps.core.annotations.ExpressionDependency;
@@ -28,6 +29,7 @@ import org.agito.bpmo.sample.invoice.InvoiceAction;
 import org.agito.bpmo.sample.invoice.InvoiceLanguage;
 import org.agito.bpmo.sample.invoice.InvoiceLifecycle;
 import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
+
 // @@end
 
 // @@begin head:controller
@@ -43,7 +45,7 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	@SuppressWarnings("unused")
 	private final static Logger LOGGER = Logger.getLogger(InvoiceController.class);
 
-	public InvoiceController(IBPMOControllerContext context) {
+	public InvoiceController(final IBPMOControllerContext context) {
 		super(context);
 	}
 
@@ -54,13 +56,13 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	// @@end
 	@Expression(artifact = "Invoice$InvoiceReceived", type = ExpressionType.VALIDATION)
 	@ExpressionDependency("Invoice$InvoiceDate")
-	public boolean cpsValidateInvoiceReceived(InvoiceAccess bpmoAccess) {
+	public boolean cpsValidateInvoiceReceived(final InvoiceAccess bpmoAccess) {
 		final InvoiceReceived invoiceReceived = bpmoAccess.getInvoiceReceived();
 		final InvoiceDate invoiceDate = bpmoAccess.getInvoiceDate();
 		// @@begin body:validate:InvoiceReceived
 
-		if (invoiceDate.getCurrentValue() != null && invoiceReceived.getCurrentValue() != null)
-			if (invoiceReceived.getCurrentValue().compare(invoiceDate.getCurrentValue()) == DatatypeConstants.LESSER) {
+		if (invoiceDate.getValue() != null && invoiceReceived.getValue() != null)
+			if (invoiceReceived.getValue().compare(invoiceDate.getValue()) == DatatypeConstants.LESSER) {
 				invoiceReceived
 						.getContext()
 						.addMessage(
@@ -85,12 +87,12 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TaxAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
-	public BigDecimal cpsCalculateTaxPositions$TaxAmount(InvoiceAccess bpmoAccess, TaxPositions.Current rowAccess) {
+	public BigDecimal cpsCalculateTaxPositions$TaxAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
 		/*
 		 * Calculate the tax amount of position
 		 */
-		final TaxPositions.Current.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
-		final TaxPositions.Current.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
+		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
+		final TaxPositions.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
 		// @@begin body:calculate:TaxPositions$TaxAmount
 
 		if (taxPositions$NetAmount.getValue() != null && taxPositions$TaxRate.getValue() != null)
@@ -109,12 +111,12 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TotalAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
-	public BigDecimal cpsCalculateTaxPositions$TotalAmount(InvoiceAccess bpmoAccess, TaxPositions.Current rowAccess) {
+	public BigDecimal cpsCalculateTaxPositions$TotalAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
 		/*
 		 * Calculate the total amount of position
 		 */
-		final TaxPositions.Current.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
-		final TaxPositions.Current.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
+		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
+		final TaxPositions.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
 		// @@begin body:calculate:TaxPositions$TotalAmount
 
 		if (taxPositions$NetAmount.getValue() != null && taxPositions$TaxRate.getValue() != null)
@@ -141,8 +143,8 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 		Map<InvoiceLanguage, String> title = new HashMap<InvoiceLanguage, String>(InvoiceLanguage.values().length);
 
 		// set title for default language only, because there is nothing language specific portion in the title
-		String invoiceNumber = bpmoAccess.getInvoiceNumber().getCurrentValue();
-		String invoiceParty = bpmoAccess.getInvoicingParty().getCurrentValue();
+		String invoiceNumber = bpmoAccess.getInvoiceNumber().getValue();
+		String invoiceParty = bpmoAccess.getInvoicingParty().getValue();
 		title.put(InvoiceLanguage.en, String.format("%s / %s", invoiceNumber == null ? "" : invoiceNumber,
 				invoiceParty == null ? "" : invoiceParty));
 
@@ -173,21 +175,21 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 				parameters.put("IsResolved", false);
 
 				// retrieve order information from back end and write to BO if a OrderNumber was given by initiator
-				if (bpmoAccess.getOrderNumber().getCurrentValue() != null) {
-					bpmoAccess.getOrderCostCenter().setCurrentValue("5677757");
-					bpmoAccess.getOrderProfitcenter().setCurrentValue("100012345");
+				if (bpmoAccess.getOrderNumber().getValue() != null) {
+					bpmoAccess.getOrderCostCenter().setValue("5677757");
+					bpmoAccess.getOrderProfitcenter().setValue("100012345");
 
 					// in this sample use the initiator as approver to avoid necessary user login switch
 					bpmoAccess.getApprover()
-							.setCurrentValue(getBPMOHeader().getInitiator().getId(), PrincipalType.USER);
-					bpmoAccess.getShipmentChecked().setCurrentValue(true);
-					bpmoAccess.getOrderChecked().setCurrentValue(true);
+							.setValue(getBPMOHeader().getInitiator().getId(), PrincipalType.USER);
+					bpmoAccess.getShipmentChecked().setValue(true);
+					bpmoAccess.getOrderChecked().setValue(true);
 					parameters.put("IsResolved", true);
 				}
 				break;
 			case GetApprover:
 				// return responsible approver id from BO
-				parameters.put("approver", bpmoAccess.getApprover().getCurrentValue().getId());
+				parameters.put("approver", bpmoAccess.getApprover().getValue().getId());
 				break;
 
 			}

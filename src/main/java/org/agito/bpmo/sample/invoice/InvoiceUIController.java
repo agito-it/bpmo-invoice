@@ -1,6 +1,7 @@
 package org.agito.bpmo.sample.invoice;
 
 // @@begin imports
+
 import de.agito.cps.core.logger.Logger;
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
@@ -21,6 +22,7 @@ import org.agito.bpmo.sample.invoice.InvoiceAction;
 import org.agito.bpmo.sample.invoice.InvoiceLanguage;
 import org.agito.bpmo.sample.invoice.InvoiceLifecycle;
 import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
+
 // @@end
 
 // @@begin head:uicontroller
@@ -35,7 +37,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 	@SuppressWarnings("unused")
 	private final static Logger LOGGER = Logger.getLogger(InvoiceUIController.class);
 
-	public InvoiceUIController(IBPMOUIControllerContext context) {
+	public InvoiceUIController(final IBPMOUIControllerContext context) {
 		super(context);
 	}
 
@@ -45,7 +47,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 	 */
 	// @@end
 	@Navigation(artifact = "Invoice", type = NavigationType.NODE_ELEMENT_INIT)
-	public void cpsInitInvoice(InvoiceAccess bpmoAccess) {
+	public void cpsInitInvoice(final InvoiceAccess bpmoAccess) {
 		// @@begin body:init:Invoice
 
 		// get LayoutManager
@@ -104,7 +106,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 	 */
 	// @@end
 	@Navigation(artifact = "Invoice", type = NavigationType.NODE_ELEMENT_DESTROY)
-	public void cpsDestroyInvoice(InvoiceAccess bpmoAccess) {
+	public void cpsDestroyInvoice(final InvoiceAccess bpmoAccess) {
 		// @@begin body:destroy:Invoice
 
 		// @@end

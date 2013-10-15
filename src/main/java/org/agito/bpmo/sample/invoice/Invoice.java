@@ -1,5 +1,6 @@
 package org.agito.bpmo.sample.invoice;
 
+
 import de.agito.cps.core.bpmo.ControlType;
 import de.agito.cps.core.bpmo.DataTypeFactory;
 import de.agito.cps.core.bpmo.IEnumInspector;
@@ -7,10 +8,11 @@ import de.agito.cps.core.bpmo.api.enums.IBODataElement;
 import de.agito.cps.core.bpmo.api.enums.IBOId;
 import de.agito.cps.core.bpmo.api.enums.IBONode;
 
+
 /**
  * Enum for Invoice.
  *
- * @author andreas.weise
+ * @author Jörg Burmeister
  */
 public enum Invoice implements IBODataElement {
 
