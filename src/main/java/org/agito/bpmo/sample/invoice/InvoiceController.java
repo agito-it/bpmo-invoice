@@ -40,7 +40,9 @@ import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
  */
 // @@end
 @BPMO(id = "Invoice", version = "1.0.0", xml = "org/agito/bpmo/sample/invoice/Invoice.bpmo")
-public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceController
+		extends
+		BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	@SuppressWarnings("unused")
 	private final static Logger LOGGER = Logger.getLogger(InvoiceController.class);
@@ -87,7 +89,8 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TaxAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
-	public BigDecimal cpsCalculateTaxPositions$TaxAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
+	public BigDecimal cpsCalculateTaxPositions$TaxAmount(final InvoiceAccess bpmoAccess,
+			final TaxPositions.Row rowAccess) {
 		/*
 		 * Calculate the tax amount of position
 		 */
@@ -111,7 +114,8 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TotalAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
-	public BigDecimal cpsCalculateTaxPositions$TotalAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
+	public BigDecimal cpsCalculateTaxPositions$TotalAmount(final InvoiceAccess bpmoAccess,
+			final TaxPositions.Row rowAccess) {
 		/*
 		 * Calculate the total amount of position
 		 */
@@ -148,7 +152,7 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 		title.put(InvoiceLanguage.en, String.format("%s / %s", invoiceNumber == null ? "" : invoiceNumber,
 				invoiceParty == null ? "" : invoiceParty));
 
-		getBPMO().setTitle(title);
+		bpmoAccess.getBPMO().setTitle(title);
 
 	}
 
@@ -165,8 +169,8 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 				BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
 				businessLog.addInfoLogEntry("Request processed",
 						String.format("Processing id \"%s\"", UUID.randomUUID().toString()));
-				getBPMOEngine().getRuntimeService().saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(),
-						businessLog, true);
+				controllerContext.getBPMOEngine().getRuntimeService()
+						.saveBusinessLog(bpmoAccess.getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
 
 				parameters.put("IsProcessed", true);
 
@@ -180,8 +184,8 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 					bpmoAccess.getOrderProfitcenter().setValue("100012345");
 
 					// in this sample use the initiator as approver to avoid necessary user login switch
-					bpmoAccess.getApprover()
-							.setValue(getBPMOHeader().getInitiator().getId(), PrincipalType.USER);
+					bpmoAccess.getApprover().setValue(bpmoAccess.getBPMOHeader().getInitiator().getId(),
+							PrincipalType.USER);
 					bpmoAccess.getShipmentChecked().setValue(true);
 					bpmoAccess.getOrderChecked().setValue(true);
 					parameters.put("IsResolved", true);
@@ -199,8 +203,8 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 			BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
 			businessLog.addErrorLogEntry(MessageSeverity.ERROR.toString(),
 					String.format("Error on execution of action %s", action), ConvertUtils.getStackTraceAsString(e));
-			getBPMOEngine().getRuntimeService().saveBusinessLog(getBPMO().getBPMOHeader().getBPMOUuid(), businessLog,
-					true);
+			controllerContext.getBPMOEngine().getRuntimeService()
+					.saveBusinessLog(bpmoAccess.getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
 
 			throw e;
 		}
