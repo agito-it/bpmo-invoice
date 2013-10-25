@@ -32,7 +32,9 @@ import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
  * @author agito
  */
 // @@end
-public class InvoiceUIController extends BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceUIController
+		extends
+		BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	@SuppressWarnings("unused")
 	private final static Logger LOGGER = Logger.getLogger(InvoiceUIController.class);
@@ -57,7 +59,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 		layoutManager.setWidth((layoutManager.getContentElementBaseWidth() * 4) + 80, UNIT.PIXEL);
 
 		// add Headline
-		layoutManager.createAndAddSeparator().setTitle(getBPMO().getBPMODefinition().getLabel().getText())
+		layoutManager.createAndAddSeparator().setTitle(bpmoAccess.getBPMODefinition().getLabel().getText())
 				.addTitleStyleName(SeparatorStyle.H2).addTitleStyleName(SeparatorStyle.HR)
 				.setContentWidth(700, UNIT.PIXEL).setWidth(100, UNIT.PERCENTAGE);
 
@@ -95,7 +97,7 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 						.getInstance()
 						.createEmbeddedAttachmentViewer(
 								bpmoAccess.getInvoiceAttachment().getContext().getCharacteristicValue()
-										.getCurrentValue(), getBPMO().getBPMOHeader().isNew())
+										.getCurrentValue(), bpmoAccess.getBPMOHeader().isNew())
 						.setViewerHeight(750, UNIT.PIXEL));
 		// @@end
 	}
