@@ -169,8 +169,7 @@ public class InvoiceController
 				BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
 				businessLog.addInfoLogEntry("Request processed",
 						String.format("Processing id \"%s\"", UUID.randomUUID().toString()));
-				controllerContext.getBPMOEngine().getRuntimeService()
-						.saveBusinessLog(bpmoAccess.getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
+				bpmoAccess.getBPMO().saveBusinessLog(businessLog, true);
 
 				parameters.put("IsProcessed", true);
 
@@ -203,8 +202,7 @@ public class InvoiceController
 			BusinessLog businessLog = DataTypeFactory.getInstance().createBusinessLog();
 			businessLog.addErrorLogEntry(MessageSeverity.ERROR.toString(),
 					String.format("Error on execution of action %s", action), ConvertUtils.getStackTraceAsString(e));
-			controllerContext.getBPMOEngine().getRuntimeService()
-					.saveBusinessLog(bpmoAccess.getBPMO().getBPMOHeader().getBPMOUuid(), businessLog, true);
+			bpmoAccess.getBPMO().saveBusinessLog(businessLog, true);
 
 			throw e;
 		}
