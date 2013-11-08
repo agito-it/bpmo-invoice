@@ -13,9 +13,10 @@ import de.agito.cps.ui.vaadin.bpmo.enums.NavigationType;
 import de.agito.cps.ui.vaadin.bpmo.enums.SeparatorStyle;
 import de.agito.cps.ui.vaadin.bpmo.enums.UNIT;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayoutManager;
-import de.agito.cps.ui.vaadin.bpmo.layout.flow.ITableContent;
+import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowTableContent;
 import de.agito.cps.ui.vaadin.bpmo.styles.IDefaultStyleController;
 import de.agito.cps.ui.vaadin.common.resources.UIDataTypeFactory;
+
 import org.agito.bpmo.sample.invoice.Invoice;
 import org.agito.bpmo.sample.invoice.InvoiceAccess;
 import org.agito.bpmo.sample.invoice.InvoiceAction;
@@ -82,7 +83,7 @@ public class InvoiceUIController
 		layoutManager.addLineBreak();
 
 		// manage TaxPositions layout
-		ITableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions).fillContent()
+		IFlowTableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions).fillContent()
 				.setPageLength(3);
 		tableContent.getColumn(Invoice.TaxPositions$NetAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
 		tableContent.getColumn(Invoice.TaxPositions$TaxAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
