@@ -14,7 +14,7 @@ import de.agito.cps.ui.vaadin.bpmo.enums.SeparatorStyle;
 import de.agito.cps.ui.vaadin.bpmo.enums.UNIT;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayoutManager;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowTableContent;
-import de.agito.cps.ui.vaadin.bpmo.styles.IDefaultStyleController;
+import de.agito.cps.ui.vaadin.bpmo.styles.IFlowStyleController;
 import de.agito.cps.ui.vaadin.common.resources.UIDataTypeFactory;
 
 import org.agito.bpmo.sample.invoice.Invoice;
@@ -78,12 +78,12 @@ public class InvoiceUIController
 		// add all remaining content elements excepting TaxPositions to group
 		layoutManager
 				.createAndAddGroupContent()
-				.setCaption(Texts.getString("InvoiceUIController.AccountingInformations")).fillContent(Invoice.TaxPositions).setDimension(2); //$NON-NLS-1$
+				.setCaption(Texts.getString("InvoiceUIController.AccountingInformations")).addRemainingElements(Invoice.TaxPositions).setDimension(2); //$NON-NLS-1$
 
 		layoutManager.addLineBreak();
 
 		// manage TaxPositions layout
-		IFlowTableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions).fillContent()
+		IFlowTableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions).addRemainingElements()
 				.setPageLength(3);
 		tableContent.getColumn(Invoice.TaxPositions$NetAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
 		tableContent.getColumn(Invoice.TaxPositions$TaxAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
@@ -117,6 +117,6 @@ public class InvoiceUIController
 
 	// @@begin others
 	@StyleController
-	private IDefaultStyleController styleController;
+	private IFlowStyleController styleController;
 	// @@end
 }
