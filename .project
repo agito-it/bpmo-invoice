@@ -30,6 +30,11 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>de.agito.cps.design.eclipse.cpsBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>de.agito.cps.design.eclipse.cpsDesignNature</nature>
