@@ -2,7 +2,6 @@ package org.agito.bpmo.sample.invoice;
 
 // @@begin imports
 
-import de.agito.cps.core.logger.Logger;
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
 import de.agito.cps.ui.vaadin.bpmo.annotation.Navigation;
@@ -17,13 +16,6 @@ import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowTableContent;
 import de.agito.cps.ui.vaadin.bpmo.styles.IFlowStyleController;
 import de.agito.cps.ui.vaadin.common.resources.UIDataTypeFactory;
 
-import org.agito.bpmo.sample.invoice.Invoice;
-import org.agito.bpmo.sample.invoice.InvoiceAccess;
-import org.agito.bpmo.sample.invoice.InvoiceAction;
-import org.agito.bpmo.sample.invoice.InvoiceLanguage;
-import org.agito.bpmo.sample.invoice.InvoiceLifecycle;
-import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
-
 // @@end
 
 // @@begin head:uicontroller
@@ -33,12 +25,7 @@ import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
  * @author agito
  */
 // @@end
-public class InvoiceUIController
-		extends
-		BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
-
-	@SuppressWarnings("unused")
-	private final static Logger LOGGER = Logger.getLogger(InvoiceUIController.class);
+public class InvoiceUIController extends BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceUIController(final IBPMOUIControllerContext context) {
 		super(context);
@@ -111,12 +98,11 @@ public class InvoiceUIController
 	@Navigation(artifact = "Invoice", type = NavigationType.NODE_ELEMENT_DESTROY)
 	public void cpsDestroyInvoice(final InvoiceAccess bpmoAccess) {
 		// @@begin body:destroy:Invoice
-
 		// @@end
 	}
 
 	// @@begin others
 	@StyleController
-	private IFlowStyleController styleController;
+	private IFlowStyleController styleController;   
 	// @@end
 }

@@ -22,7 +22,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 /**
  * BPMOAccess for Invoice.
  * 
- * @author Jörg Burmeister
+ * @author andreas.weise
  */
 public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 
@@ -199,12 +199,14 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	public final static class OrderProfitcenter extends CharacteristicAccess {
 		protected OrderProfitcenter(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IKeywordEntry getValue() { return super.<IKeywordEntry>getCurrentValue(); }
+		public String getValueKey() { return super.getCurrentValueKey(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
 
 	public final static class OrderCostCenter extends CharacteristicAccess {
 		protected OrderCostCenter(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IKeywordEntry getValue() { return super.<IKeywordEntry>getCurrentValue(); }
+		public String getValueKey() { return super.getCurrentValueKey(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
 
