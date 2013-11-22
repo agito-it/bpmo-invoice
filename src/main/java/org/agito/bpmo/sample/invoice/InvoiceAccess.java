@@ -14,6 +14,7 @@ import de.agito.cps.core.bpmo.api.access.CharacteristicAccess;
 import de.agito.cps.core.bpmo.api.access.NodeKeyAccess;
 import de.agito.cps.core.bpmo.api.access.RowAccess;
 import de.agito.cps.core.bpmo.api.access.TableAccessCurrent;
+import java.io.InputStream;
 import java.lang.Boolean;
 import java.math.BigDecimal;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -22,7 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 /**
  * BPMOAccess for Invoice.
  * 
- * @author andreas.weise
+ * @author Jörg Burmeister
  */
 public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 
@@ -158,6 +159,8 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 		protected InvoiceAttachment(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IAttachmentEntry getValue() { return super.<IAttachmentEntry>getCurrentValue(); }
 		public void setValue(IAttachmentEntry value) { super.setCurrentValue(value); }
+		public void setValue(String fileName, String fileMimeType, byte[] fileContent) { super.setCurrentAttachmentValue(fileName, fileMimeType, fileContent); }
+		public void setValue(String fileName, String fileMimeType, InputStream fileContent) { super.setCurrentAttachmentValue(fileName, fileMimeType, fileContent); }
 	}
 
 	public final static class InvoicingParty extends CharacteristicAccess {
@@ -251,6 +254,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 		public final static class TaxRate extends CellAccess {
 			protected TaxRate(BPMOAccess<?> bpmoAccess, RowAccess rowAccess, String path, String id) { super(bpmoAccess, rowAccess, path, id); }
 			public IKeywordEntry getValue() { return super.<IKeywordEntry>getValue(); }
+			public String getValueKey() { return super.getValueKey(); }
 			public void setValue(String value) { super.setValue(value); }
 		}
 

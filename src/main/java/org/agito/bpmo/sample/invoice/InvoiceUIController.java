@@ -15,6 +15,12 @@ import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayoutManager;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowTableContent;
 import de.agito.cps.ui.vaadin.bpmo.styles.IFlowStyleController;
 import de.agito.cps.ui.vaadin.common.resources.UIDataTypeFactory;
+import org.agito.bpmo.sample.invoice.Invoice;
+import org.agito.bpmo.sample.invoice.InvoiceAccess;
+import org.agito.bpmo.sample.invoice.InvoiceAction;
+import org.agito.bpmo.sample.invoice.InvoiceLanguage;
+import org.agito.bpmo.sample.invoice.InvoiceLifecycle;
+import org.agito.bpmo.sample.invoice.InvoiceProcessActivity;
 
 // @@end
 

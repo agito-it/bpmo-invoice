@@ -22,7 +22,7 @@
       </lane>
     </laneSet>
     <startEvent id="startevent" name="Start"></startEvent>
-    <serviceTask id="ResolveOrder" name="Resolve Order" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
+    <serviceTask id="ResolveOrder" name="Resolve Order" activiti:async="true" activiti:exclusive="false" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
       <extensionElements>
         <activiti:field name="action">
           <activiti:string>ResolveOrder</activiti:string>
@@ -60,7 +60,7 @@
     </sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="Approval" targetRef="approvalGateway"></sequenceFlow>
     <sequenceFlow id="disapproved" name="disapproved" sourceRef="approvalGateway" targetRef="CheckOrder"></sequenceFlow>
-    <serviceTask id="Transfer" name="Transfer to ERP" activiti:exclusive="false" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
+    <serviceTask id="Transfer" name="Transfer to ERP" activiti:async="true" activiti:exclusive="false" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
       <extensionElements>
         <activiti:field name="action">
           <activiti:string>BackendBooking</activiti:string>
