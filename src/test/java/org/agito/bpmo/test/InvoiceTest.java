@@ -124,7 +124,7 @@ public class InvoiceTest {
 		Assert.assertNotNull(bpmoRule.getRuntimeService().createProcessHistoryQuery()
 				.bpmoUuid(bpmo.getBPMOHeader().getBPMOUuid()).eventType(ProcessAgentEventType.PROCESS_END)
 				.singleResult());
-		
+
 		Assert.assertNotNull(bpmoRule.getRuntimeService().createBusinessLogQuery()
 				.bpmoUuid(bpmo.getBPMOHeader().getBPMOUuid()).singleResult());
 
@@ -223,14 +223,14 @@ public class InvoiceTest {
 		bpmo.claimTaskInstance(InvoiceProcessActivity.Approval);
 		bpmo.completeTaskInstance("disapproved", "not approved");
 
-//		// checkout and complete CheckOrder task
-//		bpmo.claimTaskInstance(InvoiceProcessActivity.CheckOrder);
-//		bpmo.completeTaskInstance("cancel", "was wrong");
-//
-//		// assert process end
-//		Assert.assertNotNull(bpmoRule.getRuntimeService().createProcessHistoryQuery()
-//				.bpmoUuid(bpmo.getBPMOHeader().getBPMOUuid()).eventType(ProcessAgentEventType.PROCESS_CANCEL)
-//				.singleResult());
+		// checkout and complete CheckOrder task
+		bpmo.claimTaskInstance(InvoiceProcessActivity.CheckOrder);
+		bpmo.completeTaskInstance("cancel", "was wrong");
+
+		// assert process end
+		Assert.assertNotNull(bpmoRule.getRuntimeService().createProcessHistoryQuery()
+				.bpmoUuid(bpmo.getBPMOHeader().getBPMOUuid()).eventType(ProcessAgentEventType.PROCESS_CANCEL)
+				.singleResult());
 
 	}
 }
