@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agito.demo</groupId>
 	<artifactId>bpmo-invoice</artifactId>
-	<version>1.0.7-SNAPSHOT</version>
+	<version>1.0.7</version>
 	<name>agito BPMO Inbound Invoice Processing</name>
 	<description>agito BPMO Inbound Invoice Processing</description>
 	<properties>
