@@ -23,7 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 /**
  * BPMOAccess for Invoice.
  * 
- * @author Jörg Burmeister
+ * @author andreas.weise
  */
 public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 

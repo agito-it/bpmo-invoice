@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<BPMODefinition BPMOId="Invoice" Version="1.0.0" NodeId="Invoice"
-	MinOccur="1" MaxOccur="1" xmlns="http://de.agito/cps/core">
+<BPMODefinition BPMOId="Invoice" Version="1.0.0" NodeId="Invoice" MinOccur="1" MaxOccur="1" xmlns="http://de.agito/cps/core">
 
 	<!-- Start BPMO root element definition -->
 	<Key Id="Invoice">
@@ -503,19 +502,25 @@
 	</ProcessActivities>
 	<ProcessChoices>
 		<!-- define task completion choices -->
+		<ProcessChoice Id="continue" Type="FORWARD">
+			<Label>
+				<Text Language="en">Continue with Approval</Text>
+				<Text Language="de">Weiter zur Genehmigung</Text>
+			</Label>
+		</ProcessChoice>
 		<ProcessChoice Id="approved" Type="FORWARD">
 			<Label>
-				<Text Language="en">approved</Text>
-				<Text Language="de">genehmigt</Text>
+				<Text Language="en">Approved</Text>
+				<Text Language="de">Genehmigt</Text>
 			</Label>
 		</ProcessChoice>
 		<ProcessChoice Id="disapproved" Type="FORWARD">
 			<Label>
-				<Text Language="en">not approved</Text>
-				<Text Language="de">nicht genehmigt</Text>
+				<Text Language="en">Declined</Text>
+				<Text Language="de">Abgelehnt</Text>
 			</Label>
 		</ProcessChoice>
-		<ProcessChoice Id="cancel" Type="CANCEL" RequireComment="true">
+		<ProcessChoice Id="cancel" Type="CANCEL" RequiresComment="true">
 			<Label>
 				<Text Language="en">Cancel processing</Text>
 				<Text Language="de">Abbruch</Text>
@@ -523,19 +528,16 @@
 		</ProcessChoice>
 
 		<!-- Assign choices to process activities -->
-		<Assignment ProcessChoiceId="approved">
-			<ProcessActivity Lifecycle="NEW">Approval</ProcessActivity>
-			<ProcessActivity Lifecycle="NEW">CheckOrder</ProcessActivity>
+		<Assignment ProcessActivityId="Approval">
+			<ProcessChoiceId>approved</ProcessChoiceId>
+			<ProcessChoiceId>disapproved</ProcessChoiceId>
 		</Assignment>
-		<Assignment ProcessChoiceId="disapproved">
-			<ProcessActivity Lifecycle="NEW">Approval</ProcessActivity>
-		</Assignment>
-		<Assignment ProcessChoiceId="cancel">
-			<ProcessActivity Lifecycle="NEW">CheckOrder</ProcessActivity>
+		<Assignment ProcessActivityId="CheckOrder">
+			<ProcessChoiceId>continue</ProcessChoiceId>
+			<ProcessChoiceId>cancel</ProcessChoiceId>
 		</Assignment>
 	</ProcessChoices>
-	<ClassArtifacts Package="org.agito.bpmo.sample.invoice"
-		UITechnology="Vaadin" />
+	<ClassArtifacts Package="org.agito.bpmo.sample.invoice" UITechnology="Vaadin" />
 	<Actions>
 		<!-- define actions on BPMO who triggered by process engine executions -->
 		<Action>ResolveOrder</Action>

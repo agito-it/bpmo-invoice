@@ -170,7 +170,7 @@ public class InvoiceTest {
 		invoiceAccess.getOrderChecked().setValue(true);
 		invoiceAccess.getShipmentChecked().setValue(true);
 		invoiceAccess.getApprover().setValue("alice", PrincipalType.USER);
-		bpmo.completeTaskInstance("approved", null);
+		bpmo.completeTaskInstance("continue", null);
 
 		// checkout and complete Approval task
 		bpmoRule.switchUser("alice");
