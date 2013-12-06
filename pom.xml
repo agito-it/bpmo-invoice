@@ -70,4 +70,11 @@
 			<url>https://service.agito-it.com/nexus/content/groups/public</url>
 		</repository>
 	</repositories>
+
+	<scm>
+		<connection>scm:git:git://git.agito.corp/USECASE/DEMO/bpmo-invoice.git</connection>
+		<developerConnection>scm:git:ssh://git@git.agito.corp/srv/git/browse/USECASE/DEMO/bpmo-invoice.git</developerConnection>
+		<url>http://git.agito.corp/USECASE/DEMO/bpmo-invoice.git</url>
+	</scm>
+
 </project>
