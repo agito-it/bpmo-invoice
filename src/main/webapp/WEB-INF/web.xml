@@ -2,14 +2,28 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<display-name>Financial Management</display-name>
+
+	<!-- application filter -->
 	<filter>
-		<filter-name>ApplicationServletFilter</filter-name>
-		<filter-class>de.agito.cps.core.servlet.ApplicationServletFilter</filter-class>
+		<filter-name>ApplicationFilter</filter-name>
+		<filter-class>de.agito.cps.core.servlet.ApplicationFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>ApplicationServletFilter</filter-name>
-		<url-pattern>/DEFAULT/*</url-pattern>
+		<filter-name>ApplicationFilter</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<!-- authentication filter -->
+	<filter>
+		<filter-name>AuthenticationFilter</filter-name>
+		<filter-class>de.agito.cps.core.servlet.AuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthenticationFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- bpmo -->
 	<servlet>
 		<servlet-name>BPMO VAADIN UI</servlet-name>
 		<servlet-class>de.agito.cps.ui.vaadin.bpmo.BPMOServlet</servlet-class>
