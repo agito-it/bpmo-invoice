@@ -38,7 +38,7 @@
 		<url-pattern>/DEFAULT/*</url-pattern>
 		<url-pattern>/VAADIN/*</url-pattern>
 	</servlet-mapping>
-	<security-constraint>
+	<!-- <security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Invoice AUTH</web-resource-name>
 			<url-pattern>/*</url-pattern>
@@ -57,5 +57,5 @@
 	</security-role>
 	<security-role>
 		<role-name>roleAdmin</role-name>
-	</security-role>
+	</security-role> -->
 </web-app>
