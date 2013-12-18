@@ -7,7 +7,7 @@
 	<description>agito BPMO Inbound Invoice Processing</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.bpmo>5.3.1</version.bpmo>
+		<version.bpmo>5.4-SNAPSHOT</version.bpmo>
 	</properties>
 	<packaging>war</packaging>
 	<dependencies>
@@ -70,12 +70,10 @@
 			<url>https://service.agito-it.com/nexus/content/groups/public</url>
 		</repository>
 	</repositories>
-
 	<scm>
 		<connection>scm:git:git://git.agito.corp/USECASE/DEMO/bpmo-invoice.git</connection>
 		<developerConnection>scm:git:ssh://git@git.agito.corp/srv/git/browse/USECASE/DEMO/bpmo-invoice.git</developerConnection>
 		<url>http://git.agito.corp/USECASE/DEMO/bpmo-invoice.git</url>
-	  <tag>HEAD</tag>
-  </scm>
-
+		<tag>HEAD</tag>
+	</scm>
 </project>
