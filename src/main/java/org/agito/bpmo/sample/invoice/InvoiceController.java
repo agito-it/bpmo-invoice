@@ -82,10 +82,10 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	 */
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TaxAmount", type = ExpressionType.CALCULATE)
-	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
+	@ExpressionDependency({ "Invoice$TaxPositions$TaxRate", "Invoice$TaxPositions$NetAmount" })
 	public BigDecimal cpsCalculateTaxPositions$TaxAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
-		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
 		final TaxPositions.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
+		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
 		/*
 		 * Calculate the tax amount of position
 		 */
@@ -106,10 +106,10 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	 */
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TotalAmount", type = ExpressionType.CALCULATE)
-	@ExpressionDependency({ "Invoice$TaxPositions$NetAmount", "Invoice$TaxPositions$TaxRate" })
+	@ExpressionDependency({ "Invoice$TaxPositions$TaxRate", "Invoice$TaxPositions$NetAmount" })
 	public BigDecimal cpsCalculateTaxPositions$TotalAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
-		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
 		final TaxPositions.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
+		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
 		/*
 		 * Calculate the total amount of position
 		 */

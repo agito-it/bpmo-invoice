@@ -148,7 +148,7 @@
 		<FormatDateTime DataType="DATE">
 			<DaysAllowedInFuture>0</DaysAllowedInFuture>
 			<ValidationExpression>
-				<Dependency>Invoice$InvoiceDate</Dependency>
+				<Dependency>./$InvoiceDate</Dependency>
 			</ValidationExpression>
 		</FormatDateTime>
 
@@ -251,8 +251,8 @@
 			</FormatNumeric>
 
 			<CalculateExpression>
-				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
-				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
+				<Dependency>./$TaxPositions$NetAmount</Dependency>
+				<Dependency>./$TaxPositions$TaxRate</Dependency>
 				<Description>Calculate the tax amount of position</Description>
 			</CalculateExpression>
 		</ColumnDefinition>
@@ -271,8 +271,8 @@
 			</FormatNumeric>
 
 			<CalculateExpression>
-				<Dependency>Invoice$TaxPositions$NetAmount</Dependency>
-				<Dependency>Invoice$TaxPositions$TaxRate</Dependency>
+				<Dependency>./$TaxPositions$NetAmount</Dependency>
+				<Dependency>./$TaxPositions$TaxRate</Dependency>
 				<Description>Calculate the total amount of position</Description>
 			</CalculateExpression>
 		</ColumnDefinition>
