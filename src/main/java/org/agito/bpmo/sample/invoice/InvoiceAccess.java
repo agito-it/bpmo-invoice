@@ -4,20 +4,21 @@ package org.agito.bpmo.sample.invoice;
 import de.agito.cps.core.bpmo.IAttachmentEntry;
 import de.agito.cps.core.bpmo.IKeywordEntry;
 import de.agito.cps.core.bpmo.INodeElement;
-import de.agito.cps.core.bpmo.INodeElementKey;
 import de.agito.cps.core.bpmo.IPrincipalValue;
 import de.agito.cps.core.bpmo.IRow;
 import de.agito.cps.core.bpmo.PrincipalType;
 import de.agito.cps.core.bpmo.api.access.BPMOAccess;
 import de.agito.cps.core.bpmo.api.access.CellAccess;
 import de.agito.cps.core.bpmo.api.access.CharacteristicAccess;
-import de.agito.cps.core.bpmo.api.access.NodeKeyAccess;
 import de.agito.cps.core.bpmo.api.access.RowAccess;
 import de.agito.cps.core.bpmo.api.access.TableAccessCurrent;
 import java.io.InputStream;
 import java.lang.Boolean;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.agito.bpmo.sample.invoice.InvoiceLanguage;
 
 
 /**
@@ -29,13 +30,6 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 
 	public InvoiceAccess(INodeElement context) { super(context); }
 
-	/**
-	 * <b>Invoice Root</b>
-	 * <p>
-	 * <i>{@link DefinitionArtifactType NODE_KEY_DEFINITION}<i><br>
-	 * <i>{@link ControlType INTERACTIVE}<i><br>
-	 */
-	public Invoice getInvoice() { return super.<Invoice>getKeyAccess(Invoice.class, "Invoice$Invoice"); }
 	/**
 	 * <b>Invoice copy</b>
 	 * <p>
@@ -148,13 +142,6 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 */
 	public TaxPositions getTaxPositions() { return super.<TaxPositions>getTableAccessCV(TaxPositions.class, "Invoice$TaxPositions"); }
 
-	@SuppressWarnings("unchecked")
-	public final static class Invoice extends NodeKeyAccess {
-		protected Invoice(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
-		protected Invoice(BPMOAccess<?> bpmoAccess, String path, INodeElementKey nodeElementKey, Object value) { super(bpmoAccess, path, nodeElementKey, value); }
-		public String getValue() { return super.<String>getValue(); }
-	}
-
 	public final static class InvoiceAttachment extends CharacteristicAccess {
 		protected InvoiceAttachment(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IAttachmentEntry getValue() { return super.<IAttachmentEntry>getCurrentValue(); }
@@ -178,13 +165,21 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	public final static class InvoiceDate extends CharacteristicAccess {
 		protected InvoiceDate(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public XMLGregorianCalendar getValue() { return super.<XMLGregorianCalendar>getCurrentValue(); }
+		public Date getValueAsDate() { return super.getCurrentValueDate(Date.class); }
+		public GregorianCalendar getValueAsGregorianCalendar() { return super.getCurrentValueDate(GregorianCalendar.class); }
 		public void setValue(XMLGregorianCalendar value) { super.setCurrentValue(value); }
+		public void setValue(Date value) { super.setCurrentValueDate(value); }
+		public void setValue(GregorianCalendar value) { super.setCurrentValueDate(value); }
 	}
 
 	public final static class InvoiceReceived extends CharacteristicAccess {
 		protected InvoiceReceived(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public XMLGregorianCalendar getValue() { return super.<XMLGregorianCalendar>getCurrentValue(); }
+		public Date getValueAsDate() { return super.getCurrentValueDate(Date.class); }
+		public GregorianCalendar getValueAsGregorianCalendar() { return super.getCurrentValueDate(GregorianCalendar.class); }
 		public void setValue(XMLGregorianCalendar value) { super.setCurrentValue(value); }
+		public void setValue(Date value) { super.setCurrentValueDate(value); }
+		public void setValue(GregorianCalendar value) { super.setCurrentValueDate(value); }
 	}
 
 	public final static class TermOfPayment extends CharacteristicAccess {
@@ -202,6 +197,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	public final static class OrderProfitcenter extends CharacteristicAccess {
 		protected OrderProfitcenter(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IKeywordEntry getValue() { return super.<IKeywordEntry>getCurrentValue(); }
+		public IKeywordEntry getValue(InvoiceLanguage language) { return super.<IKeywordEntry>getCurrentValue(language); }
 		public String getValueKey() { return super.getCurrentValueKey(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
@@ -209,6 +205,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	public final static class OrderCostCenter extends CharacteristicAccess {
 		protected OrderCostCenter(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public IKeywordEntry getValue() { return super.<IKeywordEntry>getCurrentValue(); }
+		public IKeywordEntry getValue(InvoiceLanguage language) { return super.<IKeywordEntry>getCurrentValue(language); }
 		public String getValueKey() { return super.getCurrentValueKey(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
@@ -254,6 +251,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 		public final static class TaxRate extends CellAccess {
 			protected TaxRate(BPMOAccess<?> bpmoAccess, RowAccess rowAccess, String path, String id) { super(bpmoAccess, rowAccess, path, id); }
 			public IKeywordEntry getValue() { return super.<IKeywordEntry>getValue(); }
+			public IKeywordEntry getValue(InvoiceLanguage language) { return super.<IKeywordEntry>getValue(language); }
 			public String getValueKey() { return super.getValueKey(); }
 			public void setValue(String value) { super.setValue(value); }
 		}

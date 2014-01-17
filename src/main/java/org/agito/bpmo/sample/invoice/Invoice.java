@@ -17,15 +17,6 @@ import de.agito.cps.core.bpmo.api.enums.IBONode;
 public enum Invoice implements IBODataElement {
 
 	/**
-	 * <b>Invoice Root</b>
-	 * <p>
-	 * <i>{@link DefinitionArtifactType NODE_KEY_DEFINITION}<i><br>
-	 * <i>{@link DataType STRING}<i><br>
-	 * <i>{@link ControlType INTERACTIVE}<i><br>
-	 */
-	Invoice("Invoice", "Invoice$Invoice", ControlType.INTERACTIVE),
-
-	/**
 	 * <b>Invoice copy</b>
 	 * <p>
 	 * Digital copy of invoice as PDF file
@@ -193,7 +184,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Node Identifier</b>
 	 */
-	public final static IBONode $ID = new IBONode.BONode("Invoice", "Invoice", ControlType.INTERACTIVE);
+	public final static IBONode $ID = new IBONode.BONode("Invoice", "Invoice", ControlType.DEFAULT);
 
 	private final static IEnumInspector ENUM_INSPECTOR = DataTypeFactory.getInstance().createEnumInspector(Invoice.class);
 	private Invoice(String id, String path, ControlType controlType) { this.id = id; this.path = path; this.controlType = controlType; }
