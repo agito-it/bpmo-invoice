@@ -25,13 +25,13 @@
     <serviceTask id="ResolveOrder" name="Resolve Order" activiti:async="true" activiti:exclusive="false" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
       <extensionElements>
         <activiti:field name="action">
-          <activiti:string>ResolveOrder</activiti:string>
+          <activiti:string><![CDATA[ResolveOrder]]></activiti:string>
         </activiti:field>
         <activiti:field name="variable">
-          <activiti:string>IsResolved</activiti:string>
+          <activiti:string><![CDATA[IsResolved]]></activiti:string>
         </activiti:field>
         <activiti:field name="mode">
-          <activiti:string>EDIT</activiti:string>
+          <activiti:string><![CDATA[EDIT]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -42,15 +42,15 @@
     <userTask id="CheckOrder" name="Check order" activiti:candidateGroups="roleAnyone"></userTask>
     <sequenceFlow id="flow4" sourceRef="CheckOrder" targetRef="exclusivegateway1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="Approval" name="Approve invoice" activiti:candidateUsers="${approver}"></userTask>
+    <userTask id="Approval" name="Approve invoice" activiti:candidateUsers="${approver},${$cpsInitiator}"></userTask>
     <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="Approval">
       <extensionElements>
         <activiti:executionListener event="take" class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionListener">
           <activiti:field name="action">
-            <activiti:string>GetApprover</activiti:string>
+            <activiti:string><![CDATA[GetApprover]]></activiti:string>
           </activiti:field>
           <activiti:field name="variable">
-            <activiti:string>approver</activiti:string>
+            <activiti:string><![CDATA[approver]]></activiti:string>
           </activiti:field>
         </activiti:executionListener>
       </extensionElements>
@@ -63,7 +63,7 @@
     <serviceTask id="Transfer" name="Transfer to ERP" activiti:async="true" activiti:exclusive="false" activiti:class="de.agito.cps.process.activiti.listener.ExecuteBPMOActionDelegate">
       <extensionElements>
         <activiti:field name="action">
-          <activiti:string>BackendBooking</activiti:string>
+          <activiti:string><![CDATA[BackendBooking]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
