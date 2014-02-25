@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<BPMODefinition BPMOId="Invoice" Version="1.0.0" NodeId="Invoice" MinOccur="1" MaxOccur="1" xmlns="http://de.agito/cps/core">
+	
+	<!-- Start content artifact definition -->
+	<!-- Item to store digital version of invoice -->
+	<CharacteristicDefinition Id="InvoiceAttachment">
+		<Label>
+			<Text>Invoice copy</Text>
+			<Text Language="de">Rechnungskopie</Text>
+		</Label>
+		<Description>
+			<Text>Digital copy of invoice as PDF file</Text>
+			<Text Language="de">Digitale Kopie der Rechnung als PDF Datei</Text>
+		</Description>
+		<FormatAttachment>
+			<MaxFileSize>256000</MaxFileSize>
+			<AllowedMimeType>application/pdf</AllowedMimeType>
+			<AllowedMimeType>image/png</AllowedMimeType>
+			<AllowedMimeType>image/gif</AllowedMimeType>
+		</FormatAttachment>
+		<Controls>
+			<Control Lifecycle="NEW">
+				<Scope ScopeId="VISIBILITY">
+					<ProcessActivityId Id="*" />
+				</Scope>
+				<Scope ScopeId="REQUIRED">
+					<ProcessActivityId Id="$DRAFT" />
+				</Scope>
+				<Scope ScopeId="RESPONSIBILITY">
+					<ProcessActivityId Id="Approval" />
+				</Scope>
+			</Control>
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="InvoicingParty">
+		<Label>
+			<Text>Invoicing party</Text>
+			<Text Language="de">Name Rechnungssteller</Text>
+		</Label>
+		<Description>
+			<Text>Name of party sending the invoice</Text>
+			<Text Language="de">Name des Rechnungsstellers</Text>
+		</Description>
+		<FormatString>
+			<LengthFormat>
+				<MaxLength>100</MaxLength>
+			</LengthFormat>
+		</FormatString>
+		<Controls>
+			<Control Lifecycle="NEW">
+				<Scope ScopeId="VISIBILITY">
+					<ProcessActivityId Id="*" />
+				</Scope>
+				<Scope ScopeId="REQUIRED">
+					<ProcessActivityId Id="$DRAFT" />
+					<ProcessActivityId Id="CheckOrder" />
+				</Scope>
+				<Scope ScopeId="RESPONSIBILITY">
+					<ProcessActivityId Id="Approval" />
+				</Scope>
+			</Control>
+			<ControlGroup GroupId="PostOfficeControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="InvoiceNumber">
+		<Label>
+			<Text>Invoice number</Text>
+			<Text Language="de">Rechnungsnummer</Text>
+		</Label>
+		<FormatString>
+			<LengthFormat>
+				<MaxLength>100</MaxLength>
+			</LengthFormat>
+		</FormatString>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="InvoiceDate">
+		<Label>
+			<Text>Invoice date</Text>
+			<Text Language="de">Rechnungsdatum</Text>
+		</Label>
+		<FormatDateTime DataType="DATE">
+			<DaysAllowedInFuture>0</DaysAllowedInFuture>
+		</FormatDateTime>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="InvoiceReceived">
+		<Label>
+			<Text>Invoice received</Text>
+			<Text Language="de">Rechnungseingang</Text>
+		</Label>
+		<FormatDateTime DataType="DATE">
+			<DaysAllowedInFuture>0</DaysAllowedInFuture>
+			<ValidationExpression>
+				<Dependency>./$InvoiceDate</Dependency>
+			</ValidationExpression>
+		</FormatDateTime>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="TermOfPayment">
+		<Label>
+			<Text>Term of payment (Days)</Text>
+			<Text Language="de">Zahlungsziel (Tage)</Text>
+		</Label>
+		<FormatNumeric>
+			<TotalDigits>3</TotalDigits>
+			<FracDigits>0</FracDigits>
+			<Margin Type="INCLUSIVE">
+				<Min>0</Min>
+			</Margin>
+		</FormatNumeric>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<!-- Table to separate different tax positions on invoice -->
+	<TableDefinition Id="TaxPositions">
+		<Label>
+			<Text>Position per tax rate</Text>
+			<Text Language="de">Position pro Steuersatz</Text>
+		</Label>
+		<Controls>
+			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+		</Controls>
+		<ColumnDefinition Id="NetAmount">
+			<Label>
+				<Text>Net amount €</Text>
+				<Text Language="de">Netto Betrag €</Text>
+			</Label>
+			<FormatNumeric>
+				<TotalDigits>10</TotalDigits>
+				<FracDigits>2</FracDigits>
+				<Margin Type="EXCLUSIVE">
+					<Min>0</Min>
+				</Margin>
+			</FormatNumeric>
+			<Controls>
+				<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+			</Controls>
+		</ColumnDefinition>
+		<ColumnDefinition Id="TaxRate">
+			<Label>
+				<Text>Tax rate</Text>
+				<Text Language="de">Steuersatz</Text>
+			</Label>
+			<FormatEnum>
+				<ValuePresetting>
+					<DefaultValue>19</DefaultValue>
+				</ValuePresetting>
+				<DisableNull>true</DisableNull>
+				<KeywordFormat>
+					<InlineKeyword>
+						<Entry Key="0">
+							<Value>none</Value>
+							<Value Language="de">keine</Value>
+						</Entry>
+						<Entry Key="7">
+							<Value>7%</Value>
+						</Entry>
+						<Entry Key="19">
+							<Value>19%</Value>
+						</Entry>
+					</InlineKeyword>
+				</KeywordFormat>
+			</FormatEnum>
+			<Controls>
+				<ControlGroupUsage GroupId="PostOfficeControlGroup" />
+			</Controls>
+		</ColumnDefinition>
+		<ColumnDefinition Id="TaxAmount">
+			<Label>
+				<Text>Tax amount €</Text>
+				<Text Language="de">Steuerbetrag €</Text>
+			</Label>
+			<FormatNumeric>
+				<TotalDigits>10</TotalDigits>
+				<FracDigits>2</FracDigits>
+				<Margin Type="INCLUSIVE">
+					<Min>0</Min>
+				</Margin>
+			</FormatNumeric>
+			<CalculateExpression>
+				<Dependency>./$TaxPositions$NetAmount</Dependency>
+				<Dependency>./$TaxPositions$TaxRate</Dependency>
+				<Description>Calculate the tax amount of position</Description>
+			</CalculateExpression>
+		</ColumnDefinition>
+		<ColumnDefinition Id="TotalAmount">
+			<Label>
+				<Text>Gross total €</Text>
+				<Text Language="de">Brutto €</Text>
+			</Label>
+			<FormatNumeric>
+				<TotalDigits>10</TotalDigits>
+				<FracDigits>2</FracDigits>
+				<Margin Type="INCLUSIVE">
+					<Min>0</Min>
+				</Margin>
+			</FormatNumeric>
+			<CalculateExpression>
+				<Dependency>./$TaxPositions$NetAmount</Dependency>
+				<Dependency>./$TaxPositions$TaxRate</Dependency>
+				<Description>Calculate the total amount of position</Description>
+			</CalculateExpression>
+		</ColumnDefinition>
+	</TableDefinition>
+	<!-- Start accounting relevant items -->
+	<CharacteristicDefinition Id="OrderNumber">
+		<Label>
+			<Text>Order number</Text>
+			<Text Language="de">Bestellnummer</Text>
+		</Label>
+		<Description>
+			<Text>Please enter if exist on invoice order</Text>
+			<Text Language="de">Wenn auf Eingangsrechnung vermerkt, bitte eingeben</Text>
+		</Description>
+		<FormatString>
+			<LengthFormat>
+				<MaxLength>100</MaxLength>
+			</LengthFormat>
+		</FormatString>
+		<Controls>
+			<Control Lifecycle="NEW">
+				<Scope ScopeId="VISIBILITY">
+					<ProcessActivityId Id="*" />
+				</Scope>
+				<Scope ScopeId="EDITABILITY">
+					<ProcessActivityId Id="$DRAFT" />
+				</Scope>
+				<Scope ScopeId="REQUIRED">
+					<ProcessActivityId Id="CheckOrder" />
+				</Scope>
+				<Scope ScopeId="RESPONSIBILITY">
+					<ProcessActivityId Id="Approval" />
+				</Scope>
+			</Control>
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="OrderProfitcenter">
+		<Label>
+			<Text>Profitcenter</Text>
+		</Label>
+		<Description>
+			<Text>Profitcenter in charge for this invoice</Text>
+			<Text Language="de">Verantwortliches Profitcenter</Text>
+		</Description>
+		<FormatEnum>
+			<DisableNull>true</DisableNull>
+			<KeywordFormat>
+				<InlineKeyword>
+					<Entry Key="100012345">
+						<Value>Headquarter</Value>
+						<Value Language="de">Zentrale</Value>
+					</Entry>
+					<Entry Key="100012346">
+						<Value>Purchase</Value>
+						<Value Language="de">Einkauf</Value>
+					</Entry>
+					<Entry Key="100232348">
+						<Value>Production</Value>
+						<Value Language="de">Produktion</Value>
+					</Entry>
+				</InlineKeyword>
+			</KeywordFormat>
+		</FormatEnum>
+		<Controls>
+			<Control Lifecycle="NEW">
+				<Scope ScopeId="VISIBILITY">
+					<ProcessActivityId Id="*" />
+				</Scope>
+				<Scope ScopeId="REQUIRED">
+					<ProcessActivityId Id="CheckOrder" />
+					<ProcessActivityId Id="ResolveOrder" />
+				</Scope>
+				<Scope ScopeId="RESPONSIBILITY">
+					<ProcessActivityId Id="Approval" />
+				</Scope>
+			</Control>
+			<ControlGroup GroupId="AccountingControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="OrderCostCenter">
+		<Label>
+			<Text>Cost center</Text>
+			<Text Language="de">Kostenstelle</Text>
+		</Label>
+		<FormatEnum>
+			<DisableNull>true</DisableNull>
+			<KeywordFormat>
+				<InlineKeyword>
+					<Entry Key="3453464">
+						<Value>3453464</Value>
+					</Entry>
+					<Entry Key="5677757">
+						<Value>5677757</Value>
+					</Entry>
+					<Entry Key="54747888">
+						<Value>54747888</Value>
+					</Entry>
+					<Entry Key="1043556">
+						<Value>1043556</Value>
+					</Entry>
+				</InlineKeyword>
+			</KeywordFormat>
+		</FormatEnum>
+		<Controls>
+			<ControlGroupUsage GroupId="AccountingControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="Approver">
+		<Label>
+			<Text>Responsible</Text>
+			<Text Language="de">Anforderer</Text>
+		</Label>
+		<FormatPrincipal>
+			<ExpectedType>USER</ExpectedType>
+		</FormatPrincipal>
+		<Controls>
+			<ControlGroupUsage GroupId="AccountingControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="OrderChecked">
+		<Label>
+			<Text>Order checked?</Text>
+			<Text Language="de">Bestellung geprüft?</Text>
+		</Label>
+		<FormatBoolean></FormatBoolean>
+		<Controls>
+			<ControlGroupUsage GroupId="AccountingControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<CharacteristicDefinition Id="ShipmentChecked">
+		<Label>
+			<Text>Shipment checked?</Text>
+			<Text Language="de">Lieferung geprüft?</Text>
+		</Label>
+		<FormatBoolean></FormatBoolean>
+		<Controls>
+			<ControlGroupUsage GroupId="AccountingControlGroup" />
+		</Controls>
+	</CharacteristicDefinition>
+	<!-- End content artifact definition -->
+	<!-- Start BPMO General definition artifacts -->
+	<BPMOLabel>
+		<Text>Invoice</Text>
+		<Text Language="de">Eingangsrechnung</Text>
+	</BPMOLabel>
+	<BPMODescription>
+		<Text><![CDATA[<h4>Sample implementation of an Inbound Invoice Process</h4><ul><li><b>Mail Admin Center:</b> Initiate request, add digital copy of invoice and capture common invoice data.</li><li><b>Resolve Order:</b> Fetch order details and responsible from ERP system automatically</li><li><b>Check Order (optional):</b> In case order details are not available, this information is entered manually. Cancelling of process is possible here.</li><li><b>Approval:</b> Approve or disapprove the invoice. If disapproved, the activity “Check order” will be triggered.</li><li><b>Transfer to ERP:</b> transfer invoice data to ERP system and finish the process.</li></ul>]]></Text>
+		<Text Language="de"><![CDATA[<h4>Beispiel Implementierung eines Rechnungseingangsprozesses</h4><ul><li><b>Poststelle:</b> Initiiert den Vorgang, fügt digitale Kopie der Rechnung an und erfasst allgemeine Rechnungsdaten</li><li><b>Bestelldetails ermitteln:</b> automatische Ermittlung der Buchungsdaten und des Verantwortlichen aus ERP System.</li><li><b>Bestellung prüfen (optional):</b> Wurde die Bestellung nicht im ERP System gefunden, erfolgt eine manuelle Erfassung der Buchungsdaten und des Verantwortlichen. Der Prozess kann in dieser Aktivität unter Angabe einer Begründung abgebrochen werden.</li><li><b>Genehmigung:</b> Genehmigung oder Ablehnung durch den Verantwortlichen. Bei Ablehnung erfolgt eine ggf. erneute Ausführung der Aktivität "Bestellung prüfen".</li><li><b>Verbuchung:</b> Übertragen der Buchungsdaten an das ERP System und Prozessabschluss.</li></ul>]]></Text>
+	</BPMODescription>
+	<Languages DefaultLanguage="en">
+		<Language>en</Language>
+		<Language>de</Language>
+	</Languages>
+	<Lifecycles>
+		<Lifecycle Id="NEW" ProcessDefinitionId="Invoice_InvoiceProcess">
+			<Label>
+				<Text>New</Text>
+				<Text Language="de">Neu</Text>
+			</Label>
+		</Lifecycle>
+	</Lifecycles>
+	<ProcessActivities>
+		<ProcessActivityId Id="*">
+			<Label>
+				<Text>*</Text>
+				<Text Language="de">*</Text>
+			</Label>
+		</ProcessActivityId>
+		<ProcessActivityId Id="$DRAFT">
+			<Label>
+				<Text>Mail Admin Center</Text>
+				<Text Language="de">Posteingang</Text>
+			</Label>
+		</ProcessActivityId>
+		<ProcessActivityId Id="ResolveOrder">
+			<Label>
+				<Text>Resolve Order Details</Text>
+				<Text Language="de">Bestellungsdatails ermitteln</Text>
+			</Label>
+		</ProcessActivityId>
+		<ProcessActivityId Id="CheckOrder">
+			<Label>
+				<Text>Check Order</Text>
+				<Text Language="de">Bestellung prüfen</Text>
+			</Label>
+		</ProcessActivityId>
+		<ProcessActivityId Id="Approval">
+			<Label>
+				<Text>Approve Invoice</Text>
+				<Text Language="de">Rechnung genehmigen</Text>
+			</Label>
+		</ProcessActivityId>
+		<ProcessActivityId Id="Transfer">
+			<Label>
+				<Text>Transfer data to ERP</Text>
+				<Text Language="de">Verbuchung</Text>
+			</Label>
+		</ProcessActivityId>
+	</ProcessActivities>
+	<ProcessChoices>
+		<!-- define task completion choices -->
+		<ProcessChoice Id="continue" Type="FORWARD">
+			<Label>
+				<Text>Continue with Approval</Text>
+				<Text Language="de">Weiter zur Genehmigung</Text>
+			</Label>
+		</ProcessChoice>
+		<ProcessChoice Id="approved" Type="FORWARD">
+			<Label>
+				<Text>Approved</Text>
+				<Text Language="de">Genehmigt</Text>
+			</Label>
+		</ProcessChoice>
+		<ProcessChoice Id="disapproved" Type="FORWARD">
+			<Label>
+				<Text>Declined</Text>
+				<Text Language="de">Abgelehnt</Text>
+			</Label>
+		</ProcessChoice>
+		<ProcessChoice Id="cancel" Type="CANCEL" RequiresComment="true">
+			<Label>
+				<Text>Cancel processing</Text>
+				<Text Language="de">Abbruch</Text>
+			</Label>
+		</ProcessChoice>
+		<!-- Assign choices to process activities -->
+		<Assignment ProcessActivityId="Approval">
+			<ProcessChoiceId>approved</ProcessChoiceId>
+			<ProcessChoiceId>disapproved</ProcessChoiceId>
+		</Assignment>
+		<Assignment ProcessActivityId="CheckOrder">
+			<ProcessChoiceId>continue</ProcessChoiceId>
+			<ProcessChoiceId>cancel</ProcessChoiceId>
+		</Assignment>
+	</ProcessChoices>
+	<ClassArtifacts Package="org.agito.bpmo.sample.invoice.bpmo" UITechnology="Vaadin" />
+	<Actions>
+		<!-- define actions on BPMO who triggered by process engine executions -->
+		<Action>ResolveOrder</Action>
+		<Action>GetApprover</Action>
+		<Action>BackendBooking</Action>
+	</Actions>
+</BPMODefinition>
