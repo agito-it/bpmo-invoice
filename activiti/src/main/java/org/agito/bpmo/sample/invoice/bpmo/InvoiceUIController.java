@@ -2,25 +2,21 @@ package org.agito.bpmo.sample.invoice.bpmo;
 
 // @@begin imports
 
+import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.ui.Table.Align;
+
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
 import de.agito.cps.ui.vaadin.bpmo.annotation.Navigation;
 import de.agito.cps.ui.vaadin.bpmo.annotation.StyleController;
-import de.agito.cps.ui.vaadin.bpmo.enums.ColumnAlignment;
 import de.agito.cps.ui.vaadin.bpmo.enums.ColumnCalculationMode;
 import de.agito.cps.ui.vaadin.bpmo.enums.NavigationType;
-import de.agito.cps.ui.vaadin.bpmo.enums.SeparatorStyle;
-import de.agito.cps.ui.vaadin.bpmo.enums.UNIT;
+import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayout.Colspan;
+import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayout.MaxColums;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowLayoutManager;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowTableContent;
 import de.agito.cps.ui.vaadin.bpmo.styles.IFlowStyleController;
 import de.agito.cps.ui.vaadin.common.resources.UIDataTypeFactory;
-import org.agito.bpmo.sample.invoice.bpmo.Invoice;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceAction;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceLanguage;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceLifecycle;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceProcessActivity;
 
 // @@end
 
@@ -31,7 +27,9 @@ import org.agito.bpmo.sample.invoice.bpmo.InvoiceProcessActivity;
  * @author agito
  */
 // @@end
-public class InvoiceUIController extends BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceUIController
+		extends
+		BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceUIController(final IBPMOUIControllerContext context) {
 		super(context);
@@ -49,50 +47,42 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 		// get LayoutManager
 		IFlowLayoutManager layoutManager = styleController.getLayoutManager();
 
-		// set fixed content width
-		layoutManager.setWidth((layoutManager.getContentElementBaseWidth() * 4) + 80, UNIT.PIXEL);
-
-		// add Headline
-		layoutManager.createAndAddSeparator().setTitle(bpmoAccess.getBPMODefinition().getLabel().getText())
-				.addTitleStyleName(SeparatorStyle.H2).addTitleStyleName(SeparatorStyle.HR)
-				.setContentWidth(700, UNIT.PIXEL).setWidth(100, UNIT.PERCENTAGE);
+		// set max content width
+		layoutManager.setMaxCols(MaxColums.COL4);
 
 		// add initial fields to group
 		layoutManager
 				.createAndAddGroupContent()
 				.setCaption(Texts.getString("InvoiceUIController.InvoiceDetails"))
 				.createAndAddElements(Invoice.InvoiceAttachment, Invoice.InvoicingParty, Invoice.InvoiceNumber,
-						Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment).setDimension(2); //$NON-NLS-1$
-
-		// add separator for horizontal separation of groups
-		layoutManager.createAndAddSeparator().setWidth(10, UNIT.PIXEL);
+						Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment)
+				.setColspan(Colspan.DIMENSION_2); //$NON-NLS-1$
 
 		// manage finance accounting informations
 		// add all remaining content elements excepting TaxPositions to group
 		layoutManager
 				.createAndAddGroupContent()
-				.setCaption(Texts.getString("InvoiceUIController.AccountingInformations")).addRemainingElements(Invoice.TaxPositions).setDimension(2); //$NON-NLS-1$
-
-		layoutManager.addLineBreak();
+				.setCaption(Texts.getString("InvoiceUIController.AccountingInformations")).addRemainingElements(Invoice.TaxPositions).setColspan(Colspan.DIMENSION_2); //$NON-NLS-1$
 
 		// manage TaxPositions layout
-		IFlowTableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions).addRemainingElements()
-				.setPageLength(3);
+		IFlowTableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions)
+				.addRemainingElements().setPageLength(3);
 		tableContent.getColumn(Invoice.TaxPositions$NetAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
 		tableContent.getColumn(Invoice.TaxPositions$TaxAmount).setFooterCalculationMode(ColumnCalculationMode.SUM);
 		tableContent.getColumn(Invoice.TaxPositions$TotalAmount).setFooterCalculationMode(ColumnCalculationMode.SUM)
 				.setWidth(200);
-		tableContent.getColumn(Invoice.TaxPositions$TaxRate).setColumnAlignment(ColumnAlignment.ALIGN_RIGHT)
-				.setWidth(200);
+		tableContent.getColumn(Invoice.TaxPositions$TaxRate).setColumnAlignment(Align.RIGHT).setWidth(200);
 
 		// create attachment viewer
-		layoutManager.createAndAddCustomContent().setComponent(
-				UIDataTypeFactory
-						.getInstance()
-						.createEmbeddedAttachmentViewer(
-								bpmoAccess.getInvoiceAttachment().getContext().getCharacteristicValue()
-										.getCurrentValue(), bpmoAccess.getBPMOHeader().isNew())
-						.setViewerHeight(750, UNIT.PIXEL));
+		layoutManager
+				.createAndAddCustomContent()
+				.setComponent(
+						UIDataTypeFactory
+								.getInstance()
+								.createEmbeddedAttachmentViewer(
+										bpmoAccess.getInvoiceAttachment().getContext().getCharacteristicValue()
+												.getCurrentValue(), bpmoAccess.getBPMOHeader().isNew())
+								.setViewerHeight(750, Unit.PIXELS)).setColspan(Colspan.DIMENSION_FULL);
 		// @@end
 	}
 
@@ -109,6 +99,6 @@ public class InvoiceUIController extends BPMOUIController<InvoiceAccess, Invoice
 
 	// @@begin others
 	@StyleController
-	private IFlowStyleController styleController;   
+	private IFlowStyleController styleController;
 	// @@end
 }
