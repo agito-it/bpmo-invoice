@@ -2,6 +2,9 @@ package org.agito.bpmo.sample.invoice.bpmo;
 
 // @@begin imports
 
+import org.agito.bpmo.sample.invoice.recources.InvoiceTextResource;
+import org.agito.bpmo.sample.invoice.recources.InvoiceTextResourceUtils;
+
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Table.Align;
 
@@ -53,16 +56,16 @@ public class InvoiceUIController
 		// add initial fields to group
 		layoutManager
 				.createAndAddGroupContent()
-				.setCaption(Texts.getString("InvoiceUIController.InvoiceDetails"))
+				.setCaption(InvoiceTextResourceUtils.getText(InvoiceTextResource.CAPTION_INVOICE_DETAILS))
 				.createAndAddElements(Invoice.InvoiceAttachment, Invoice.InvoicingParty, Invoice.InvoiceNumber,
 						Invoice.InvoiceDate, Invoice.InvoiceReceived, Invoice.TermOfPayment)
-				.setColspan(Colspan.DIMENSION_2); //$NON-NLS-1$
+				.setColspan(Colspan.DIMENSION_2);
 
 		// manage finance accounting informations
 		// add all remaining content elements excepting TaxPositions to group
-		layoutManager
-				.createAndAddGroupContent()
-				.setCaption(Texts.getString("InvoiceUIController.AccountingInformations")).addRemainingElements(Invoice.TaxPositions).setColspan(Colspan.DIMENSION_2); //$NON-NLS-1$
+		layoutManager.createAndAddGroupContent()
+				.setCaption(InvoiceTextResourceUtils.getText(InvoiceTextResource.CAPTION_ACCOUNTING_INFO))
+				.addRemainingElements(Invoice.TaxPositions).setColspan(Colspan.DIMENSION_2); //$NON-NLS-1$
 
 		// manage TaxPositions layout
 		IFlowTableContent tableContent = layoutManager.createAndAddTableContent(Invoice.TaxPositions)

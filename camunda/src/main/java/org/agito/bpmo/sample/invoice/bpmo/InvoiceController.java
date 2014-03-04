@@ -13,12 +13,15 @@ import de.agito.cps.core.bpmo.api.controller.BPMOController;
 import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
 import de.agito.cps.core.engine.runtime.BusinessLog;
 import de.agito.cps.core.utils.ConvertUtils;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import javax.xml.datatype.DatatypeConstants;
+
 import org.agito.bpmo.sample.invoice.bpmo.Invoice;
 import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess;
 import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.InvoiceDate;
@@ -28,6 +31,8 @@ import org.agito.bpmo.sample.invoice.bpmo.InvoiceAction;
 import org.agito.bpmo.sample.invoice.bpmo.InvoiceLanguage;
 import org.agito.bpmo.sample.invoice.bpmo.InvoiceLifecycle;
 import org.agito.bpmo.sample.invoice.bpmo.InvoiceProcessActivity;
+import org.agito.bpmo.sample.invoice.recources.InvoiceTextResource;
+import org.agito.bpmo.sample.invoice.recources.InvoiceTextResourceUtils;
 
 // @@end
 
@@ -39,7 +44,9 @@ import org.agito.bpmo.sample.invoice.bpmo.InvoiceProcessActivity;
  */
 // @@end
 @BPMO(id = "Invoice", version = "1.0.0", xml = "org/agito/bpmo/sample/invoice/bpmo/Invoice.bpmo")
-public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceController
+		extends
+		BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceController(final IBPMOControllerContext context) {
 		super(context);
@@ -61,9 +68,7 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 			if (invoiceReceived.getValue().compare(invoiceDate.getValue()) == DatatypeConstants.LESSER) {
 				invoiceReceived
 						.addMessage(MessageSeverity.ERROR,
-								"invalid Date", //$NON-NLS-1$
-								String.format(
-										Texts.getString("InvoiceController.InvoiceReceivedValidation"), invoiceDate.getDefinition().getLabel() //$NON-NLS-1$
+								"invalid Date", InvoiceTextResourceUtils.getText(InvoiceTextResource.MESSAGE_DATE_MUST_BEFORE_INVOICE_DATE, invoiceDate.getDefinition().getLabel() //$NON-NLS-1$
 												.getText()));
 				return false;
 			}
@@ -79,7 +84,8 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TaxAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$TaxRate", "Invoice$TaxPositions$NetAmount" })
-	public BigDecimal cpsCalculateTaxPositions$TaxAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
+	public BigDecimal cpsCalculateTaxPositions$TaxAmount(final InvoiceAccess bpmoAccess,
+			final TaxPositions.Row rowAccess) {
 		final TaxPositions.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
 		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
 		/*
@@ -103,7 +109,8 @@ public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceActi
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TotalAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$TaxRate", "Invoice$TaxPositions$NetAmount" })
-	public BigDecimal cpsCalculateTaxPositions$TotalAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
+	public BigDecimal cpsCalculateTaxPositions$TotalAmount(final InvoiceAccess bpmoAccess,
+			final TaxPositions.Row rowAccess) {
 		final TaxPositions.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
 		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
 		/*
