@@ -3,7 +3,7 @@
 
 	<groupId>org.agito.demo</groupId>
 	<artifactId>bpmo-invoice-parent</artifactId>
-	<version>1.0.10</version>
+	<version>1.0.11-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>agito BPMO Inbound Invoice Processing Parent</name>
@@ -108,6 +108,6 @@
 		<connection>scm:git:git://git.agito.corp/USECASE/DEMO/bpmo-invoice.git</connection>
 		<developerConnection>scm:git:ssh://git@git.agito.corp/srv/git/browse/USECASE/DEMO/bpmo-invoice.git</developerConnection>
 		<url>http://git.agito.corp/USECASE/DEMO/bpmo-invoice.git</url>
-		<tag>1.0.10</tag>
+		<tag>HEAD</tag>
 	</scm>
 </project>
