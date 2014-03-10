@@ -61,7 +61,7 @@
       <incoming>flow1</incoming>
       <outgoing>flow2</outgoing>
     </serviceTask>
-    <userTask id="CheckOrder" activiti:candidateGroups="roleAnyone" name="Check order" implementation="webService">
+    <userTask id="CheckOrder" activiti:candidateGroups="roleAnyone" activiti:candidateUsers="${$cpsInitiator}" name="Check order" implementation="webService">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
         <signavio:signavioMetaData metaKey="risklevel" metaValue=""/>
