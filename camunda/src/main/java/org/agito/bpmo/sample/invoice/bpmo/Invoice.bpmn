@@ -1,53 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="sid-ee8018fc-457a-4e35-aab6-db9696e8cbb5" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="7.8.0" targetNamespace="http://www.activiti.org/test">
-  <collaboration id="sid-1136f304-2a8b-4431-891b-1fa86a2cc053">
-    <extensionElements>
-      <signavio:signavioDiagramMetaData metaKey="revisionid" metaValue="13e1e92a10434ee79f60e49f241d8317"/>
-    </extensionElements>
-    <participant id="InvoicePool" name="Invoice pool" processRef="Invoice_InvoiceProcess">
-      <extensionElements/>
-    </participant>
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" targetNamespace="http://www.activiti.org/test">
+  <collaboration id="Collaboration">
+    <participant id="InvoicePool" name="Invoice Pool" processRef="Invoice_InvoiceProcess"/>
   </collaboration>
-  <process id="Invoice_InvoiceProcess" name="Invoice pool" isExecutable="true">
-    <extensionElements/>
-    <laneSet id="sid-48346974-d376-4ce0-a4ec-dfae5a46dd48">
+  <process id="Invoice_InvoiceProcess" name="InvoiceProcess" isExecutable="true">
+    <laneSet id="laneSet_VaadinDevelopmentDefinition1_InvoiceProcess">
       <lane id="postOffice" name="Mail Admin Center">
-        <extensionElements>
-          <signavio:signavioMetaData metaKey="bgcolor" metaValue=""/>
-        </extensionElements>
-        <flowNodeRef>startevent</flowNodeRef>
-        <flowNodeRef>ResolveOrder</flowNodeRef>
+        <flowNodeRef>InvoicesProcessStartevent</flowNodeRef>
       </lane>
       <lane id="accounting" name="Financial Accounting">
-        <extensionElements>
-          <signavio:signavioMetaData metaKey="bgcolor" metaValue=""/>
-        </extensionElements>
         <flowNodeRef>CheckOrder</flowNodeRef>
-        <flowNodeRef>orderResolvedGateway</flowNodeRef>
       </lane>
       <lane id="approval" name="Approver">
-        <extensionElements>
-          <signavio:signavioMetaData metaKey="bgcolor" metaValue=""/>
-        </extensionElements>
-        <flowNodeRef>exclusivegateway1</flowNodeRef>
         <flowNodeRef>Approval</flowNodeRef>
-        <flowNodeRef>approvalGateway</flowNodeRef>
-        <flowNodeRef>Transfer</flowNodeRef>
-        <flowNodeRef>endevent</flowNodeRef>
+        <flowNodeRef>exclusivegateway1</flowNodeRef>
+        <flowNodeRef>IsApprovedGateway</flowNodeRef>
+      </lane>
+      <lane id="TechnicalSystems" name="Technical Systems">
+        <flowNodeRef>ResolveOrder</flowNodeRef>
+        <flowNodeRef>IsOrderResovedgateWay</flowNodeRef>
+        <flowNodeRef>servicetask1</flowNodeRef>
+        <flowNodeRef>endevent1</flowNodeRef>
       </lane>
     </laneSet>
-    <startEvent id="startevent" name="Start">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
-        <signavio:signavioMetaData metaKey="preceedingprocesses" metaValue=""/>
-      </extensionElements>
+    <startEvent id="InvoicesProcessStartevent" name="Start">
       <outgoing>flow1</outgoing>
     </startEvent>
-    <serviceTask id="ResolveOrder" activiti:async="true" activiti:class="de.agito.cps.process.camunda.listener.ExecuteBPMOActionDelegate" activiti:exclusive="false" name="Resolve Order" implementation="webService">
+    <sequenceFlow id="flow1" sourceRef="InvoicesProcessStartevent" targetRef="ResolveOrder"/>
+    <serviceTask id="ResolveOrder" activiti:async="true" activiti:exclusive="false" activiti:class="de.agito.cps.process.camunda.listener.ExecuteBPMOActionDelegate" name="Resolve Order">
       <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
-        <signavio:signavioMetaData metaKey="risklevel" metaValue=""/>
-        <signavio:signavioMetaData metaKey="externaldocuments" metaValue=""/>
         <activiti:field name="action">
           <activiti:string>ResolveOrder</activiti:string>
         </activiti:field>
@@ -61,69 +42,31 @@
       <incoming>flow1</incoming>
       <outgoing>flow2</outgoing>
     </serviceTask>
-    <userTask id="CheckOrder" activiti:candidateGroups="roleAnyone" activiti:candidateUsers="${$cpsInitiator}" name="Check order" implementation="webService">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
-        <signavio:signavioMetaData metaKey="risklevel" metaValue=""/>
-        <signavio:signavioMetaData metaKey="externaldocuments" metaValue=""/>
-      </extensionElements>
-      <incoming>notResolved</incoming>
-      <incoming>disapproved</incoming>
-      <outgoing>flow4</outgoing>
-    </userTask>
-    <exclusiveGateway id="orderResolvedGateway" name="" gatewayDirection="Diverging" default="notResolved">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
-      </extensionElements>
+    <exclusiveGateway id="IsOrderResovedgateWay" name="Is order resoved?" default="notResolved">
       <incoming>flow2</incoming>
       <outgoing>resolved</outgoing>
       <outgoing>notResolved</outgoing>
     </exclusiveGateway>
-    <exclusiveGateway id="exclusivegateway1" name="" gatewayDirection="Converging">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
-      </extensionElements>
+    <sequenceFlow id="flow2" sourceRef="ResolveOrder" targetRef="IsOrderResovedgateWay"/>
+    <sequenceFlow id="resolved" name="resolved" sourceRef="IsOrderResovedgateWay" targetRef="exclusivegateway1">
+      <conditionExpression xsi:type="tFormalExpression">${IsResolved}</conditionExpression>
+    </sequenceFlow>
+    <userTask id="Approval" activiti:candidateUsers="${approver},${$cpsInitiator}" activiti:candidateGroups="roleAnyone" name="Approve invoice">
+      <incoming>flow3</incoming>
+      <outgoing>flow5</outgoing>
+    </userTask>
+    <sequenceFlow id="notResolved" name="not resolved" sourceRef="IsOrderResovedgateWay" targetRef="CheckOrder"/>
+    <userTask id="CheckOrder" activiti:candidateUsers="${$cpsInitiator}" activiti:candidateGroups="roleAnyone" name="Check Order">
+      <incoming>notResolved</incoming>
+      <incoming>disapproved</incoming>
+      <outgoing>flow4</outgoing>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway1">
       <incoming>resolved</incoming>
       <incoming>flow4</incoming>
-      <outgoing>flow5</outgoing>
+      <outgoing>flow3</outgoing>
     </exclusiveGateway>
-    <userTask id="Approval" activiti:candidateUsers="${approver},${$cpsInitiator}" name="Approve invoice" implementation="webService">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
-        <signavio:signavioMetaData metaKey="risklevel" metaValue=""/>
-        <signavio:signavioMetaData metaKey="externaldocuments" metaValue=""/>
-      </extensionElements>
-      <incoming>flow5</incoming>
-      <outgoing>flow7</outgoing>
-    </userTask>
-    <exclusiveGateway id="approvalGateway" name="" gatewayDirection="Diverging" default="disapproved">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
-      </extensionElements>
-      <incoming>flow7</incoming>
-      <outgoing>disapproved</outgoing>
-      <outgoing>approved</outgoing>
-    </exclusiveGateway>
-    <serviceTask id="Transfer" activiti:async="true" activiti:class="de.agito.cps.process.camunda.listener.ExecuteBPMOActionDelegate" activiti:exclusive="false" name="Transfer to ERP" implementation="webService">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
-        <signavio:signavioMetaData metaKey="risklevel" metaValue=""/>
-        <signavio:signavioMetaData metaKey="externaldocuments" metaValue=""/>
-        <activiti:field name="action">
-          <activiti:string>BackendBooking</activiti:string>
-        </activiti:field>
-      </extensionElements>
-      <incoming>approved</incoming>
-      <outgoing>flow10</outgoing>
-    </serviceTask>
-    <endEvent id="endevent" name="">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
-        <signavio:signavioMetaData metaKey="followingprocesses" metaValue=""/>
-      </extensionElements>
-      <incoming>flow10</incoming>
-    </endEvent>
-    <sequenceFlow id="flow5" name="" isImmediate="true" sourceRef="exclusivegateway1" targetRef="Approval">
+    <sequenceFlow id="flow3" sourceRef="exclusivegateway1" targetRef="Approval">
       <extensionElements>
         <activiti:executionListener class="de.agito.cps.process.camunda.listener.ExecuteBPMOActionListener" event="take">
           <activiti:field name="action">
@@ -135,226 +78,136 @@
         </activiti:executionListener>
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="resolved" name="Order resolved" isImmediate="true" sourceRef="orderResolvedGateway" targetRef="exclusivegateway1">
+    <sequenceFlow id="flow4" sourceRef="CheckOrder" targetRef="exclusivegateway1"/>
+    <exclusiveGateway id="IsApprovedGateway" name="IsApproved?" default="disapproved">
+      <incoming>flow5</incoming>
+      <outgoing>disapproved</outgoing>
+      <outgoing>approved</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="Approval" targetRef="IsApprovedGateway"/>
+    <sequenceFlow id="disapproved" name="disapproved" sourceRef="IsApprovedGateway" targetRef="CheckOrder"/>
+    <serviceTask id="servicetask1" activiti:class="de.agito.cps.process.camunda.listener.ExecuteBPMOActionDelegate" name="Service Task">
       <extensionElements>
-        <signavio:signavioLabel align="left" ref="text_name" valign="top" x="-5035.634154384416" y="6123.241040303312"/>
+        <activiti:field name="action">
+          <activiti:string>BackendBooking</activiti:string>
+        </activiti:field>
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression" id="sid-9ce3cb42-9a63-4c97-bd26-112da9ce21f8">${IsResolved}</conditionExpression>
+      <incoming>approved</incoming>
+      <outgoing>flow6</outgoing>
+    </serviceTask>
+    <endEvent id="endevent1" name="End">
+      <incoming>flow6</incoming>
+    </endEvent>
+    <sequenceFlow id="flow6" sourceRef="servicetask1" targetRef="endevent1"/>
+    <sequenceFlow id="approved" name="approved" sourceRef="IsApprovedGateway" targetRef="servicetask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${$cpsChoiceIdApproval.equals("approved")}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow10" name="" isImmediate="true" sourceRef="Transfer" targetRef="endevent"/>
-    <sequenceFlow id="flow4" name="" isImmediate="true" sourceRef="CheckOrder" targetRef="exclusivegateway1">
-      <extensionElements>
-        <signavio:signavioLabel align="left" ref="text_name" valign="top" x="-310.0125928546197" y="-222.28485214479142"/>
-      </extensionElements>
-    </sequenceFlow>
-    <sequenceFlow id="flow1" name="" isImmediate="true" sourceRef="startevent" targetRef="ResolveOrder"/>
-    <sequenceFlow id="flow2" name="" isImmediate="true" sourceRef="ResolveOrder" targetRef="orderResolvedGateway"/>
-    <sequenceFlow id="notResolved" name="Not resolved" isImmediate="true" sourceRef="orderResolvedGateway" targetRef="CheckOrder">
-      <extensionElements>
-        <signavio:signavioLabel align="left" ref="text_name" valign="top" x="-614.3343693244805" y="1878.317579076659"/>
-      </extensionElements>
-    </sequenceFlow>
-    <sequenceFlow id="disapproved" name="desclined" isImmediate="true" sourceRef="approvalGateway" targetRef="CheckOrder">
-      <extensionElements>
-        <signavio:signavioLabel align="right" distance="9.75495" from="0" orientation="ur" ref="text_name" to="1" valign="top" x="525.754949605258" y="549.0"/>
-      </extensionElements>
-    </sequenceFlow>
-    <sequenceFlow id="approved" name="approved" isImmediate="true" sourceRef="approvalGateway" targetRef="Transfer">
-      <extensionElements>
-        <signavio:signavioLabel align="center" ref="text_name" valign="middle" x="435.0" y="647.0"/>
-      </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression" id="sid-010ef221-04f4-4e0a-8c06-57d84b74bc03"><![CDATA[${$cpsChoiceIdApproval.equals("approved")}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow7" name="" isImmediate="true" sourceRef="Approval" targetRef="approvalGateway"/>
-    <association id="Association_1" sourceRef="ResolveOrder" targetRef="textannotation2"/>
-    <association id="association4" sourceRef="textannotation1" targetRef="Transfer"/>
-    <textAnnotation id="textannotation1">
-      <text>Update record in a ERP system by using an specialized interface</text>
-    </textAnnotation>
-    <textAnnotation id="textannotation2">
-      <text>Resolve order information from ERP System</text>
-    </textAnnotation>
   </process>
-  <bpmndi:BPMNDiagram id="sid-7ccbcbb9-3fae-432b-8d49-caf6e663d2f9">
-    <bpmndi:BPMNPlane id="sid-4a36f9aa-716f-415b-9577-548a31dbb33b" bpmnElement="sid-1136f304-2a8b-4431-891b-1fa86a2cc053">
-      <bpmndi:BPMNShape id="InvoicePool_gui" bpmnElement="InvoicePool" isHorizontal="true">
-        <omgdc:Bounds height="560.0" width="727.0" x="12.0" y="12.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-ee05eb4b-a475-49ca-853a-8a39b2c962a3">
-          <omgdc:Bounds height="72.0" width="12.0" x="124.25542" y="397.1698"/>
-        </bpmndi:BPMNLabel>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
+    <bpmndi:BPMNPlane id="BPMNPlane_Collaboration" bpmnElement="Collaboration">
+      <bpmndi:BPMNShape id="BPMNShape_InvoicePool" bpmnElement="InvoicePool" isHorizontal="false">
+        <omgdc:Bounds height="668.0" width="771.0" x="10.0" y="10.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="postOffice_gui" bpmnElement="postOffice" isHorizontal="true">
-        <omgdc:Bounds height="143.0" width="697.0" x="42.0" y="12.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-ee05eb4b-a475-49ca-853a-8a39b2c962a3">
-          <omgdc:Bounds height="108.0" width="12.0" x="154.2553" y="175.46593"/>
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="BPMNShape_postOffice" bpmnElement="postOffice" isHorizontal="false">
+        <omgdc:Bounds height="167.0" width="751.0" x="30.0" y="10.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="accounting_gui" bpmnElement="accounting" isHorizontal="true">
-        <omgdc:Bounds height="193.0" width="697.0" x="42.0" y="154.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-ee05eb4b-a475-49ca-853a-8a39b2c962a3">
-          <omgdc:Bounds height="120.85715" width="12.0" x="154.25479" y="337.70618"/>
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="BPMNShape_accounting" bpmnElement="accounting" isHorizontal="false">
+        <omgdc:Bounds height="167.0" width="751.0" x="30.0" y="177.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="approval_gui" bpmnElement="approval" isHorizontal="true">
-        <omgdc:Bounds height="226.0" width="697.0" x="42.0" y="346.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-ee05eb4b-a475-49ca-853a-8a39b2c962a3">
-          <omgdc:Bounds height="55.714287" width="12.0" x="154.25523" y="573.98145"/>
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="BPMNShape_approval" bpmnElement="approval" isHorizontal="false">
+        <omgdc:Bounds height="167.0" width="751.0" x="30.0" y="344.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="startevent_gui" bpmnElement="startevent">
-        <omgdc:Bounds height="30.0" width="30.0" x="94.0" y="69.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-fe07ec06-0bc6-4d6d-bf8c-6bdda89cdd9d">
-          <omgdc:Bounds height="22.0" width="34.0" x="91.0" y="101.0"/>
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="BPMNShape_TechnicalSystems" bpmnElement="TechnicalSystems" isHorizontal="false">
+        <omgdc:Bounds height="167.0" width="751.0" x="30.0" y="511.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ResolveOrder_gui" bpmnElement="ResolveOrder">
-        <omgdc:Bounds height="55.0" width="105.0" x="255.0" y="56.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-ee05eb4b-a475-49ca-853a-8a39b2c962a3">
-          <omgdc:Bounds height="12.0" width="84.85715" x="371.25458" y="222.17326"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CheckOrder_gui" bpmnElement="CheckOrder">
-        <omgdc:Bounds height="55.0" width="105.0" x="255.0" y="270.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-ee05eb4b-a475-49ca-853a-8a39b2c962a3">
-          <omgdc:Bounds height="12.0" width="72.85714" x="377.2546" y="437.5"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="orderResolvedGateway_gui" bpmnElement="orderResolvedGateway" isMarkerVisible="true">
-        <omgdc:Bounds height="40.0" width="40.0" x="288.0" y="171.0"/>
+      <bpmndi:BPMNShape id="BPMNShape_InvoicesProcessStartevent" bpmnElement="InvoicesProcessStartevent">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="80.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="305.0" y="216.0"/>
+          <omgdc:Bounds height="22.0" width="34.0" x="101.0" y="60.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="exclusivegateway1_gui" bpmnElement="exclusivegateway1" isMarkerVisible="true">
-        <omgdc:Bounds height="40.0" width="40.0" x="89.0" y="367.0"/>
+      <bpmndi:BPMNShape id="BPMNShape_ResolveOrder" bpmnElement="ResolveOrder">
+        <omgdc:Bounds height="55.0" width="105.0" x="70.0" y="560.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_IsOrderResovedgateWay" bpmnElement="IsOrderResovedgateWay">
+        <omgdc:Bounds height="40.0" width="40.0" x="220.0" y="568.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Approval" bpmnElement="Approval">
+        <omgdc:Bounds height="55.0" width="105.0" x="370.0" y="380.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_CheckOrder" bpmnElement="CheckOrder">
+        <omgdc:Bounds height="55.0" width="105.0" x="190.0" y="220.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_exclusivegateway1" bpmnElement="exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="300.0" y="387.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_IsApprovedGateway" bpmnElement="IsApprovedGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="520.0" y="388.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="106.0" y="412.0"/>
+          <omgdc:Bounds height="22.0" width="76.0" x="564.0" y="398.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Approval_gui" bpmnElement="Approval">
-        <omgdc:Bounds height="55.0" width="105.0" x="174.0" y="482.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-ee05eb4b-a475-49ca-853a-8a39b2c962a3">
-          <omgdc:Bounds height="12.0" width="95.14285" x="284.9286" y="651.5"/>
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="BPMNShape_servicetask1" bpmnElement="servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="490.0" y="561.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="approvalGateway_gui" bpmnElement="approvalGateway" isMarkerVisible="true">
-        <omgdc:Bounds height="40.0" width="40.0" x="399.0" y="490.0"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="416.0" y="535.0"/>
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="BPMNShape_endevent1" bpmnElement="endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="640.0" y="571.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Transfer_gui" bpmnElement="Transfer">
-        <omgdc:Bounds height="55.0" width="105.0" x="534.0" y="482.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-ee05eb4b-a475-49ca-853a-8a39b2c962a3">
-          <omgdc:Bounds height="12.0" width="95.14285" x="644.94836" y="651.5"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="endevent_gui" bpmnElement="endevent">
-        <omgdc:Bounds height="28.0" width="28.0" x="684.0" y="496.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow1" bpmnElement="flow1">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="117.0" y="115.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="122.0" y="560.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow2" bpmnElement="flow2">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="175.0" y="587.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="220.0" y="588.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_resolved" bpmnElement="resolved">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="260.0" y="588.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="320.0" y="587.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="320.0" y="427.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="695.0" y="529.0"/>
+          <omgdc:Bounds height="22.0" width="53.0" x="264.0" y="480.0"/>
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="textannotation1_gui" bpmnElement="textannotation1">
-        <omgdc:Bounds height="55.0" width="141.0" x="578.0" y="381.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-fe07ec06-0bc6-4d6d-bf8c-6bdda89cdd9d">
-          <omgdc:Bounds height="36.0" width="138.0" x="626.0198" y="538.4"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="textannotation2_gui" bpmnElement="textannotation2">
-        <omgdc:Bounds height="50.0" width="161.0" x="405.0" y="57.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-fe07ec06-0bc6-4d6d-bf8c-6bdda89cdd9d">
-          <omgdc:Bounds height="24.0" width="156.0" x="515.18317" y="215.67326"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="flow10_gui" bpmnElement="flow10">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="638.0" y="509.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="684.0" y="510.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_notResolved" bpmnElement="notResolved">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="240.0" y="568.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="242.0" y="275.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="658.0" y="510.0"/>
+          <omgdc:Bounds height="22.0" width="75.0" x="156.0" y="480.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="association4_gui" bpmnElement="association4">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="631.0" y="435.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="603.0" y="482.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow3" bpmnElement="flow3">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="340.0" y="407.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="370.0" y="407.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1_gui" bpmnElement="Association_1">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="359.0" y="83.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="405.0" y="82.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow4" bpmnElement="flow4">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="295.0" y="247.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="320.0" y="264.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="320.0" y="387.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="approved_gui" bpmnElement="approved">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="439.0" y="510.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="534.0" y="509.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-fe07ec06-0bc6-4d6d-bf8c-6bdda89cdd9d">
-          <omgdc:Bounds height="22.0" width="57.0" x="458.0" y="482.0"/>
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow5" bpmnElement="flow5">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="475.0" y="407.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="520.0" y="408.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="resolved_gui" bpmnElement="resolved">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="288.0" y="191.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="109.0" y="191.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="109.0" y="367.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-fe07ec06-0bc6-4d6d-bf8c-6bdda89cdd9d">
-          <omgdc:Bounds height="22.0" width="89.0" x="168.0" y="191.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="disapproved_gui" bpmnElement="disapproved">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="419.0" y="490.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="420.0" y="297.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="359.0" y="297.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-fe07ec06-0bc6-4d6d-bf8c-6bdda89cdd9d">
-          <omgdc:Bounds height="22.0" width="61.0" x="352.0" y="400.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="flow2_gui" bpmnElement="flow2">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="307.0" y="110.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="308.0" y="171.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_disapproved" bpmnElement="disapproved">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="540.0" y="388.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="540.0" y="247.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="294.0" y="247.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="305.0" y="141.0"/>
+          <omgdc:Bounds height="22.0" width="74.0" x="457.0" y="300.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="flow5_gui" bpmnElement="flow5">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="109.0" y="407.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="109.0" y="509.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="174.0" y="509.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow6" bpmnElement="flow6">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="595.0" y="588.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="640.0" y="588.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_approved" bpmnElement="approved">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="540.0" y="428.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="542.0" y="561.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="106.0" y="491.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="flow4_gui" bpmnElement="flow4">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="307.0" y="324.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="307.0" y="387.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="129.0" y="387.0"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="241.0" y="387.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="notResolved_gui" bpmnElement="notResolved">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="308.0" y="211.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="307.0" y="270.0"/>
-        <bpmndi:BPMNLabel labelStyle="sid-fe07ec06-0bc6-4d6d-bf8c-6bdda89cdd9d">
-          <omgdc:Bounds height="22.0" width="77.0" x="314.0" y="230.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="flow1_gui" bpmnElement="flow1">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="124.0" y="84.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="255.0" y="83.0"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="187.0" y="84.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="flow7_gui" bpmnElement="flow7">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="278.0" y="509.0"/>
-        <omgdi:waypoint xsi:type="omgdc:Point" x="399.0" y="510.0"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="6.0" width="6.0" x="336.0" y="510.0"/>
+          <omgdc:Bounds height="22.0" width="57.0" x="474.0" y="456.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
-    <bpmndi:BPMNLabelStyle id="sid-fe07ec06-0bc6-4d6d-bf8c-6bdda89cdd9d">
-      <omgdc:Font name="Arial" size="11.0"/>
-    </bpmndi:BPMNLabelStyle>
-    <bpmndi:BPMNLabelStyle id="sid-ee05eb4b-a475-49ca-853a-8a39b2c962a3">
-      <omgdc:Font name="Arial" size="12.0"/>
-    </bpmndi:BPMNLabelStyle>
   </bpmndi:BPMNDiagram>
 </definitions>
