@@ -360,7 +360,7 @@
 		<Language>de</Language>
 	</Languages>
 	<Lifecycles>
-		<Lifecycle Id="NEW" ProcessDefinitionId="Invoice_InvoiceProcess">
+		<Lifecycle Id="NEW" ProcessDefinitionId="InvoiceProcess">
 			<Label>
 				<Text>New</Text>
 				<Text Language="de">Neu</Text>
