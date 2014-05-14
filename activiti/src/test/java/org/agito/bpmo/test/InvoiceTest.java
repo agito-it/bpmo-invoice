@@ -25,7 +25,7 @@ import de.agito.cps.test.activiti.annotations.BPMOTestUserId;
 public class InvoiceTest {
 
 	@Rule
-	public BPMOTestRule bpmoRule = BPMOTestRule.init().applicationId("Invoice");
+	public BPMOTestRule bpmoRule = BPMOTestRule.init().applicationId("Invoice").variant("DEFAULT");
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
