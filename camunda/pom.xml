@@ -1,22 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<artifactId>bpmo-invoice-camunda</artifactId>
-
 	<parent>
 		<groupId>org.agito.demo</groupId>
 		<artifactId>bpmo-invoice-parent</artifactId>
 		<version>1.0.13-SNAPSHOT</version>
 	</parent>
-
 	<name>agito BPMO Inbound Invoice Processing (Camunda)</name>
-
 	<packaging>war</packaging>
-
 	<dependencies>
 		<dependency>
 			<groupId>de.agito.cps.core</groupId>
 			<artifactId>cps-core-api</artifactId>
+			<exclusions>
+				<exclusion> <!-- exclude mybatis, as camunda 7.1.0 does not like mybatis > 3.1.1 -->
+					<groupId>org.mybatis</groupId>
+					<artifactId>mybatis</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>de.agito.cps.ui</groupId>
@@ -35,7 +36,6 @@
 			<artifactId>servlet-api</artifactId>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<finalName>bpmo-invoice</finalName>
 		<resources>
@@ -53,5 +53,4 @@
 			</resource>
 		</resources>
 	</build>
-
 </project>
