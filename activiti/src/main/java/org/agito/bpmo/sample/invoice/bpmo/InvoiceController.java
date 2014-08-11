@@ -2,18 +2,6 @@ package org.agito.bpmo.sample.invoice.bpmo;
 
 // @@begin imports
 
-import de.agito.cps.core.annotations.BPMO;
-import de.agito.cps.core.annotations.Expression;
-import de.agito.cps.core.annotations.ExpressionDependency;
-import de.agito.cps.core.bpmo.DataTypeFactory;
-import de.agito.cps.core.bpmo.ExpressionType;
-import de.agito.cps.core.bpmo.MessageSeverity;
-import de.agito.cps.core.bpmo.PrincipalType;
-import de.agito.cps.core.bpmo.api.controller.BPMOController;
-import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
-import de.agito.cps.core.engine.runtime.BusinessLog;
-import de.agito.cps.core.utils.ConvertUtils;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
@@ -22,17 +10,23 @@ import java.util.UUID;
 
 import javax.xml.datatype.DatatypeConstants;
 
-import org.agito.bpmo.sample.invoice.bpmo.Invoice;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess;
 import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.InvoiceDate;
 import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.InvoiceReceived;
 import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.TaxPositions;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceAction;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceLanguage;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceLifecycle;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceProcessActivity;
 import org.agito.bpmo.sample.invoice.recources.InvoiceTextResource;
 import org.agito.bpmo.sample.invoice.recources.InvoiceTextResourceUtils;
+
+import de.agito.cps.core.annotations.BPMO;
+import de.agito.cps.core.annotations.Expression;
+import de.agito.cps.core.annotations.ExpressionDependency;
+import de.agito.cps.core.bpmo.DataTypeFactory;
+import de.agito.cps.core.bpmo.ExpressionType;
+import de.agito.cps.core.bpmo.MessageSeverity;
+import de.agito.cps.core.bpmo.api.controller.BPMOController;
+import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
+import de.agito.cps.core.engine.identity.PrincipalType;
+import de.agito.cps.core.engine.runtime.BusinessLog;
+import de.agito.cps.core.utils.ConvertUtils;
 
 // @@end
 
@@ -44,9 +38,7 @@ import org.agito.bpmo.sample.invoice.recources.InvoiceTextResourceUtils;
  */
 // @@end
 @BPMO(id = "Invoice", version = "1.0.0", xml = "org/agito/bpmo/sample/invoice/bpmo/Invoice.bpmo")
-public class InvoiceController
-		extends
-		BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceController extends BPMOController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceController(final IBPMOControllerContext context) {
 		super(context);
@@ -84,8 +76,7 @@ public class InvoiceController
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TaxAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$TaxRate", "Invoice$TaxPositions$NetAmount" })
-	public BigDecimal cpsCalculateTaxPositions$TaxAmount(final InvoiceAccess bpmoAccess,
-			final TaxPositions.Row rowAccess) {
+	public BigDecimal cpsCalculateTaxPositions$TaxAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
 		final TaxPositions.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
 		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
 		/*
@@ -109,8 +100,7 @@ public class InvoiceController
 	// @@end
 	@Expression(artifact = "Invoice$TaxPositions$TotalAmount", type = ExpressionType.CALCULATE)
 	@ExpressionDependency({ "Invoice$TaxPositions$TaxRate", "Invoice$TaxPositions$NetAmount" })
-	public BigDecimal cpsCalculateTaxPositions$TotalAmount(final InvoiceAccess bpmoAccess,
-			final TaxPositions.Row rowAccess) {
+	public BigDecimal cpsCalculateTaxPositions$TotalAmount(final InvoiceAccess bpmoAccess, final TaxPositions.Row rowAccess) {
 		final TaxPositions.TaxRate taxPositions$TaxRate = rowAccess.getTaxRate();
 		final TaxPositions.NetAmount taxPositions$NetAmount = rowAccess.getNetAmount();
 		/*

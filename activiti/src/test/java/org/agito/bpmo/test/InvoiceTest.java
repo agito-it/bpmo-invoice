@@ -13,12 +13,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import de.agito.cps.commons.util.ResourceReaderUtils;
 import de.agito.cps.core.bpmo.IBPMO;
-import de.agito.cps.core.bpmo.PrincipalType;
+import de.agito.cps.core.engine.identity.PrincipalType;
 import de.agito.cps.core.exception.ValidationException;
 import de.agito.cps.core.process.spi.eventing.ProcessAgentEventType;
 import de.agito.cps.core.utils.ConvertUtils;
-import de.agito.cps.core.utils.ResourceReader;
 import de.agito.cps.test.activiti.BPMOTestRule;
 import de.agito.cps.test.activiti.annotations.BPMOTestUserId;
 
@@ -45,8 +45,12 @@ public class InvoiceTest {
 		invoiceAccess.getOrderNumber().setValue("90387595");
 		invoiceAccess.getTaxPositions().getRows().get(0).getNetAmount().setValue(new BigDecimal("100.98"));
 		try {
-			invoiceAccess.getInvoiceAttachment().setValue("Invoice ACME Inc.pdf", "application/pdf",
-					ResourceReader.getResourceAsBinary(BPMOTestRule.class.getClassLoader(), "Invoice ACME Inc.pdf"));
+			invoiceAccess.getInvoiceAttachment()
+					.setValue(
+							"Invoice ACME Inc.pdf",
+							"application/pdf",
+							ResourceReaderUtils.getResourceAsBinary(BPMOTestRule.class.getClassLoader(),
+									"Invoice ACME Inc.pdf"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,8 +100,12 @@ public class InvoiceTest {
 		invoiceAccess.getOrderNumber().setValue("90387595");
 		invoiceAccess.getTaxPositions().getRows().get(0).getNetAmount().setValue(new BigDecimal("100.98"));
 		try {
-			invoiceAccess.getInvoiceAttachment().setValue("Invoice ACME Inc.pdf", "application/pdf",
-					ResourceReader.getResourceAsBinary(BPMOTestRule.class.getClassLoader(), "Invoice ACME Inc.pdf"));
+			invoiceAccess.getInvoiceAttachment()
+					.setValue(
+							"Invoice ACME Inc.pdf",
+							"application/pdf",
+							ResourceReaderUtils.getResourceAsBinary(BPMOTestRule.class.getClassLoader(),
+									"Invoice ACME Inc.pdf"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -144,8 +152,12 @@ public class InvoiceTest {
 		invoiceAccess.getTermOfPayment().setValue(new BigDecimal(30));
 		invoiceAccess.getTaxPositions().getRows().get(0).getNetAmount().setValue(new BigDecimal("100.98"));
 		try {
-			invoiceAccess.getInvoiceAttachment().setValue("Invoice ACME Inc.pdf", "application/pdf",
-					ResourceReader.getResourceAsBinary(BPMOTestRule.class.getClassLoader(), "Invoice ACME Inc.pdf"));
+			invoiceAccess.getInvoiceAttachment()
+					.setValue(
+							"Invoice ACME Inc.pdf",
+							"application/pdf",
+							ResourceReaderUtils.getResourceAsBinary(BPMOTestRule.class.getClassLoader(),
+									"Invoice ACME Inc.pdf"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -202,8 +214,12 @@ public class InvoiceTest {
 		invoiceAccess.getOrderNumber().setValue("90387595");
 		invoiceAccess.getTaxPositions().getRows().get(0).getNetAmount().setValue(new BigDecimal("100.98"));
 		try {
-			invoiceAccess.getInvoiceAttachment().setValue("Invoice ACME Inc.pdf", "application/pdf",
-					ResourceReader.getResourceAsBinary(BPMOTestRule.class.getClassLoader(), "Invoice ACME Inc.pdf"));
+			invoiceAccess.getInvoiceAttachment()
+					.setValue(
+							"Invoice ACME Inc.pdf",
+							"application/pdf",
+							ResourceReaderUtils.getResourceAsBinary(BPMOTestRule.class.getClassLoader(),
+									"Invoice ACME Inc.pdf"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

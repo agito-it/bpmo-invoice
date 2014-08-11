@@ -14,12 +14,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import de.agito.cps.commons.util.ResourceReaderUtils;
 import de.agito.cps.core.bpmo.IBPMO;
-import de.agito.cps.core.bpmo.PrincipalType;
+import de.agito.cps.core.engine.identity.PrincipalType;
 import de.agito.cps.core.exception.ValidationException;
 import de.agito.cps.core.process.spi.eventing.ProcessAgentEventType;
 import de.agito.cps.core.utils.ConvertUtils;
-import de.agito.cps.core.utils.ResourceReader;
 import de.agito.cps.process.camunda.test.BPMODeployment;
 import de.agito.cps.process.camunda.test.BPMOTestUserId;
 import de.agito.cps.test.camunda.BPMOProcessEngineRule;
@@ -51,7 +51,7 @@ public class InvoiceTest {
 		invoiceAccess.getTaxPositions().getRows().get(0).getNetAmount().setValue(new BigDecimal("100.98"));
 		try {
 			invoiceAccess.getInvoiceAttachment().setValue("Invoice ACME Inc.pdf", "application/pdf",
-					ResourceReader.getResourceAsBinaryByThread("Invoice ACME Inc.pdf"));
+					ResourceReaderUtils.getResourceAsBinaryByThread("Invoice ACME Inc.pdf"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -108,7 +108,7 @@ public class InvoiceTest {
 		invoiceAccess.getTaxPositions().getRows().get(0).getNetAmount().setValue(new BigDecimal("100.98"));
 		try {
 			invoiceAccess.getInvoiceAttachment().setValue("Invoice ACME Inc.pdf", "application/pdf",
-					ResourceReader.getResourceAsBinaryByThread("Invoice ACME Inc.pdf"));
+					ResourceReaderUtils.getResourceAsBinaryByThread("Invoice ACME Inc.pdf"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -159,7 +159,7 @@ public class InvoiceTest {
 		invoiceAccess.getTaxPositions().getRows().get(0).getNetAmount().setValue(new BigDecimal("100.98"));
 		try {
 			invoiceAccess.getInvoiceAttachment().setValue("Invoice ACME Inc.pdf", "application/pdf",
-					ResourceReader.getResourceAsBinaryByThread("Invoice ACME Inc.pdf"));
+					ResourceReaderUtils.getResourceAsBinaryByThread("Invoice ACME Inc.pdf"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -220,7 +220,7 @@ public class InvoiceTest {
 		invoiceAccess.getTaxPositions().getRows().get(0).getNetAmount().setValue(new BigDecimal("100.98"));
 		try {
 			invoiceAccess.getInvoiceAttachment().setValue("Invoice ACME Inc.pdf", "application/pdf",
-					ResourceReader.getResourceAsBinaryByThread("Invoice ACME Inc.pdf"));
+					ResourceReaderUtils.getResourceAsBinaryByThread("Invoice ACME Inc.pdf"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
