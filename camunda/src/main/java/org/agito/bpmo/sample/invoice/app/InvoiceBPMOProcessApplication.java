@@ -1,8 +1,11 @@
 package org.agito.bpmo.sample.invoice.app;
 
+import java.util.concurrent.Callable;
+
 import org.camunda.bpm.application.PostDeploy;
 import org.camunda.bpm.application.PreUndeploy;
 import org.camunda.bpm.application.ProcessApplication;
+import org.camunda.bpm.application.ProcessApplicationExecutionException;
 import org.camunda.bpm.application.impl.ServletProcessApplication;
 
 import de.agito.cps.core.annotations.BPMOApplication;
@@ -22,4 +25,13 @@ public class InvoiceBPMOProcessApplication extends ServletProcessApplication {
 		BPMOApplicationHelper.INSTANCE.undeploy(this);
 	}
 
+	@Override
+	public <T> T execute(Callable<T> callable) throws ProcessApplicationExecutionException {
+		try {
+			BPMOApplicationHelper.INSTANCE.preExecute(this);
+			return super.execute(callable);
+		} finally {
+			BPMOApplicationHelper.INSTANCE.postExecute(this);
+		}
+	}
 }
