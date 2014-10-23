@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ApplicationConfiguration xmlns="http://de.agito/cps/appconf">
-	<ApplicationLabel DefaultLanguage="en">
-		<Label Language="en">Inbound Invoice Processing</Label>
-		<Label Language="de">Rechnungseingang</Label>
-	</ApplicationLabel>
-</ApplicationConfiguration>
