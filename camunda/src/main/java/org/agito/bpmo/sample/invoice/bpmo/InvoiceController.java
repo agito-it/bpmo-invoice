@@ -16,12 +16,12 @@ import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.TaxPositions;
 import org.agito.bpmo.sample.invoice.recources.InvoiceTextResource;
 import org.agito.bpmo.sample.invoice.recources.InvoiceTextResourceUtils;
 
-import de.agito.cps.core.annotations.BPMO;
-import de.agito.cps.core.annotations.Expression;
-import de.agito.cps.core.annotations.ExpressionDependency;
 import de.agito.cps.core.bpmo.DataTypeFactory;
 import de.agito.cps.core.bpmo.ExpressionType;
 import de.agito.cps.core.bpmo.MessageSeverity;
+import de.agito.cps.core.bpmo.annotations.BPMO;
+import de.agito.cps.core.bpmo.annotations.Expression;
+import de.agito.cps.core.bpmo.annotations.ExpressionDependency;
 import de.agito.cps.core.bpmo.api.controller.BPMOController;
 import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
 import de.agito.cps.core.engine.identity.PrincipalType;

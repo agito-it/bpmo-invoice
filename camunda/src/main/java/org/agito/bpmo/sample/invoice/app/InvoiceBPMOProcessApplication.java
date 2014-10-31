@@ -8,12 +8,19 @@ import org.camunda.bpm.application.ProcessApplication;
 import org.camunda.bpm.application.ProcessApplicationExecutionException;
 import org.camunda.bpm.application.impl.ServletProcessApplication;
 
-import de.agito.cps.core.annotations.BPMOApplication;
+import de.agito.cps.core.application.BPMOApplication;
+import de.agito.cps.core.application.BPMOApplicationInterface;
+import de.agito.cps.core.application.BPMOApplicationReference;
+import de.agito.cps.core.application.WeakBPMOApplicationReference;
+import de.agito.cps.core.engine.app.ApplicationContext;
 import de.agito.cps.process.camunda.app.BPMOApplicationHelper;
 
 @BPMOApplication
 @ProcessApplication("Invoice")
-public class InvoiceBPMOProcessApplication extends ServletProcessApplication {
+public class InvoiceBPMOProcessApplication extends ServletProcessApplication implements BPMOApplicationInterface {
+
+	private ApplicationContext applicationContext;
+	private BPMOApplicationReference applicationReference;
 
 	@PostDeploy
 	public void deployBPMO() {
@@ -34,4 +41,22 @@ public class InvoiceBPMOProcessApplication extends ServletProcessApplication {
 			BPMOApplicationHelper.INSTANCE.postExecute(this);
 		}
 	}
+
+	@Override
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
+	}
+
+	@Override
+	public BPMOApplicationReference getApplicationReference() {
+		if (applicationReference == null)
+			applicationReference = new WeakBPMOApplicationReference(this);
+		return applicationReference;
+	}
+
 }
