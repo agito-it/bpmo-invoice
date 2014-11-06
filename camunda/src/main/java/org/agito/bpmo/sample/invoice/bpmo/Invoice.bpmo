@@ -3,7 +3,7 @@
 	
 	<!-- Start content artifact definition -->
 	<!-- Item to store digital version of invoice -->
-	<CharacteristicDefinition Id="InvoiceAttachment">
+	<CharacteristicDefinition Id="InvoiceAttachment" Indexable="true">
 		<Label>
 			<Text>Invoice copy</Text>
 			<Text Language="de">Rechnungskopie</Text>
@@ -32,7 +32,7 @@
 			</Control>
 		</Controls>
 	</CharacteristicDefinition>
-	<CharacteristicDefinition Id="InvoicingParty">
+	<CharacteristicDefinition Id="InvoicingParty" Indexable="true">
 		<Label>
 			<Text>Invoicing party</Text>
 			<Text Language="de">Name Rechnungssteller</Text>
@@ -62,7 +62,7 @@
 			<ControlGroup GroupId="PostOfficeControlGroup" />
 		</Controls>
 	</CharacteristicDefinition>
-	<CharacteristicDefinition Id="InvoiceNumber">
+	<CharacteristicDefinition Id="InvoiceNumber" Indexable="true" SupportsOriginalValue="true">
 		<Label>
 			<Text>Invoice number</Text>
 			<Text Language="de">Rechnungsnummer</Text>
@@ -88,7 +88,7 @@
 			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
 		</Controls>
 	</CharacteristicDefinition>
-	<CharacteristicDefinition Id="InvoiceReceived">
+	<CharacteristicDefinition Id="InvoiceReceived" Indexable="true">
 		<Label>
 			<Text>Invoice received</Text>
 			<Text Language="de">Rechnungseingang</Text>
@@ -103,7 +103,7 @@
 			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
 		</Controls>
 	</CharacteristicDefinition>
-	<CharacteristicDefinition Id="TermOfPayment">
+	<CharacteristicDefinition Id="TermOfPayment" Indexable="true">
 		<Label>
 			<Text>Term of payment (Days)</Text>
 			<Text Language="de">Zahlungsziel (Tage)</Text>
@@ -128,7 +128,7 @@
 		<Controls>
 			<ControlGroupUsage GroupId="PostOfficeControlGroup" />
 		</Controls>
-		<ColumnDefinition Id="NetAmount">
+		<ColumnDefinition Id="NetAmount" Indexable="true">
 			<Label>
 				<Text>Net amount €</Text>
 				<Text Language="de">Netto Betrag €</Text>
@@ -211,7 +211,7 @@
 		</ColumnDefinition>
 	</TableDefinition>
 	<!-- Start accounting relevant items -->
-	<CharacteristicDefinition Id="OrderNumber">
+	<CharacteristicDefinition Id="OrderNumber" Indexable="true">
 		<Label>
 			<Text>Order number</Text>
 			<Text Language="de">Bestellnummer</Text>
@@ -242,7 +242,7 @@
 			</Control>
 		</Controls>
 	</CharacteristicDefinition>
-	<CharacteristicDefinition Id="OrderProfitcenter">
+	<CharacteristicDefinition Id="OrderProfitcenter" Indexable="true">
 		<Label>
 			<Text>Profitcenter</Text>
 		</Label>
@@ -285,7 +285,7 @@
 			<ControlGroup GroupId="AccountingControlGroup" />
 		</Controls>
 	</CharacteristicDefinition>
-	<CharacteristicDefinition Id="OrderCostCenter">
+	<CharacteristicDefinition Id="OrderCostCenter" Indexable="true">
 		<Label>
 			<Text>Cost center</Text>
 			<Text Language="de">Kostenstelle</Text>
@@ -313,7 +313,7 @@
 			<ControlGroupUsage GroupId="AccountingControlGroup" />
 		</Controls>
 	</CharacteristicDefinition>
-	<CharacteristicDefinition Id="Approver">
+	<CharacteristicDefinition Id="Approver" Indexable="true">
 		<Label>
 			<Text>Responsible</Text>
 			<Text Language="de">Anforderer</Text>

@@ -2,12 +2,8 @@ package org.agito.bpmo.sample.invoice.bpmo;
 
 // @@begin imports
 
-import org.agito.bpmo.sample.invoice.recources.InvoiceTextResource;
-import org.agito.bpmo.sample.invoice.recources.InvoiceTextResourceUtils;
-
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Table.Align;
-
 import de.agito.cps.ui.vaadin.bpmo.BPMOUIController;
 import de.agito.cps.ui.vaadin.bpmo.IBPMOUIControllerContext;
 import de.agito.cps.ui.vaadin.bpmo.annotation.Navigation;
@@ -19,6 +15,14 @@ import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowTabSheet;
 import de.agito.cps.ui.vaadin.bpmo.layout.flow.IFlowTableContent;
 import de.agito.cps.ui.vaadin.bpmo.styles.IFlowStyleController;
 import de.agito.cps.ui.vaadin.common.resources.UIDataTypeFactory;
+import org.agito.bpmo.sample.invoice.bpmo.Invoice;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceAction;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceLanguage;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceLifecycle;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceProcessActivity;
+import org.agito.bpmo.sample.invoice.recources.InvoiceTextResource;
+import org.agito.bpmo.sample.invoice.recources.InvoiceTextResourceUtils;
 
 // @@end
 
@@ -29,9 +33,7 @@ import de.agito.cps.ui.vaadin.common.resources.UIDataTypeFactory;
  * @author agito
  */
 // @@end
-public class InvoiceUIController
-		extends
-		BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
+public class InvoiceUIController extends BPMOUIController<InvoiceAccess, InvoiceAction, InvoiceLifecycle, InvoiceLanguage, InvoiceProcessActivity, Invoice> {
 
 	public InvoiceUIController(final IBPMOUIControllerContext context) {
 		super(context);

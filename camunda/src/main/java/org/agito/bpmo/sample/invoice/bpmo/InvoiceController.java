@@ -2,20 +2,6 @@ package org.agito.bpmo.sample.invoice.bpmo;
 
 // @@begin imports
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.xml.datatype.DatatypeConstants;
-
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.InvoiceDate;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.InvoiceReceived;
-import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.TaxPositions;
-import org.agito.bpmo.sample.invoice.recources.InvoiceTextResource;
-import org.agito.bpmo.sample.invoice.recources.InvoiceTextResourceUtils;
-
 import de.agito.cps.core.bpmo.DataTypeFactory;
 import de.agito.cps.core.bpmo.ExpressionType;
 import de.agito.cps.core.bpmo.MessageSeverity;
@@ -27,6 +13,23 @@ import de.agito.cps.core.bpmo.api.controller.IBPMOControllerContext;
 import de.agito.cps.core.engine.identity.PrincipalType;
 import de.agito.cps.core.engine.runtime.BusinessLog;
 import de.agito.cps.core.utils.ConvertUtils;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import javax.xml.datatype.DatatypeConstants;
+import org.agito.bpmo.sample.invoice.bpmo.Invoice;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.InvoiceDate;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.InvoiceReceived;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceAccess.TaxPositions;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceAction;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceLanguage;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceLifecycle;
+import org.agito.bpmo.sample.invoice.bpmo.InvoiceProcessActivity;
+import org.agito.bpmo.sample.invoice.recources.InvoiceTextResource;
+import org.agito.bpmo.sample.invoice.recources.InvoiceTextResourceUtils;
 
 // @@end
 

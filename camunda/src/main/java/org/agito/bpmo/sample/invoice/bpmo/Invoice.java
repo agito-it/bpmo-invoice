@@ -12,7 +12,7 @@ import de.agito.cps.core.bpmo.api.enums.IBONode;
 /**
  * Enum for Invoice.
  *
- * @author andreas.weise
+ * @author joerg.burmeister
  */
 public enum Invoice implements IBODataElement {
 
@@ -21,7 +21,7 @@ public enum Invoice implements IBODataElement {
 	 * <p>
 	 * Digital copy of invoice as PDF file
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType ATTACHMENT}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -32,7 +32,7 @@ public enum Invoice implements IBODataElement {
 	 * <p>
 	 * Name of party sending the invoice
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -41,7 +41,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Invoice number</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -50,7 +50,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Invoice date</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType DATE}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -59,7 +59,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Invoice received</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType DATE}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -68,7 +68,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Term of payment (Days)</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -77,7 +77,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Position per tax rate</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType TABLE_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType TABLE}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
 	TaxPositions("TaxPositions", "Invoice$TaxPositions", ControlType.INTERACTIVE),
@@ -85,7 +85,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Net amount €</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType COLUMN}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -94,7 +94,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Tax rate</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType COLUMN}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -103,7 +103,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Tax amount €</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType COLUMN}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
 	 * <i>{@link ControlType DEFAULT}<i><br>
 	 */
@@ -112,7 +112,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Gross total €</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType COLUMN_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType COLUMN}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
 	 * <i>{@link ControlType DEFAULT}<i><br>
 	 */
@@ -123,7 +123,7 @@ public enum Invoice implements IBODataElement {
 	 * <p>
 	 * Please enter if exist on invoice order
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -134,7 +134,7 @@ public enum Invoice implements IBODataElement {
 	 * <p>
 	 * Profitcenter in charge for this invoice
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -143,7 +143,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Cost center</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -152,7 +152,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Responsible</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType PRINCIPAL}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -161,7 +161,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Order checked?</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType BOOLEAN}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -170,7 +170,7 @@ public enum Invoice implements IBODataElement {
 	/**
 	 * <b>Shipment checked?</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType BOOLEAN}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */

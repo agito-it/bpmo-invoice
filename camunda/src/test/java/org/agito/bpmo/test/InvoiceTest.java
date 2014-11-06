@@ -68,6 +68,68 @@ public class InvoiceTest {
 	@BPMODeployment(resources = "org/agito/bpmo/sample/invoice/bpmo/Invoice.bpmo")
 	@BPMOTestUserId("bob")
 	@Test
+	public void testSearchContent() {
+
+		// create bpmo
+		IBPMO bpmo = bpmoRule.getBpmoEngine().getRuntimeService()
+				.createBPMO(Invoice.$BPMO, InvoiceLifecycle.NEW, "001");
+		InvoiceAccess invoiceAccess = new InvoiceAccess(bpmo.getBPMOData());
+		invoiceAccess.getInvoicingParty().setValue("ACME");
+		invoiceAccess.getInvoiceNumber().setValue("10343456");
+		invoiceAccess.getInvoiceDate().setValue(ConvertUtils.getXMLGregCalFromDate(new Date()));
+		invoiceAccess.getInvoiceReceived().setValue(ConvertUtils.getXMLGregCalFromDate(new Date()));
+		invoiceAccess.getTermOfPayment().setValue(new BigDecimal(30));
+		invoiceAccess.getOrderNumber().setValue("90387595");
+		invoiceAccess.getTaxPositions().getRows().get(0).getNetAmount().setValue(new BigDecimal("100.98"));
+		try {
+			invoiceAccess.getInvoiceAttachment().setValue("Invoice ACME Inc.pdf", "application/pdf",
+					ResourceReaderUtils.getResourceAsBinaryByThread("Invoice ACME Inc.pdf"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// start process
+		bpmo.startProcess();
+		Assert.assertNotNull(bpmoRule.getBpmoEngine().getRuntimeService().createProcessHistoryQuery()
+				.processInstanceId(bpmo.getBPMOHeader().getProcessInstanceId())
+				.eventType(ProcessAgentEventType.PROCESS_START).singleResult());
+
+		Assert.assertNotNull(bpmoRule.getBpmoEngine().getRuntimeService().createBPMOHeaderQuery()
+				.contentValueEquals(invoiceAccess.getInvoicingParty().getDefinition().getDefinitionHash(), "ACME")
+				.singleResult());
+
+		Assert.assertNotNull(bpmoRule.getBpmoEngine().getRuntimeService().createBPMOHeaderQuery()
+				.contentValueEquals(invoiceAccess.getInvoiceNumber().getDefinition().getDefinitionHash(), "10343456")
+				.singleResult());
+
+		Assert.assertNotNull(bpmoRule
+				.getBpmoEngine()
+				.getRuntimeService()
+				.createBPMOHeaderQuery()
+				.contentValueEquals(invoiceAccess.getTermOfPayment().getDefinition().getDefinitionHash(),
+						new BigDecimal(30)).singleResult());
+
+		Assert.assertNotNull(bpmoRule
+				.getBpmoEngine()
+				.getRuntimeService()
+				.createBPMOHeaderQuery()
+				.contentValueEquals(
+						invoiceAccess.getBPMODefinition().getColumnDefinition(Invoice.TaxPositions$NetAmount)
+								.getDefinitionHash(), new BigDecimal("100.98")).singleResult());
+
+		Assert.assertNotNull(bpmoRule
+				.getBpmoEngine()
+				.getRuntimeService()
+				.createBPMOHeaderQuery()
+				.contentValueEquals(invoiceAccess.getInvoiceAttachment().getDefinition().getDefinitionHash(),
+						"Invoice ACME Inc.pdf").singleResult());
+
+	}
+
+	@Deployment(resources = "org/agito/bpmo/sample/invoice/bpmo/Invoice.bpmn")
+	@BPMODeployment(resources = "org/agito/bpmo/sample/invoice/bpmo/Invoice.bpmo")
+	@BPMOTestUserId("bob")
+	@Test
 	public void testInvoiceStartNeagtive() {
 
 		// create bpmo

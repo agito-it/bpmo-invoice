@@ -24,7 +24,7 @@ import org.agito.bpmo.sample.invoice.bpmo.InvoiceLanguage;
 /**
  * BPMOAccess for Invoice.
  * 
- * @author andreas.weise
+ * @author joerg.burmeister
  */
 public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 
@@ -35,7 +35,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <p>
 	 * Digital copy of invoice as PDF file
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType ATTACHMENT}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -45,7 +45,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <p>
 	 * Name of party sending the invoice
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -53,7 +53,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Invoice number</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -61,7 +61,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Invoice date</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType DATE}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -69,7 +69,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Invoice received</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType DATE}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -77,7 +77,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Term of payment (Days)</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType NUMERIC}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -87,7 +87,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <p>
 	 * Please enter if exist on invoice order
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType STRING}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -97,7 +97,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	 * <p>
 	 * Profitcenter in charge for this invoice
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -105,7 +105,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Cost center</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType ENUM}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -113,7 +113,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Responsible</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType PRINCIPAL}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -121,7 +121,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Order checked?</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType BOOLEAN}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -129,7 +129,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Shipment checked?</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType CHARACTERISTIC_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType CHARACTERISTIC}<i><br>
 	 * <i>{@link DataType BOOLEAN}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
@@ -137,7 +137,7 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 	/**
 	 * <b>Position per tax rate</b>
 	 * <p>
-	 * <i>{@link DefinitionArtifactType TABLE_DEFINITION}<i><br>
+	 * <i>{@link ArtifactType TABLE}<i><br>
 	 * <i>{@link ControlType INTERACTIVE}<i><br>
 	 */
 	public TaxPositions getTaxPositions() { return super.<TaxPositions>getTableAccessCV(TaxPositions.class, "Invoice$TaxPositions"); }
@@ -156,10 +156,13 @@ public final class InvoiceAccess extends BPMOAccess<InvoiceAccess> {
 		public void setValue(String value) { super.setCurrentValue(value); }
 	}
 
+	@SuppressWarnings("unchecked")
 	public final static class InvoiceNumber extends CharacteristicAccess {
 		protected InvoiceNumber(BPMOAccess<?> bpmoAccess, String path) { super(bpmoAccess, path); }
 		public String getValue() { return super.<String>getCurrentValue(); }
 		public void setValue(String value) { super.setCurrentValue(value); }
+		public String getOriginalValue() { return super.<String>getOriginalValue(); }
+		public void setOriginalValue(String value) { super.setOriginalValue(value); }
 	}
 
 	public final static class InvoiceDate extends CharacteristicAccess {

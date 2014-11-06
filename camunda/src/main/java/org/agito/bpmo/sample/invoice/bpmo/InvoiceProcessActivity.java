@@ -7,7 +7,7 @@ import de.agito.cps.core.bpmo.api.enums.IProcessActivity;
 /**
  * Process Activity Enum for Invoice.
  *
- * @author andreas.weise
+ * @author joerg.burmeister
  */
 public enum InvoiceProcessActivity implements IProcessActivity {
 
